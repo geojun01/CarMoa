@@ -4,7 +4,6 @@ import 'package:carmoa/data/db.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:path/path.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,15 +14,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final mContext = context;
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _topInformationView(context),
-              _centerInformationView(),
+              topInformationView(context),
+              centerInformationView(),
             ],
           ),
         ),
@@ -32,7 +29,7 @@ class _HomeState extends State<Home> {
   }
 
   // 상단 메인 로그 및 정보창
-  Container _topInformationView(BuildContext context) {
+  Container topInformationView(BuildContext context) {
     final sHeight = MediaQuery.of(context).size.height;
     final sWidth = MediaQuery.of(context).size.width;
 
@@ -90,7 +87,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container _centerInformationView() {
+  Container centerInformationView() {
     return Container(
       padding: EdgeInsets.all(8),
       alignment: Alignment.topLeft,
