@@ -38,10 +38,10 @@ class _CarMoaMainState extends State<CarMoaMain> {
           });
         },
         items: [
-          Icon(Icons.home, size: 24, color: Colors.lightBlueAccent),
-          Icon(Icons.directions_car, size: 24, color: Colors.lightBlueAccent),
-          Icon(Icons.library_books, size: 24, color: Colors.lightBlueAccent),
-          Icon(Icons.settings, size: 24, color: Colors.lightBlueAccent)
+          Icon(Icons.home, size: 24, color: Colors.indigo),
+          Icon(Icons.directions_car, size: 24, color: Colors.indigo),
+          Icon(Icons.library_books, size: 24, color: Colors.indigo),
+          Icon(Icons.settings, size: 24, color: Colors.indigo)
         ],
       ),
       body: Container(
