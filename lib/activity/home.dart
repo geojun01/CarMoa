@@ -4,6 +4,7 @@ import 'package:carmoa/data/db.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,14 +12,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
+    final mContext = context;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              topInformationView(context),
+              _topInformationView(context),
+              _centerInformationView(),
             ],
           ),
         ),
@@ -26,45 +31,75 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // 상단 정보 창
-  Container topInformationView(BuildContext context) {
+  // 상단 메인 로그 및 정보창
+  Container _topInformationView(BuildContext context) {
+    final sHeight = MediaQuery.of(context).size.height;
+    final sWidth = MediaQuery.of(context).size.width;
+
     return Container(
-              padding: EdgeInsets.all(8),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.15,
+      height: 190,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/bg-image.png'),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: sHeight * 0.04,
+            left: sWidth * 0.1,
+            child: Container(
+              width: sWidth * 0.8,
+              height: sHeight * 0.2,
               decoration: BoxDecoration(
-                color: Colors.orange,
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30)),
+                    topLeft: Radius.circular(36),
+                    topRight: Radius.circular(36),
+                    bottomRight: Radius.circular(36),
+                    bottomLeft: Radius.circular(36)),
+                border: Border.all(
+                    color: Color.fromRGBO(102, 204, 204, 0.4), width: 6),
+                // boxShadow: [
+                //   new BoxShadow(
+                //     color: Colors.white10,
+                //   )
+                // ],
               ),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      print('클릭');
-                    },
-                    child: Image.asset(
-                      'assets/images/sorento.png',
-                      height: 100,
-                    ),
+                  Text(
+                    "Car Moa",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
-                  SizedBox(width: 20),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('마이카 정보',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      Text('차종 : 기아 쏘렌토', style: TextStyle(fontSize: 14)),
-                      Text('연식 : 2018년 9월', style: TextStyle(fontSize: 14))
-                    ],
+                  SizedBox(height: 4),
+                  Text(
+                    '새로운 자동차 관리 프로그램',
+                    style: TextStyle(fontSize: 12),
                   )
                 ],
               ),
-            );
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _centerInformationView() {
+    return Container(
+      padding: EdgeInsets.all(8),
+      alignment: Alignment.topLeft,
+      child: Column(
+        children: [
+          Text('data')
+        ],
+      ),
+    );
   }
 
   // 데이터 저장
