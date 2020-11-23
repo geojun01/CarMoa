@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingView extends StatefulWidget {
   @override
@@ -6,6 +9,9 @@ class SettingView extends StatefulWidget {
 }
 
 class _SettingViewState extends State<SettingView> {
+  final piker = ImagePicker();
+  File _image;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,10 +19,41 @@ class _SettingViewState extends State<SettingView> {
       child: SafeArea(
         child: Column(
           children: [
-            Text('한글')
+            FlatButton(
+              color: Colors.lightBlueAccent,
+              onPressed: () {
+                getImage(ImageSource.camera);
+              },
+              child: Text('사진 찍기'),
+            ),
+            FlatButton(
+              color: Colors.lightBlueAccent,
+              onPressed: () {
+                getImage(ImageSource.gallery);
+              },
+              child: Text('갤러리 열기'),
+            ),
+            showImage(),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> getImage(ImageSource imageSource) async {
+    final pickedFile = await piker.getImage(source: imageSource);
+
+    setState(() {
+      _image = File(pickedFile.path);
+      print('경로 ' + pickedFile.path);
+      // _image = Image.file(File(pickedFile.path)) as File;
+    });
+  }
+
+  Widget showImage() {
+    if (_image == null)
+      return Container();
+    else
+      return Image.file(_image);
   }
 }

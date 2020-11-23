@@ -88,13 +88,13 @@ class _HomeState extends State<Home> {
   // 중앙 데이터 화면
   Container centerInformationView() {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(4),
       alignment: Alignment.topLeft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Card(
-            elevation: 2,
+            elevation: 4,
             color: Colors.white,
             child: InkWell(
               child: Container(
