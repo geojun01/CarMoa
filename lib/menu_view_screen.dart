@@ -1,4 +1,5 @@
 import 'package:carmoa/activity/home.dart';
+import 'package:carmoa/activity/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:carmoa/activity/car.dart';
 import 'package:carmoa/data/car_data_model.dart';
@@ -17,8 +18,8 @@ class _CarMoaMainState extends State<CarMoaMain> {
   List _selectedMenu = [
     Home(),
     Car(),
-    Text("게시판"),
-    Text("설정 화면"),
+    SafeArea(child: Text("게시판")),
+    SettingView(),
   ];
 
   @override

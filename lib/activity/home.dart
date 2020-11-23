@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db.dart';
 import 'package:crypto/crypto.dart';
@@ -68,15 +69,12 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     "Car Moa",
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                    style: Styles.titleBoldFont,
                   ),
                   SizedBox(height: 4),
                   Text(
                     '새로운 자동차 관리 프로그램',
-                    style: TextStyle(fontSize: 12),
+                    style: Styles.titleMinFont,
                   )
                 ],
               ),
@@ -87,17 +85,31 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // 중앙 데이터 화면
   Container centerInformationView() {
     return Container(
       padding: EdgeInsets.all(8),
       alignment: Alignment.topLeft,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('data')
+          Card(
+            elevation: 2,
+            color: Colors.white,
+            child: InkWell(
+              child: Container(
+                height: 200,
+                padding: EdgeInsets.all(8),
+                child: Text("정보창", style: Styles.mainFont,),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+
+
 
   // 데이터 저장
   Future<void> saveDB() async {

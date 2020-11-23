@@ -13,7 +13,7 @@ class _SettingViewState extends State<SettingView> {
       child: SafeArea(
         child: Column(
           children: [
-            
+            Text('한글')
           ],
         ),
       ),
