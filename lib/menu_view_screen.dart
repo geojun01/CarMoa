@@ -26,12 +26,13 @@ class _CarMoaMainState extends State<CarMoaMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        index: 0, // 아이콘 시작위치
+        index: 0,
+        // 아이콘 시작위치
         height: 50,
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Color(0XFFCFD8DC),
         color: Colors.black.withOpacity(0.2),
-        animationDuration: const Duration(milliseconds: 200),
+        animationDuration: const Duration(milliseconds: 100),
         animationCurve: Curves.easeInOutQuart,
         onTap: (index) {
           setState(() {
@@ -39,10 +40,18 @@ class _CarMoaMainState extends State<CarMoaMain> {
           });
         },
         items: [
-          Icon(Icons.home, size: 24, color: Colors.indigo),
-          Icon(Icons.directions_car, size: 24, color: Colors.indigo),
-          Icon(Icons.library_books, size: 24, color: Colors.indigo),
-          Icon(Icons.settings, size: 24, color: Colors.indigo)
+          Icon(Icons.home,
+              size: (_selectedIndex == 0) ? 28 : 20,
+              color: (_selectedIndex == 0) ? Colors.orange : Colors.indigo),
+          Icon(Icons.directions_car,
+              size: (_selectedIndex == 1) ? 28 : 20,
+              color: (_selectedIndex == 1) ? Colors.orange : Colors.indigo),
+          Icon(Icons.library_books,
+              size: (_selectedIndex == 2) ? 28 : 20,
+              color: (_selectedIndex == 2) ? Colors.orange : Colors.indigo),
+          Icon(Icons.settings,
+              size: (_selectedIndex == 3) ? 28 : 20,
+              color: (_selectedIndex == 3) ? Colors.orange : Colors.indigo)
         ],
       ),
       body: Container(
@@ -60,11 +69,13 @@ class _CarMoaMainState extends State<CarMoaMain> {
     return FutureBuilder(
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData == null) {
-          return Container(child: Text('데이터가 없습니다.'),);
+          return Container(
+            child: Text('데이터가 없습니다.'),
+          );
         }
         return Container(
-          // 데이터가 들어 왔을 경우 처리 List에 데이터 저장
-        );
+            // 데이터가 들어 왔을 경우 처리 List에 데이터 저장
+            );
       },
       future: carDataLoad(),
     );
