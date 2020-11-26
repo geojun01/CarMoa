@@ -1,10 +1,12 @@
 import 'dart:convert';
+
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:scaling_header/scaling_header.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,7 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,9 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               topInformationView(context),
-              centerInformationView(),
+              centerInformationView(Icons.image, Colors.black38, "자동차 정보"),
+              centerInformationView(Icons.camera, Colors.black38, "노래방"),
+              centerInformationView(Icons.search, Colors.black38, "자료 검색"),
             ],
           ),
         ),
@@ -58,11 +61,6 @@ class _HomeState extends State<Home> {
                     bottomLeft: Radius.circular(36)),
                 border: Border.all(
                     color: Color.fromRGBO(102, 204, 204, 0.4), width: 6),
-                // boxShadow: [
-                //   new BoxShadow(
-                //     color: Colors.white10,
-                //   )
-                // ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +84,8 @@ class _HomeState extends State<Home> {
   }
 
   // 중앙 데이터 화면
-  Container centerInformationView() {
+  Container centerInformationView(
+      IconData icons, Color iconColor, String text) {
     return Container(
       padding: EdgeInsets.all(4),
       alignment: Alignment.topLeft,
@@ -97,10 +96,28 @@ class _HomeState extends State<Home> {
             elevation: 4,
             color: Colors.white,
             child: InkWell(
+              onTap: () {},
               child: Container(
-                height: 200,
                 padding: EdgeInsets.all(8),
-                child: Text("정보창", style: Styles.mainFont,),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          icons,
+                          color: iconColor,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          text,
+                          style: Styles.mainFont,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text('자료 1')
+                  ],
+                ),
               ),
             ),
           ),
@@ -108,8 +125,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-
 
   // 데이터 저장
   Future<void> saveDB() async {

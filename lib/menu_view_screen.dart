@@ -29,8 +29,8 @@ class _CarMoaMainState extends State<CarMoaMain> {
         index: 0, // 아이콘 시작위치
         height: 50,
         backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.orangeAccent,
-        color: Colors.black38,
+        buttonBackgroundColor: Color(0XFFCFD8DC),
+        color: Colors.black.withOpacity(0.2),
         animationDuration: const Duration(milliseconds: 200),
         animationCurve: Curves.easeInOutQuart,
         onTap: (index) {

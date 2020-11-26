@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Styles {
@@ -17,4 +19,6 @@ class Styles {
     fontSize: 12,
     color: Color(0xFFB0BEC5),
   );
+
+  static File imagePath;
 }

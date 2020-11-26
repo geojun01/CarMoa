@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carmoa/config/config_style.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,27 +15,31 @@ class _SettingViewState extends State<SettingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: SafeArea(
-        child: Column(
-          children: [
-            FlatButton(
-              color: Colors.lightBlueAccent,
-              onPressed: () {
-                getImage(ImageSource.camera);
-              },
-              child: Text('사진 찍기'),
-            ),
-            FlatButton(
-              color: Colors.lightBlueAccent,
-              onPressed: () {
-                getImage(ImageSource.gallery);
-              },
-              child: Text('갤러리 열기'),
-            ),
-            showImage(),
-          ],
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(8),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FlatButton(
+                color: Colors.lightBlueAccent,
+                onPressed: () {
+                  getImage(ImageSource.camera);
+                },
+                child: Text('사진 찍기'),
+              ),
+              FlatButton(
+                color: Colors.lightBlueAccent,
+                onPressed: () {
+                  getImage(ImageSource.gallery);
+                },
+                child: Text('갤러리 열기'),
+              ),
+              showImage(),
+            ],
+          ),
         ),
       ),
     );
@@ -45,15 +50,14 @@ class _SettingViewState extends State<SettingView> {
 
     setState(() {
       _image = File(pickedFile.path);
-      print('경로 ' + pickedFile.path);
-      // _image = Image.file(File(pickedFile.path)) as File;
+      Styles.imagePath = _image;
     });
   }
 
   Widget showImage() {
-    if (_image == null)
+    if (Styles.imagePath == null)
       return Container();
     else
-      return Image.file(_image);
+      return Image.file(Styles.imagePath);
   }
 }
