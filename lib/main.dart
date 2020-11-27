@@ -1,4 +1,4 @@
-import 'package:carmoa/menu_view_screen.dart';
+import 'package:carmoa/main_screen/mainScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark
       ),
-      home: CarMoaMain(),
+      home: MainScreen(),
     );
   }
 }
