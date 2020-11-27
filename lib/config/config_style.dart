@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Color primaryGreen = Color(0xff416d6d);
+Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
+Color startingColor = Color.fromRGBO(70, 112, 112, 1.0);
 
 const mainFont = TextStyle(
   fontSize: 14.0,
@@ -11,9 +13,9 @@ const mainFont = TextStyle(
 );
 
 const titleBoldFont = TextStyle(
-  fontSize: 20.0,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
+  fontSize: 18.0,
+  fontWeight: FontWeight.w600,
+  color: Brightness.light == null ? Colors.white : Colors.black,
 );
 
 const titleMinFont = TextStyle(
@@ -24,3 +26,21 @@ const titleMinFont = TextStyle(
 class Styles {
   static File imagePath;
 }
+
+List<String> menuItems = [
+  'Adoption',
+  'Donation',
+  'Add pet',
+  'Favorites',
+  'Messages',
+  'Profile',
+];
+
+List<IconData> icons = [
+  FontAwesomeIcons.paw,
+  FontAwesomeIcons.home,
+  FontAwesomeIcons.plus,
+  FontAwesomeIcons.heart,
+  FontAwesomeIcons.envelope,
+  FontAwesomeIcons.userAlt,
+];

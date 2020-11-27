@@ -1,5 +1,4 @@
-import 'package:carmoa/activity/home.dart';
-import 'package:carmoa/main_screen/drawerScreen.dart';
+import 'package:carmoa/activity/carmoa_home.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,7 +12,7 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
         onWillPop: _onBackPressed,
         child: Scaffold(
-          body: Home(),
+          body: MoaHome(),
         ));
   }
 

@@ -1,9 +1,8 @@
-import 'package:carmoa/main_screen/mainScreen.dart';
+import 'package:carmoa/config/config_style.dart';
 import 'package:flutter/material.dart';
+import 'activity/carmoa_home.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,15 +11,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'CarMoa',
       theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: mainColor,
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark
-      ),
-      home: MainScreen(),
+      home: MoaHome()
     );
   }
 }
-
