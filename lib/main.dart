@@ -1,6 +1,6 @@
 import 'package:carmoa/config/config_style.dart';
 import 'package:flutter/material.dart';
-import 'activity/carmoa_home.dart';
+import 'main_screen/mainScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: mainColor,
       ),
-      home: MoaHome()
+      home: MainScreen()
     );
   }
 }

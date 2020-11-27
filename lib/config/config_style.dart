@@ -27,6 +27,8 @@ class Styles {
   static File imagePath;
 }
 
+bool menuOpen = false;
+
 List<String> menuItems = [
   'Adoption',
   'Donation',
@@ -43,4 +45,21 @@ List<IconData> icons = [
   FontAwesomeIcons.heart,
   FontAwesomeIcons.envelope,
   FontAwesomeIcons.userAlt,
+];
+
+
+List<String> animalType = [
+  'Cats',
+  'Dogs',
+  'Parrots',
+  'Fish',
+  'Fish',
+];
+
+List<IconData> animalIcons = [
+  FontAwesomeIcons.cat,
+  FontAwesomeIcons.dog,
+  FontAwesomeIcons.crow,
+  FontAwesomeIcons.fish,
+  FontAwesomeIcons.fish,
 ];
