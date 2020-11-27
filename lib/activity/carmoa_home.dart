@@ -17,6 +17,7 @@ class _MoaHomeState extends State<MoaHome> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      borderRadius: BorderRadius.circular(menuOpen ? 40.0 : 0.9),
       child: Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: Column(

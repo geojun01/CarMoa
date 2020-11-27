@@ -15,7 +15,7 @@ const mainFont = TextStyle(
 const titleBoldFont = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.w600,
-  color: Brightness.light == null ? Colors.white : Colors.black,
+  color: Color.fromRGBO(48, 96, 96, 1.0),
 );
 
 const titleMinFont = TextStyle(

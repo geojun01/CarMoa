@@ -8,12 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'CarMoa',
-      theme: ThemeData(
-        primaryColor: mainColor,
-      ),
-      home: MainScreen()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'CarMoa',
+        theme: ThemeData(
+          primaryColor: mainColor,
+        ),
+        home: MainScreen());
   }
 }
