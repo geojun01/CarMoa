@@ -116,7 +116,7 @@ class _MoaHomeState extends State<MoaHome> {
               color: selectedIndex == index
                   ? Theme.of(context).primaryColor
                   : Colors.white,
-              elevation: 8.0,
+              elevation: selectedIndex == index ? 8.0 : 1.0,
               borderRadius: BorderRadius.circular(20.0),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

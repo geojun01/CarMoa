@@ -97,11 +97,23 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       size: 16.0,
                     ),
                     SizedBox(width: 16.0),
-                    Text('Setting | Log out',
+                    Text('Setting',
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.5),
                           fontSize: 16.0,
-                        ))
+                        )),
+                    SizedBox(width: 20),
+                    Text('|',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.5),
+                          fontSize: 16.0,
+                        )),
+                    SizedBox(width: 20),
+                    Text('Log out',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.5),
+                          fontSize: 16.0,
+                        )),
                   ],
                 ),
               ],

@@ -30,12 +30,12 @@ class Styles {
 bool menuOpen = false;
 
 List<String> menuItems = [
-  'Adoption',
-  'Donation',
-  'Add pet',
-  'Favorites',
-  'Messages',
-  'Profile',
+  'Menu page A',
+  'Menu page B',
+  'Menu page C',
+  'Menu page D',
+  'Menu page E',
+  'Menu page F',
 ];
 
 List<IconData> icons = [

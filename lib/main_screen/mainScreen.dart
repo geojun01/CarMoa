@@ -8,7 +8,8 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> scaleAnimation;
   Duration duration = Duration(milliseconds: 200);
@@ -17,7 +18,8 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _animationController = AnimationController(vsync: this, duration: duration);
-    scaleAnimation = Tween<double>(begin: 1.0, end: 0.7).animate(_animationController);
+    scaleAnimation =
+        Tween<double>(begin: 1.0, end: 0.7).animate(_animationController);
   }
 
   @override
@@ -30,21 +32,25 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         children: [
           DrawerScreen(),
           AnimatedPositioned(
-          duration: duration,
-          top: 0,
-          bottom: 0,
-          left: menuOpen ? deviceWidth * 0.50 : 0.0,
-          right: menuOpen ? deviceWidth * -0.40 : 0.0,
-          child: ScaleTransition(
-              scale: scaleAnimation,
-              child: MoaHome(menuCallback: () {
-                setState(() {
-                  menuOpen = !menuOpen;
-                  if (menuOpen)
-                    _animationController.forward();
-                  else _animationController.reverse();
-                });
-              },))),
+              duration: duration,
+              top: 0,
+              bottom: 0,
+              left: menuOpen ? deviceWidth * 0.50 : 0.0,
+              right: menuOpen ? deviceWidth * -0.40 : 0.0,
+              child: ScaleTransition(
+                scale: scaleAnimation,
+                child: MoaHome(
+                  menuCallback: () {
+                    setState(() {
+                      menuOpen = !menuOpen;
+                      if (menuOpen)
+                        _animationController.forward();
+                      else
+                        _animationController.reverse();
+                    });
+                  },
+                ),
+              )),
         ],
       ),
     );
