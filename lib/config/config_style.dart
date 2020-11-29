@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
-Color startingColor = Color.fromRGBO(70, 112, 112, 1.0);
+Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
 
 const mainFont = TextStyle(
   fontSize: 14.0,
@@ -16,6 +16,12 @@ const titleBoldFont = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.w600,
   color: Color.fromRGBO(48, 96, 96, 1.0),
+);
+
+const titleMain = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.w600,
+  color: Colors.black54,
 );
 
 const titleMinFont = TextStyle(

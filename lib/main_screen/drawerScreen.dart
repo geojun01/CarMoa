@@ -124,7 +124,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [startingColor, mainColor],
+            colors: [startColor, mainColor],
           ),
         ),
       ),

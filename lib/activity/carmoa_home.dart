@@ -30,7 +30,9 @@ class _MoaHomeState extends State<MoaHome> {
                 children: [
                   InkWell(
                       onTap: widget.menuCallback,
-                      child: Icon(menuOpen ? FontAwesomeIcons.angleDoubleLeft : FontAwesomeIcons.bars)),
+                      child: Icon(menuOpen
+                          ? FontAwesomeIcons.angleDoubleLeft
+                          : FontAwesomeIcons.bars)),
                   Column(
                     children: [
                       Text('CarMoa', style: titleBoldFont),
@@ -38,7 +40,9 @@ class _MoaHomeState extends State<MoaHome> {
                         children: [
                           Icon(
                             FontAwesomeIcons.mapMarkerAlt,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
                             size: 14,
                           ),
                           SizedBox(width: 4),
@@ -58,27 +62,16 @@ class _MoaHomeState extends State<MoaHome> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    color: Theme.of(context).primaryColor.withOpacity(0.06)),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30)),
+                    color: Color.fromRGBO(230, 235, 235, 1)),
                 child: Column(
                   children: [
-                    SizedBox(height: 40,),
-                    // 검색
-                    // Row(
-                    //   children: [
-                    //     Icon(FontAwesomeIcons.search, color: Colors.grey),
-                    //     Expanded(
-                    //       child: TextField(
-                    //         style: TextStyle(fontSize: 18.0),
-                    //         decoration: InputDecoration(
-                    //             border: OutlineInputBorder(
-                    //                 borderSide: BorderSide.none),
-                    //             hintText: 'Search pets to adopt'),
-                    //       ),
-                    //     ),
-                    //     Icon(FontAwesomeIcons.filter, color: Colors.grey),
-                    //   ],
-                    // ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    // 상단 메뉴 리스트
                     Container(
                       height: 110.0,
                       child: ListView.builder(
@@ -89,10 +82,41 @@ class _MoaHomeState extends State<MoaHome> {
                             return buildAnimalIcon(index);
                           }),
                     ),
+                    // 세부 메뉴 화면
+                    Container(
+                      margin: EdgeInsets.all(16.0),
+                      child: Card(
+                          color: Colors.white,
+                          elevation: 6,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(children: [
+                                  Icon(FontAwesomeIcons.car,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor
+                                          .withOpacity(0.8)),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    '엔진오일',
+                                    style: titleMain,
+                                  )
+                                ]),
+                                Divider(
+                                    height: 16,
+                                    color: startColor,
+                                    thickness: 1),
+                              ],
+                            ),
+                          )),
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -114,7 +138,9 @@ class _MoaHomeState extends State<MoaHome> {
             },
             child: Material(
               color: selectedIndex == index
-                  ? Theme.of(context).primaryColor
+                  ? Theme
+                  .of(context)
+                  .primaryColor
                   : Colors.white,
               elevation: selectedIndex == index ? 8.0 : 1.0,
               borderRadius: BorderRadius.circular(20.0),
@@ -124,7 +150,9 @@ class _MoaHomeState extends State<MoaHome> {
                   animalIcons[index],
                   color: selectedIndex == index
                       ? Colors.white
-                      : Theme.of(context).primaryColor,
+                      : Theme
+                      .of(context)
+                      .primaryColor,
                   size: 30,
                 ),
               ),
@@ -134,7 +162,9 @@ class _MoaHomeState extends State<MoaHome> {
           Text(
             animalType[index],
             style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Theme
+                    .of(context)
+                    .primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w700),
           ),
