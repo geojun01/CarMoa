@@ -12,33 +12,33 @@ class _DrawerScreenState extends State<DrawerScreen> {
   int selectedMenuIndex = 0;
 
   Widget buildMenuRow(int index) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          selectedMenuIndex = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Row(
-          children: [
-            Icon(
-              icons[index],
-              color: selectedMenuIndex == index ? Colors.white : Colors.grey,
-              size: 16,
-            ),
-            SizedBox(width: 16.0),
-            Text(
-              menuItems[index],
-              style: TextStyle(
-                  color:
-                      selectedMenuIndex == index ? Colors.white : Colors.grey,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: FlatButton(
+          onPressed: () {
+            setState(() {
+              selectedMenuIndex = index;
+              print('메뉴 확인 ${menuItems[selectedMenuIndex]}');
+            });
+          },
+          child: Row(
+            children: [
+              Icon(
+                icons[index],
+                color: selectedMenuIndex == index ? Colors.orangeAccent : Colors.grey,
+                size: 16,
+              ),
+              SizedBox(width: 16.0),
+              Text(
+                menuItems[index],
+                style: TextStyle(
+                    color: selectedMenuIndex == index ? Colors.white : Colors.grey,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
         ),
-      ),
     );
   }
 

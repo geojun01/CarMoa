@@ -36,7 +36,7 @@ class Styles {
 bool menuOpen = false;
 
 List<String> menuItems = [
-  'Menu page A',
+  '교환주기 설정',
   'Menu page B',
   'Menu page C',
   'Menu page D',
@@ -45,7 +45,7 @@ List<String> menuItems = [
 ];
 
 List<IconData> icons = [
-  FontAwesomeIcons.paw,
+  FontAwesomeIcons.slidersH,
   FontAwesomeIcons.home,
   FontAwesomeIcons.plus,
   FontAwesomeIcons.heart,
@@ -54,12 +54,12 @@ List<IconData> icons = [
 ];
 
 
-List<String> animalType = [
-  'Cats',
-  'Dogs',
-  'Parrots',
-  'Fish',
-  'Fish',
+List<String> modifyType = [
+  '엔진오일',
+  '에어크리너',
+  '타이어',
+  '브레이크 패드',
+  '브레이크 오일',
 ];
 
 List<IconData> animalIcons = [

@@ -1,3 +1,4 @@
+import 'package:carmoa/activity/car_info_view.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,7 +35,7 @@ class _MoaHomeState extends State<MoaHome> {
                         menuOpen
                             ? FontAwesomeIcons.angleDoubleLeft
                             : FontAwesomeIcons.bars,
-                        size: menuOpen ? 34 : 20,
+                        size: menuOpen ? 40 : 20,
                         color: mainColor,
                       )),
                   Column(
@@ -66,8 +67,11 @@ class _MoaHomeState extends State<MoaHome> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30)),
-                    color: Color.fromRGBO(230, 235, 235, 1)),
+                        topLeft: Radius.circular(30),
+                        bottomLeft: menuOpen
+                            ? Radius.circular(40)
+                            : Radius.circular(0)),
+                    color: Color.fromRGBO(230, 235, 235, 0.7)),
                 child: Column(
                   children: [
                     SizedBox(
@@ -79,41 +83,13 @@ class _MoaHomeState extends State<MoaHome> {
                       child: ListView.builder(
                           padding: EdgeInsets.only(left: 20.0),
                           scrollDirection: Axis.horizontal,
-                          itemCount: animalType.length,
+                          itemCount: modifyType.length,
                           itemBuilder: (context, index) {
                             return buildAnimalIcon(index);
                           }),
                     ),
                     // 세부 메뉴 화면
-                    Container(
-                      margin: EdgeInsets.all(16.0),
-                      child: Card(
-                          color: Colors.white,
-                          elevation: 6,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(children: [
-                                  Icon(FontAwesomeIcons.car,
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8)),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    '엔진오일',
-                                    style: titleMain,
-                                  )
-                                ]),
-                                Divider(
-                                    height: 16,
-                                    color: startColor,
-                                    thickness: 1),
-                              ],
-                            ),
-                          )),
-                    ),
+                    carInfoView(context, selectedIndex),
                   ],
                 ),
               ),
@@ -138,9 +114,7 @@ class _MoaHomeState extends State<MoaHome> {
               });
             },
             child: Material(
-              color: selectedIndex == index
-                  ? Theme.of(context).primaryColor
-                  : Colors.white,
+              color: Colors.white,
               elevation: selectedIndex == index ? 8.0 : 1.0,
               borderRadius: BorderRadius.circular(20.0),
               child: Padding(
@@ -148,7 +122,7 @@ class _MoaHomeState extends State<MoaHome> {
                 child: Icon(
                   animalIcons[index],
                   color: selectedIndex == index
-                      ? Colors.white
+                      ? Colors.orangeAccent
                       : Theme.of(context).primaryColor,
                   size: 30,
                 ),
@@ -157,7 +131,7 @@ class _MoaHomeState extends State<MoaHome> {
           ),
           SizedBox(height: 12),
           Text(
-            animalType[index],
+            modifyType[index],
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16,
@@ -168,3 +142,4 @@ class _MoaHomeState extends State<MoaHome> {
     );
   }
 }
+// electedIndex == index ? Theme.of(context).primaryColor : Colors.white
