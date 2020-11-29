@@ -30,9 +30,13 @@ class _MoaHomeState extends State<MoaHome> {
                 children: [
                   InkWell(
                       onTap: widget.menuCallback,
-                      child: Icon(menuOpen
-                          ? FontAwesomeIcons.angleDoubleLeft
-                          : FontAwesomeIcons.bars)),
+                      child: Icon(
+                        menuOpen
+                            ? FontAwesomeIcons.angleDoubleLeft
+                            : FontAwesomeIcons.bars,
+                        size: menuOpen ? 34 : 20,
+                        color: mainColor,
+                      )),
                   Column(
                     children: [
                       Text('CarMoa', style: titleBoldFont),
@@ -40,9 +44,7 @@ class _MoaHomeState extends State<MoaHome> {
                         children: [
                           Icon(
                             FontAwesomeIcons.mapMarkerAlt,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             size: 14,
                           ),
                           SizedBox(width: 4),
@@ -95,8 +97,7 @@ class _MoaHomeState extends State<MoaHome> {
                               children: [
                                 Row(children: [
                                   Icon(FontAwesomeIcons.car,
-                                      color: Theme
-                                          .of(context)
+                                      color: Theme.of(context)
                                           .primaryColor
                                           .withOpacity(0.8)),
                                   SizedBox(width: 10),
@@ -138,9 +139,7 @@ class _MoaHomeState extends State<MoaHome> {
             },
             child: Material(
               color: selectedIndex == index
-                  ? Theme
-                  .of(context)
-                  .primaryColor
+                  ? Theme.of(context).primaryColor
                   : Colors.white,
               elevation: selectedIndex == index ? 8.0 : 1.0,
               borderRadius: BorderRadius.circular(20.0),
@@ -150,9 +149,7 @@ class _MoaHomeState extends State<MoaHome> {
                   animalIcons[index],
                   color: selectedIndex == index
                       ? Colors.white
-                      : Theme
-                      .of(context)
-                      .primaryColor,
+                      : Theme.of(context).primaryColor,
                   size: 30,
                 ),
               ),
@@ -162,9 +159,7 @@ class _MoaHomeState extends State<MoaHome> {
           Text(
             animalType[index],
             style: TextStyle(
-                color: Theme
-                    .of(context)
-                    .primaryColor,
+                color: Theme.of(context).primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w700),
           ),

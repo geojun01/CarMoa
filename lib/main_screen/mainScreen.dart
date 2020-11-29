@@ -12,7 +12,7 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> scaleAnimation;
-  Duration duration = Duration(milliseconds: 200);
+  Duration duration = Duration(milliseconds: 300);
 
   @override
   void initState() {
