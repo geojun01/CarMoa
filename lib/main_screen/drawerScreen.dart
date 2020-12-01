@@ -11,37 +11,6 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   int selectedMenuIndex = 0;
 
-  Widget buildMenuRow(int index) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: FlatButton(
-          onPressed: () {
-            setState(() {
-              selectedMenuIndex = index;
-              print('메뉴 확인 ${menuItems[selectedMenuIndex]}');
-            });
-          },
-          child: Row(
-            children: [
-              Icon(
-                icons[index],
-                color: selectedMenuIndex == index ? Colors.orangeAccent : Colors.grey,
-                size: 16,
-              ),
-              SizedBox(width: 16.0),
-              Text(
-                menuItems[index],
-                style: TextStyle(
-                    color: selectedMenuIndex == index ? Colors.white : Colors.grey,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-        ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -97,11 +66,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       size: 16.0,
                     ),
                     SizedBox(width: 16.0),
-                    Text('Setting',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
-                          fontSize: 16.0,
-                        )),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Setting',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.5),
+                            fontSize: 16.0,
+                          )),
+                    ),
                     SizedBox(width: 20),
                     Text('|',
                         style: TextStyle(
@@ -109,11 +81,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           fontSize: 16.0,
                         )),
                     SizedBox(width: 20),
-                    Text('Log out',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
-                          fontSize: 16.0,
-                        )),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Log out',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.5),
+                            fontSize: 16.0,
+                          )),
+                    ),
                   ],
                 ),
               ],
@@ -127,6 +102,44 @@ class _DrawerScreenState extends State<DrawerScreen> {
             colors: [startColor, mainColor],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildMenuRow(int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Row(
+        children: [
+          FlatButton(
+            onPressed: () {
+              setState(() {
+                selectedMenuIndex = index;
+              });
+            },
+            child: Row(
+              children: [
+                Icon(
+                  icons[index],
+                  color: selectedMenuIndex == index
+                      ? Colors.orangeAccent
+                      : Colors.grey,
+                  size: 16,
+                ),
+                SizedBox(width: 16.0),
+                Text(
+                  menuItems[index],
+                  style: TextStyle(
+                      color: selectedMenuIndex == index
+                          ? Colors.white
+                          : Colors.grey,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

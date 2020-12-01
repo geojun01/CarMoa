@@ -14,7 +14,7 @@ const mainFont = TextStyle(
 
 const titleBoldFont = TextStyle(
   fontSize: 18.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
   color: Color.fromRGBO(48, 96, 96, 1.0),
 );
 
@@ -58,8 +58,8 @@ List<String> modifyType = [
   '엔진오일',
   '에어크리너',
   '타이어',
-  '브레이크 패드',
-  '브레이크 오일',
+  '브레이크패드',
+  '브레이크오일',
 ];
 
 List<IconData> animalIcons = [
@@ -67,5 +67,5 @@ List<IconData> animalIcons = [
   FontAwesomeIcons.dog,
   FontAwesomeIcons.crow,
   FontAwesomeIcons.fish,
-  FontAwesomeIcons.fish,
+  FontAwesomeIcons.paw,
 ];

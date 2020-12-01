@@ -23,6 +23,12 @@ class _MainScreenState extends State<MainScreen>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
 
@@ -35,7 +41,7 @@ class _MainScreenState extends State<MainScreen>
             duration: duration,
             top: 0,
             bottom: 0,
-            left: menuOpen ? deviceWidth * 0.35 : 0.0,
+            left: menuOpen ? deviceWidth * 0.50 : 0.0,
             right: menuOpen ? deviceWidth * -0.35 : 0.0,
             child: ScaleTransition(
               scale: scaleAnimation,

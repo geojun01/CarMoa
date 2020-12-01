@@ -1,7 +1,10 @@
 import 'package:carmoa/activity/car_info_view.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/selected_menu.dart';
+import 'file:///D:/Android-Files/carmoa/lib/widgets/fade_in_ainmation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MoaHome extends StatefulWidget {
   final Function menuCallback;
@@ -13,11 +16,12 @@ class MoaHome extends StatefulWidget {
 }
 
 class _MoaHomeState extends State<MoaHome> {
-  int selectedIndex = 0;
+  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      elevation: menuOpen ? 14 : 0,
       borderRadius: BorderRadius.circular(menuOpen ? 40.0 : 0.9),
       child: Padding(
         padding: const EdgeInsets.only(top: 30.0),
@@ -75,7 +79,7 @@ class _MoaHomeState extends State<MoaHome> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
                     // 상단 메뉴 리스트
                     Container(
@@ -89,7 +93,7 @@ class _MoaHomeState extends State<MoaHome> {
                           }),
                     ),
                     // 세부 메뉴 화면
-                    carInfoView(context, selectedIndex),
+                    FadeIn(delay: 2, child: carInfoView(context)),
                   ],
                 ),
               ),
@@ -104,40 +108,51 @@ class _MoaHomeState extends State<MoaHome> {
   Widget buildAnimalIcon(int index) {
     return Padding(
       padding: const EdgeInsets.only(right: 30.0),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-                // print("선택 항목 " + animalType[index]);
-              });
-            },
-            child: Material(
-              color: Colors.white,
-              elevation: selectedIndex == index ? 8.0 : 1.0,
-              borderRadius: BorderRadius.circular(20.0),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Icon(
-                  animalIcons[index],
-                  color: selectedIndex == index
-                      ? Colors.orangeAccent
-                      : Theme.of(context).primaryColor,
-                  size: 30,
+      child: FadeIn(
+        delay: 2,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Provider.of<SelectMenu>(context, listen: false)
+                    .setSelect(index);
+                selected = Provider.of<SelectMenu>(context, listen: false).getSelect();
+                print("선택메뉴 $selected");
+              },
+              child: Consumer<SelectMenu>(
+                builder: (context, value, child) => Material(
+                  color: Colors.white,
+                  elevation: value.getSelect() == index ? 8.0 : 1.0,
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Icon(
+                      animalIcons[index],
+                      color: value.getSelect() == index
+                          ? Colors.orangeAccent
+                          : Theme.of(context).primaryColor,
+                      size: 26,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            modifyType[index],
-            style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w700),
-          ),
-        ],
+            SizedBox(height: 12),
+            Consumer<SelectMenu>(
+              builder: (context, value, child) => Text(
+                modifyType[index],
+                style: TextStyle(
+                    color: value.getSelect() == index
+                        ? Colors.deepPurpleAccent
+                        : Theme.of(context).primaryColor,
+                    fontSize: 14,
+                    fontWeight: value.getSelect() == index
+                        ? FontWeight.w600
+                        : FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

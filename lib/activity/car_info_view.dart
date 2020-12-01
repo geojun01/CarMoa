@@ -1,8 +1,10 @@
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/selected_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-Container carInfoView(BuildContext context, int selectedIndex) {
+Container carInfoView(BuildContext context) {
   return Container(
     margin: EdgeInsets.all(16.0),
     child: Card(
@@ -14,20 +16,18 @@ Container carInfoView(BuildContext context, int selectedIndex) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(FontAwesomeIcons.car,
-                        color: Theme.of(context).primaryColor.withOpacity(0.8)),
-                    SizedBox(width: 10),
-                    Text(
-                      modifyType[selectedIndex],
-                      textAlign: TextAlign.start,
-                      style: titleMain,
-                    ),
-                  ],
+                Icon(FontAwesomeIcons.car,
+                    color: Theme.of(context).primaryColor.withOpacity(0.8)),
+                SizedBox(width: 10),
+                Consumer<SelectMenu>(
+                  builder: (context, value, child) => Text(
+                    modifyType[value.getSelect()],
+                    textAlign: TextAlign.start,
+                    style: titleMain,
+                  ),
                 ),
+                Expanded(child: SizedBox(width: 16,)),
                 Text(
                   '교환주기 : 8,000km',
                   textAlign: TextAlign.end,
