@@ -69,3 +69,4 @@ List<IconData> animalIcons = [
   FontAwesomeIcons.fish,
   FontAwesomeIcons.paw,
 ];
+

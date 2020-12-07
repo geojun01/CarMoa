@@ -1,3 +1,6 @@
+import 'package:carmoa/config/model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:carmoa/data/car_data_model.dart';
@@ -13,7 +16,7 @@ class DBHelper {
       join(await getDatabasesPath(), 'car_moa.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE car_moa(id STRING PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange TEXT, price INTEGER, front TEXT, back TEXT)",
+          "CREATE TABLE $tableName(id STRING PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange TEXT, price INTEGER, front TEXT, back TEXT)",
         );
       },
       version: 1,
@@ -21,13 +24,14 @@ class DBHelper {
     return _db;
   }
 
-  Future<void> insertData(CarModel model) async {
+  Future<CarModel> insertData(CarModel model) async {
     final db = await database;
     await db.insert(
       tableName,
       model.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    return model;
   }
 
   Future<List<CarModel>> loadData() async {
@@ -35,16 +39,47 @@ class DBHelper {
 
     final List<Map<String, dynamic>> maps = await db.query('car_moa');
 
+    Model.carData.clear();
+
+    List.generate(maps.length, (i) => {
+      Model().add(CarModel(id: maps[i]['id'],
+          dateTime: maps[i]['dateTime'],
+          nameCode: maps[i]['nameCode'],
+          exchange: maps[i]['exchange'],
+          price: maps[i]['price'],
+          front: maps[i]['front'],
+          back: maps[i]['back']))
+    });
+
+    Model().index(Model.carData.length);
+
     return List.generate(maps.length, (i) {
       return CarModel(
         id: maps[i]['id'],
         dateTime: maps[i]['dateTime'],
         nameCode: maps[i]['nameCode'],
         exchange: maps[i]['exchange'],
+        price: maps[i]['price'],
         front: maps[i]['front'],
         back: maps[i]['back'],
       );
     });
+  }
+
+  Future<List<CarModel>> getAll() async {
+    final db = await database;
+    var res = await db.rawQuery('SELECT * FROM $tableName');
+    List<CarModel> list = res.isNotEmpty
+        ? res.map((e) => CarModel(
+                  id: e['id'],
+                  dateTime: e['dateTime'],
+                  nameCode: e['nameCode'],
+                  exchange: e['exchange'],
+                  price: e['price'],
+                  front: e['front'],
+                  back: e['back'],
+                )).toList() : [];
+    return list;
   }
 
   Future<void> updateData(CarModel model) async {
@@ -58,7 +93,7 @@ class DBHelper {
     );
   }
 
-  Future<void> deleteMemo(int id) async {
+  Future<void> deleteData(int id) async {
     final db = await database;
 
     await db.delete(
@@ -68,7 +103,7 @@ class DBHelper {
     );
   }
 
-  deleteAll() async {
+  Future<void> deleteAll() async {
     final db = await database;
     db.rawDelete('DELETE FORM $tableName');
   }

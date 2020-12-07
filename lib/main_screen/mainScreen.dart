@@ -1,7 +1,11 @@
 import 'package:carmoa/activity/carmoa_home.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/model.dart';
+import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/main_screen/drawerScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:carmoa/data/db.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -10,6 +14,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
+
   AnimationController _animationController;
   Animation<double> scaleAnimation;
   Duration duration = Duration(milliseconds: 300);

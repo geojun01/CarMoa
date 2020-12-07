@@ -1,5 +1,7 @@
 import 'package:carmoa/activity/car_info_view.dart';
+import 'package:carmoa/activity/test.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/model.dart';
 import 'package:carmoa/config/selected_menu.dart';
 import 'file:///D:/Android-Files/carmoa/lib/widgets/fade_in_ainmation.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +18,6 @@ class MoaHome extends StatefulWidget {
 }
 
 class _MoaHomeState extends State<MoaHome> {
-  int selected = 0;
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -55,7 +55,7 @@ class _MoaHomeState extends State<MoaHome> {
                           SizedBox(width: 4),
                           Text('Lyon, France', style: titleMinFont),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   CircleAvatar(
@@ -94,6 +94,16 @@ class _MoaHomeState extends State<MoaHome> {
                     ),
                     // 세부 메뉴 화면
                     FadeIn(delay: 2, child: carInfoView(context)),
+                    SizedBox(height: 11),
+                    FlatButton(onPressed: (){
+                      // 데이터 저장 버튼
+                      saveData(14);
+                    }, child: Text('자료입력'),),
+                    SizedBox(height: 10,),
+                    FlatButton(onPressed: (){
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Test()));
+                    }, child: Text('화면이동'),),
                   ],
                 ),
               ),
@@ -116,8 +126,7 @@ class _MoaHomeState extends State<MoaHome> {
               onTap: () {
                 Provider.of<SelectMenu>(context, listen: false)
                     .setSelect(index);
-                selected = Provider.of<SelectMenu>(context, listen: false).getSelect();
-                print("선택메뉴 $selected");
+                // print("선택메뉴 $selected");
               },
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(
@@ -142,13 +151,14 @@ class _MoaHomeState extends State<MoaHome> {
               builder: (context, value, child) => Text(
                 modifyType[index],
                 style: TextStyle(
-                    color: value.getSelect() == index
-                        ? Colors.deepPurpleAccent
-                        : Theme.of(context).primaryColor,
-                    fontSize: 14,
-                    fontWeight: value.getSelect() == index
-                        ? FontWeight.w600
-                        : FontWeight.w500),
+                  color: value.getSelect() == index
+                      ? Colors.deepPurpleAccent
+                      : Theme.of(context).primaryColor,
+                  fontSize: 14,
+                  fontWeight: value.getSelect() == index
+                      ? FontWeight.w600
+                      : FontWeight.w500,
+                ),
               ),
             ),
           ],
@@ -157,4 +167,3 @@ class _MoaHomeState extends State<MoaHome> {
     );
   }
 }
-// electedIndex == index ? Theme.of(context).primaryColor : Colors.white
