@@ -1,53 +1,59 @@
 import 'package:carmoa/data/car_data_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Model extends ChangeNotifier {
-  static List<CarModel> carData = List<CarModel>();
+class Model with ChangeNotifier {
+  final carData = List<CarModel>();
+  int _index = 0;
 
-  int itemIndex = 0;
-  String name;
-  String exchange;
+  getId() => carData[carData.length - 1].id;
 
-  void index(int index) {
-    itemIndex = index - 1;
-    name = carData[itemIndex - 1].nameCode;
-    exchange = carData[itemIndex - 1].exchange;
-    notifyListeners();
+  getName() => carData[carData.length - 1].nameCode;
+
+  getCode() => carData[carData.length - 1].exchange;
+
+  // int get getIndex => carData.length;
+  getIndex() => carData.length;
+
+
+  void listAdd(List<CarModel> item) async {
+    await Future.microtask(() {
+      if (carData.length <= 0 && carData.isEmpty) {
+        try {
+          carData.addAll(item);
+        } catch (e){
+          print('${e.toString()}');
+        }
+        _index = carData.length;
+        print('Data read ...');
+      } else {
+        print('pass ...');
+      }
+    });
+
+    // if (carData.length <= 0 && carData.isEmpty) {
+    //   try {
+    //     carData.addAll(item);
+    //   } catch (e){
+    //     print('${e.toString()}');
+    //   }
+    //   _index = carData.length;
+    // }
   }
 
-  void nameValue() {
-    name = carData[itemIndex - 1].nameCode;
-    // name = carData[itemIndex - 1].nameCode;
-    notifyListeners();
-  }
-
-  void add(CarModel item) {
+  void itemAdd(CarModel item) {
     carData.add(item);
+    _index = carData.length;
     notifyListeners();
   }
 
-  void update(CarModel item) {
-    carData.insert(item.id, item);
-  }
-
-  void remove(CarModel item) {
-    carData.remove(item);
+  void listClear() {
+    print ('내부 : $carData.length');
+    if (getIndex() > 0) {
+      carData.clear();
+    }
     notifyListeners();
   }
-
-  void removeAll() {
-    carData.clear();
-    notifyListeners();
-  }
-
-  // Test Code
-  void textData() {
-    carData.length;
-    notifyListeners();
-  }
-
-  String textData1(int index) {
-    return carData[index].exchange;
-  }
-  // Test Code
 }
+
+var model = Model();

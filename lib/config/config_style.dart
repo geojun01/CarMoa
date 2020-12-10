@@ -9,7 +9,7 @@ Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
 const mainFont = TextStyle(
   fontSize: 14.0,
   fontWeight: FontWeight.w500,
-  color: Colors.black54,
+  color: Colors.black87,
 );
 
 const titleBoldFont = TextStyle(

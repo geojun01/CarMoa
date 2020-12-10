@@ -1,9 +1,7 @@
 import 'package:carmoa/config/model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:carmoa/data/car_data_model.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 final String tableName = 'car_moa';
 
@@ -16,7 +14,7 @@ class DBHelper {
       join(await getDatabasesPath(), 'car_moa.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE $tableName(id STRING PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange TEXT, price INTEGER, front TEXT, back TEXT)",
+          "CREATE TABLE $tableName(id INTEGER PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange TEXT, price INTEGER, front TEXT, back TEXT)",
         );
       },
       version: 1,
@@ -38,20 +36,6 @@ class DBHelper {
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('car_moa');
-
-    Model.carData.clear();
-
-    List.generate(maps.length, (i) => {
-      Model().add(CarModel(id: maps[i]['id'],
-          dateTime: maps[i]['dateTime'],
-          nameCode: maps[i]['nameCode'],
-          exchange: maps[i]['exchange'],
-          price: maps[i]['price'],
-          front: maps[i]['front'],
-          back: maps[i]['back']))
-    });
-
-    Model().index(Model.carData.length);
 
     return List.generate(maps.length, (i) {
       return CarModel(
