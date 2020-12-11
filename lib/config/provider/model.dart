@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Model with ChangeNotifier {
+  // Provider 에서 데이터를 공유하려면 carData 에 바로 접근하면 안된다.
   final carData = List<CarModel>();
 
-  // 마지막 데이터 Get
   getNameLast() => carData.last.nameCode;
   getCodeLast() => carData.last.exchange;
   getIdLast() => carData.last.id;
@@ -18,7 +18,7 @@ class Model with ChangeNotifier {
       if (carData.length <= 0 && carData.isEmpty) {
         try {
           // SQLite 에서 데이터룰 읽어 오면 시간차로 데이터가 들어오기 때문에
-          // Provider - item 에 데이터가 들어 올때만 실행한다.
+          // Provider - item 에 데이터가 들어올 때만 실행한다.
           // 현재 조건문이 없으면 첫 로딩시 데이터가 없어 예외처리 된다.
           if (item != null && item.length > 0) {
             item.forEach((element) {
@@ -26,9 +26,8 @@ class Model with ChangeNotifier {
             });
           }
         } catch (e) {
-          print('예외처리: ${e.toString()}');
+          throw FormatException('예외처리: ${e.toString()}');
         }
-        print('Data read ...');
       } else {
         print('pass ...');
       }
@@ -46,7 +45,6 @@ class Model with ChangeNotifier {
   }
 
   void listClear() {
-    print('내부 : $carData.length');
     if (getIndex() > 0) {
       carData.clear();
     }

@@ -1,11 +1,13 @@
+import 'package:carmoa/activity/car_icon_menu.dart';
 import 'package:carmoa/activity/car_info_view.dart';
 import 'package:carmoa/activity/test.dart';
-import 'package:carmoa/config/MyBehavior.dart';
 import 'package:carmoa/config/config_style.dart';
-import 'package:carmoa/config/model.dart';
-import 'package:carmoa/config/selected_menu.dart';
+import 'file:///D:/Android-Files/carmoa/lib/config/provider/model.dart';
+import 'package:carmoa/config/my_behavior.dart';
+import 'file:///D:/Android-Files/carmoa/lib/config/provider/selected_menu.dart';
 import 'package:carmoa/data/car_data_model.dart';
-import 'file:///D:/Android-Files/carmoa/lib/widgets/fade_in_ainmation.dart';
+import 'package:carmoa/data/db_create.dart';
+import 'package:carmoa/widgets/fade_in_ainmation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,10 +21,14 @@ class MoaHome extends StatefulWidget {
   @override
   _MoaHomeState createState() => _MoaHomeState();
 }
+
 class _MoaHomeState extends State<MoaHome> {
+  final db = CreateDB();
+
   @override
   Widget build(BuildContext context) {
     final v = Provider.of<Model>(context);
+
     return Material(
       elevation: menuOpen ? 14 : 0,
       borderRadius: BorderRadius.circular(menuOpen ? 40.0 : 0.9),
@@ -100,24 +106,26 @@ class _MoaHomeState extends State<MoaHome> {
                       // 세부 메뉴 화면
                       FadeIn(delay: 2, child: carInfoView(context)),
                       SizedBox(height: 11),
-                      FlatButton(onPressed: (){
-                        // 데이터 저장 버튼
-                        saveData(v.getIndex());
-                        v.itemAdd(new CarModel(
-                            id: v.getIndex(),
-                            dateTime: DateTime.now().toString(),
-                            nameCode: '자료 ${v.getIndex().toString()}',
-                            exchange: '교환 ${v.getIndex().toString()}',
-                            price: 40000 + v.getIndex(),
-                            front: '앞',
-                            back: '뒤'));
-                        //print ('Index : ${Model().getIndex()}');
-                      }, child: Text('자료입력'),),
-                      SizedBox(height: 10,),
-                      FlatButton(onPressed: (){
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Test()));
-                      }, child: Text('화면이동'),),
+                      FlatButton(
+                        onPressed: () {
+                          // 데이터 저장 버튼
+                          db.saveData(v.getIndex());
+                          v.itemAdd(new CarModel(
+                              id: v.getIndex(),
+                              dateTime: DateTime.now().toString(),
+                              nameCode: '자료 ${v.getIndex().toString()}',
+                              exchange: '교환 ${v.getIndex().toString()}',
+                              price: 40000 + v.getIndex(),
+                              front: '앞',
+                              back: '뒤'));
+                          //print ('Index : ${Model().getIndex()}');
+                        },
+                        child: Text('자료입력'),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CarIconMenu(),
                     ],
                   ),
                 ),
@@ -182,3 +190,4 @@ class _MoaHomeState extends State<MoaHome> {
     );
   }
 }
+
