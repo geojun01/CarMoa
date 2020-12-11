@@ -1,6 +1,5 @@
 import 'package:carmoa/activity/car_icon_menu.dart';
 import 'package:carmoa/activity/car_info_view.dart';
-import 'package:carmoa/activity/test.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'file:///D:/Android-Files/carmoa/lib/config/provider/model.dart';
 import 'package:carmoa/config/my_behavior.dart';

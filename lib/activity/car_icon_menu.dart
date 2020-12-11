@@ -99,7 +99,7 @@ class CarIconMenu extends StatelessWidget {
               onTap: () {
                 menu.menuSelect(3);
                 Future.delayed(
-                    Duration(milliseconds: 400),
+                    Duration(milliseconds: 300),
                     () => {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Test()))
