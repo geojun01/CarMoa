@@ -8,8 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 Container carInfoView(BuildContext context) {
-  final itemView = Provider.of<Model>(context, listen: false);
-  final cache = itemView.carData;
+  final itemView = Provider.of<Model>(context);
 
   return Container(
     margin: EdgeInsets.all(16.0),
@@ -34,6 +33,7 @@ Container carInfoView(BuildContext context) {
                   ),
                 ),
                 Expanded(child: SizedBox(width: 16)),
+
                 Text(
                   '교환주기 : 8,000km',
                   textAlign: TextAlign.end,
@@ -47,7 +47,8 @@ Container carInfoView(BuildContext context) {
               future: loadData(),
               builder: (context, snap) {
                 itemView.listAdd(snap.data);
-                // print ('itemView 인덱스 : ${itemView.getIndex()}');
+                final List<CarModel> _item = snap.data;
+
                 if (!snap.hasData) {
                   return Container();
                 } else if (snap.hasData) {
@@ -56,11 +57,11 @@ Container carInfoView(BuildContext context) {
                       Row(
                         children: [
                           Text(
-                              '${cache.length > 0 ? itemView.getName() : '-'}',
+                              '${itemView.carData.length > 0 ? _item.last.nameCode : '-'}',
                               style: mainFont),
                           Expanded(child: SizedBox(width: 10)),
                           Text(
-                              '주행거리 : ${cache.length > 0 ? itemView.getCode() : '-'}',
+                              '주행거리 : ${itemView.carData.length > 0 ? itemView.getCodeLast() : '-'}',
                               style: mainFont)
                         ],
                       ),
@@ -72,8 +73,8 @@ Container carInfoView(BuildContext context) {
             ),
 
             Text(
-                'A-Name : ${itemView.getIndex() > 0 ? itemView.getName() : '-'}'),
-            Text('cc-Name : ${itemView.getIndex()}'),
+                'A-Name : ${itemView.getIndex() > 0 ? itemView.getNameLast() : '-'}'),
+            Text('cc-Name : ${itemView.getIndex() > 0 ? itemView.getIdLast() : '-'}'),
           ],
         ),
       ),
@@ -84,9 +85,7 @@ Container carInfoView(BuildContext context) {
 Future<List<CarModel>> loadData() async {
   DBHelper db = DBHelper();
   List<CarModel> aa = await db.loadData();
-  // for (int i = 0; i < aa.length; i++) {
-  //   print('저장데이터 ${aa[i].toString()}');
-  // }
+
   return aa;
 }
 
@@ -100,20 +99,5 @@ Future<void> saveData(int index) async {
       price: 40000 + index,
       front: '앞',
       back: '뒤'));
+  // print('${db.toString()}');
 }
-
-// Future<CarModel> saveData(BuildContext context, int index) async {
-//   final v = Provider.of<Model>(context);
-//   DBHelper db = DBHelper();
-//   var item = await db.insertData(new CarModel(
-//       id: index + 1,
-//       dateTime: DateTime.now().toString(),
-//       nameCode: '자료 ${index.toString()}',
-//       exchange: '교환 ${index.toString()}',
-//       price: 40000 + index,
-//       front: '앞',
-//       back: '뒤'));
-//   v.listAdd(item);
-//   print(item.toString());
-//   return loadData();
-// }

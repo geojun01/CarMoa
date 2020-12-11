@@ -1,4 +1,3 @@
-import 'package:carmoa/config/model.dart';
 import 'package:carmoa/data/car_data_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

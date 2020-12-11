@@ -5,7 +5,6 @@ import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/model.dart';
 import 'package:carmoa/config/selected_menu.dart';
 import 'package:carmoa/data/car_data_model.dart';
-import 'package:flutter/gestures.dart';
 import 'file:///D:/Android-Files/carmoa/lib/widgets/fade_in_ainmation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -103,9 +102,9 @@ class _MoaHomeState extends State<MoaHome> {
                       SizedBox(height: 11),
                       FlatButton(onPressed: (){
                         // 데이터 저장 버튼
-                        print('${v.getIndex() + 1}');
+                        saveData(v.getIndex());
                         v.itemAdd(new CarModel(
-                            id: v.getIndex() + 1,
+                            id: v.getIndex(),
                             dateTime: DateTime.now().toString(),
                             nameCode: '자료 ${v.getIndex().toString()}',
                             exchange: '교환 ${v.getIndex().toString()}',
@@ -113,7 +112,6 @@ class _MoaHomeState extends State<MoaHome> {
                             front: '앞',
                             back: '뒤'));
                         //print ('Index : ${Model().getIndex()}');
-                        saveData(v.getIndex());
                       }, child: Text('자료입력'),),
                       SizedBox(height: 10,),
                       FlatButton(onPressed: (){
