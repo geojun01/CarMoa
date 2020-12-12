@@ -12,7 +12,7 @@ Container carInfoView(BuildContext context) {
   final db = CreateDB();
 
   return Container(
-    margin: EdgeInsets.all(16.0),
+    margin: EdgeInsets.symmetric(horizontal: 16),
     child: Card(
       color: Colors.white,
       elevation: 6,

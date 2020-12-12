@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class IconMenu with ChangeNotifier {
   int _index = 1;
 
-  double _menuA = 0.5;
-  double _menuB = 0.25;
-  double _menuC = 0.25;
+  int _menuA = 2;
+  int _menuB = 1;
+  int _menuC = 1;
 
   getMenuA() => _menuA;
   getMenuB() => _menuB;
@@ -18,19 +19,19 @@ class IconMenu with ChangeNotifier {
 
     switch(index) {
       case 1:
-        _menuA = 0.5;
-        _menuB = 0.25;
-        _menuC = 0.25;
+        _menuA = 2;
+        _menuB = 1;
+        _menuC = 1;
         break;
       case 2:
-        _menuA = 0.25;
-        _menuB = 0.5;
-        _menuC = 0.25;
+        _menuA = 1;
+        _menuB = 2;
+        _menuC = 1;
         break;
       case 3:
-        _menuA = 0.25;
-        _menuB = 0.25;
-        _menuC = 0.5;
+        _menuA = 1;
+        _menuB = 1;
+        _menuC = 2;
         break;
     }
     notifyListeners();

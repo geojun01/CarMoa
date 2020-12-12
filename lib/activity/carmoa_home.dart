@@ -104,7 +104,7 @@ class _MoaHomeState extends State<MoaHome> {
                       ),
                       // 세부 메뉴 화면
                       FadeIn(delay: 2, child: carInfoView(context)),
-                      SizedBox(height: 11),
+                      SizedBox(height: 4),
                       FlatButton(
                         onPressed: () {
                           // 데이터 저장 버튼

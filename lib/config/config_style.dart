@@ -34,6 +34,7 @@ class Styles {
 }
 
 bool menuOpen = false;
+bool isMenuCheck = false;
 
 List<String> menuItems = [
   '교환주기 설정',
