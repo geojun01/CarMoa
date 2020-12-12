@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen>
     super.initState();
     _animationController = AnimationController(vsync: this, duration: duration);
     scaleAnimation =
-        Tween<double>(begin: 1, end: 0.6).animate(_animationController);
+        Tween<double>(begin: 1, end: 0.75).animate(_animationController);
   }
 
   @override
@@ -44,7 +44,7 @@ class _MainScreenState extends State<MainScreen>
             duration: duration,
             top: 0,
             bottom: 0,
-            left: menuOpen ? deviceWidth * 0.50 : 0.0,
+            left: menuOpen ? deviceWidth * 0.4: 0.0,
             right: menuOpen ? deviceWidth * -0.35 : 0.0,
             child: ScaleTransition(
               scale: scaleAnimation,

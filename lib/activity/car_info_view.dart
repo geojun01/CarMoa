@@ -41,7 +41,7 @@ Container carInfoView(BuildContext context) {
                 )
               ],
             ),
-            Divider(height: 16, color: startColor, thickness: 1),
+            Divider(height: 16, color: startColor, thickness: 0.5),
             // 정보창 세부 내용 표시
             FutureBuilder(
               future: db.loadData(),

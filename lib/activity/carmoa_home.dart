@@ -146,9 +146,10 @@ class _MoaHomeState extends State<MoaHome> {
           children: [
             InkWell(
               onTap: () {
-                Provider.of<SelectMenu>(context, listen: false)
-                    .setSelect(index);
-                // print("선택메뉴 $selected");
+                if (!menuOpen) {
+                  Provider.of<SelectMenu>(context, listen: false)
+                      .setSelect(index);
+                }
               },
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(
