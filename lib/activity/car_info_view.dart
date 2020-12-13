@@ -1,6 +1,6 @@
 import 'package:carmoa/config/config_style.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/model.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/selected_menu.dart';
+import 'package:carmoa/config/provider/model.dart';
+import 'package:carmoa/config/provider/selected_menu.dart';
 import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/material.dart';

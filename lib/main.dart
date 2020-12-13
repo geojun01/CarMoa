@@ -1,7 +1,7 @@
 import 'package:carmoa/config/config_style.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/icon_menu.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/model.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/selected_menu.dart';
+import 'package:carmoa/config/provider/icon_menu.dart';
+import 'package:carmoa/config/provider/model.dart';
+import 'package:carmoa/config/provider/selected_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'main_screen/mainScreen.dart';

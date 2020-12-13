@@ -1,11 +1,13 @@
 import 'package:carmoa/activity/car_icon_menu.dart';
 import 'package:carmoa/activity/car_info_view.dart';
+import 'package:carmoa/activity/weather.dart';
 import 'package:carmoa/config/config_style.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/model.dart';
 import 'package:carmoa/config/my_behavior.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/selected_menu.dart';
+import 'package:carmoa/config/provider/model.dart';
+import 'package:carmoa/config/provider/selected_menu.dart';
 import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
+import 'package:carmoa/main_screen/drawerScreen.dart';
 import 'package:carmoa/widgets/fade_in_ainmation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,9 +15,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MoaHome extends StatefulWidget {
-  final Function menuCallback;
-
-  MoaHome({@required this.menuCallback});
 
   @override
   _MoaHomeState createState() => _MoaHomeState();
@@ -38,6 +37,7 @@ class _MoaHomeState extends State<MoaHome> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // AppBar 디자인
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 22.0),
                   child: Row(
@@ -45,14 +45,20 @@ class _MoaHomeState extends State<MoaHome> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                          onTap: widget.menuCallback,
-                          child: Icon(
-                            menuOpen
-                                ? FontAwesomeIcons.angleDoubleLeft
-                                : FontAwesomeIcons.bars,
-                            size: menuOpen ? 40 : 20,
-                            color: mainColor,
-                          )),
+                        onTap: () {
+                          Future.delayed(
+                            Duration(milliseconds: 100),
+                                () => {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => DrawerScreen()))
+                            },
+                          );
+                        },
+                        child: Icon(FontAwesomeIcons.bars,
+                          size: 24,
+                          color: mainColor,
+                        ),
+                      ),
                       Column(
                         children: [
                           Text('CarMoa', style: titleBoldFont),
@@ -77,6 +83,7 @@ class _MoaHomeState extends State<MoaHome> {
                   ),
                 ),
                 SizedBox(height: 4),
+                // Main Body 디자인
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -85,17 +92,19 @@ class _MoaHomeState extends State<MoaHome> {
                           bottomLeft: menuOpen
                               ? Radius.circular(40)
                               : Radius.circular(0)),
-                      color: Color.fromRGBO(230, 235, 235, 0.7)),
+                      color: Color.fromRGBO(220, 220, 220, 0.7)),
+                  // 실제 디자인 위젯 모음
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 30,
-                      ),
+                      SizedBox(height: 20),
+                      // 날씨 메뉴
+                      buildTopWeather(context),
+                      SizedBox(height: 30),
                       // 상단 메뉴 리스트
                       Container(
                         height: 110.0,
                         child: ListView.builder(
-                            padding: EdgeInsets.only(left: 20.0),
+                            padding: EdgeInsets.only(left: 16.0),
                             scrollDirection: Axis.horizontal,
                             itemCount: modifyType.length,
                             itemBuilder: (context, index) {
@@ -121,10 +130,27 @@ class _MoaHomeState extends State<MoaHome> {
                         },
                         child: Text('자료입력'),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       CarIconMenu(),
+
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text('다음 메뉴'),
+                      ),
+                      SizedBox(height: 10),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Copyright © & STUDIO JUNGLE. All Rights Reserved',
+                            style: TextStyle(fontSize: 10, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -190,4 +216,3 @@ class _MoaHomeState extends State<MoaHome> {
     );
   }
 }
-

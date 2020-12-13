@@ -1,6 +1,6 @@
-import 'package:carmoa/activity/test.dart';
+import 'package:carmoa/activity/board/board_home.dart';
 import 'package:carmoa/config/config_style.dart';
-import 'file:///D:/Android-Files/carmoa/lib/config/provider/icon_menu.dart';
+import 'package:carmoa/config/provider/icon_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,20 +14,24 @@ class CarIconMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final menu = Provider.of<IconMenu>(context);
-    //var w = MediaQuery.of(context).size.width;
+
     double h = 70;
 
     return Row(
       children: [
+        // 메뉴 01
         Expanded(
           flex: menu.getMenuA(),
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            color: menu.getMenuIndex() == 1
-                ? Colors.orangeAccent
-                : Colors.grey.withOpacity(0.9),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: menu.getMenuIndex() == 1
+                        ? [Colors.deepOrangeAccent, Colors.orangeAccent]
+                        : [Colors.grey, Colors.grey.withOpacity(0.5)])),
             curve: Curves.linear,
-            // width: w * menu.getMenuA(),
             height: h,
             child: Center(
               child: InkWell(
@@ -58,15 +62,19 @@ class CarIconMenu extends StatelessWidget {
             ),
           ),
         ),
+        // 메뉴 02
         Expanded(
           flex: menu.getMenuB(),
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            color: menu.getMenuIndex() == 2
-                ? Colors.orangeAccent
-                : Colors.grey.withOpacity(0.7),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: menu.getMenuIndex() == 2
+                        ? [Colors.deepOrangeAccent, Colors.orangeAccent]
+                        : [Colors.grey, Colors.grey.withOpacity(0.5)])),
             curve: Curves.linear,
-            // width: w * menu.getMenuB(),
             height: h,
             child: Center(
               child: InkWell(
@@ -79,9 +87,52 @@ class CarIconMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      FontAwesomeIcons.chargingStation,
+                      FontAwesomeIcons.route,
                       size: menu.getMenuIndex() == 2 ? 40 : 24,
                       color: menu.getMenuIndex() == 2
+                          ? Colors.white70
+                          : Colors.black54,
+                    ),
+                    SizedBox(height: 6),
+                    Text('아름다운 길',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black38,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        // 메뉴 03
+        Expanded(
+          flex: menu.getMenuC(),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: menu.getMenuIndex() == 3
+                        ? [Colors.deepOrangeAccent, Colors.orangeAccent]
+                        : [Colors.grey, Colors.grey.withOpacity(0.5)])),
+            curve: Curves.linear,
+            height: h,
+            child: Center(
+              child: InkWell(
+                onTap: () {
+                  if (!menuOpen) {
+                    menu.menuSelect(3);
+                  }
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.chargingStation,
+                      size: menu.getMenuIndex() == 3 ? 40 : 24,
+                      color: menu.getMenuIndex() == 3
                           ? Colors.white70
                           : Colors.black54,
                     ),
@@ -97,26 +148,30 @@ class CarIconMenu extends StatelessWidget {
             ),
           ),
         ),
+        // 메뉴 04
         Expanded(
-          flex: menu.getMenuC(),
+          flex: menu.getMenuD(),
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            color: menu.getMenuIndex() == 3
-                ? Colors.orangeAccent
-                : Colors.grey.withOpacity(0.5),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: menu.getMenuIndex() == 4
+                        ? [Colors.deepOrangeAccent, Colors.orangeAccent]
+                        : [Colors.grey, Colors.grey.withOpacity(0.5)])),
             curve: Curves.linear,
-            // width: w * menu.getMenuC(),
             height: h,
             child: Center(
               child: InkWell(
                 onTap: () {
                   if (!menuOpen) {
-                    menu.menuSelect(3);
+                    menu.menuSelect(4);
                     Future.delayed(
-                      Duration(milliseconds: 300),
+                      Duration(milliseconds: 100),
                       () => {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Test()))
+                            MaterialPageRoute(builder: (context) => BoardHome()))
                       },
                     );
                   }
@@ -126,8 +181,8 @@ class CarIconMenu extends StatelessWidget {
                   children: [
                     Icon(
                       FontAwesomeIcons.sms,
-                      size: menu.getMenuIndex() == 3 ? 40 : 24,
-                      color: menu.getMenuIndex() == 3
+                      size: menu.getMenuIndex() == 4 ? 40 : 24,
+                      color: menu.getMenuIndex() == 4
                           ? Colors.white70
                           : Colors.black54,
                     ),
