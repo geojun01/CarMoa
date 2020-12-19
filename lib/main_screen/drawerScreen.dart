@@ -27,26 +27,43 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 // login Image & Name
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 24.0,
-                      backgroundColor: Colors.orange,
+                    Hero(
+                      tag: 'logoImage',
+                      child: CircleAvatar(
+                        radius: 22.0,
+                        backgroundImage: AssetImage('assets/images/logo.jpg'),
+                      ),
                     ),
                     SizedBox(width: 16.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Ryan',
+                        Text('Jungle(정글)',
                             style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600)),
-                        Text('Active status',
+                        Text('jungle@gmail.com',
                             style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.white.withOpacity(0.5),
                                 fontWeight: FontWeight.w400)),
                       ],
-                    )
+                    ),
+                    Expanded(child: Container()),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        child: Icon(
+                          Icons.chevron_right,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10)
                   ],
                 ),
                 // 메뉴 모음

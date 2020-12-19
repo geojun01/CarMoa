@@ -1,4 +1,5 @@
 import 'package:carmoa/activity/board/board_home.dart';
+import 'package:carmoa/activity/gasmap/gas_map.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/icon_menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -124,6 +125,27 @@ class CarIconMenu extends StatelessWidget {
                 onTap: () {
                   if (!menuOpen) {
                     menu.menuSelect(3);
+                    Future.delayed(
+                      Duration(milliseconds: 100),
+                      () => {
+                        Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (context, animation, animationTime) =>
+                              GasMap(),
+                          transitionsBuilder:
+                              (context, animation, animationTime, child) {
+                            var begin = Offset(1.0, 0.0);
+                            var end = Offset.zero;
+                            var curve = Curves.easeIn;
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ))
+                      },
+                    );
                   }
                 },
                 child: Column(
@@ -170,8 +192,22 @@ class CarIconMenu extends StatelessWidget {
                     Future.delayed(
                       Duration(milliseconds: 100),
                       () => {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BoardHome()))
+                        Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (context, animation, animationTime) =>
+                              BoardHome(),
+                          transitionsBuilder:
+                              (context, animation, animationTime, child) {
+                            var begin = Offset(1.0, 0.0);
+                            var end = Offset.zero;
+                            var curve = Curves.easeIn;
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ))
                       },
                     );
                   }

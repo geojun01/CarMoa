@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BoardHome extends StatefulWidget {
   @override
@@ -16,14 +17,23 @@ class _BoardHomeState extends State<BoardHome> {
         Positioned(
           height: height,
           width: width,
-          child: Image.asset('assets/images/board_image.jpg', fit: BoxFit.none),
+          child: Image.asset('assets/images/board_image.jpg',
+              fit: BoxFit.fitHeight),
         ),
         Scaffold(
-          backgroundColor: Colors.black54,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('게시판'),
+            // title: Text(
+            //   '게시판',
+            //   style: TextStyle(color: Theme.of(context).primaryColor),
+            // ),
+            title: Text(
+              '게시판',
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             centerTitle: true,
-            backgroundColor: Colors.transparent,
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            backgroundColor: Colors.white,
             elevation: 0,
           ),
           body: BoardList(),
@@ -44,7 +54,8 @@ class BoardList extends StatelessWidget {
             .map((i) => ListTile(
                   title: itemList(context, i),
                   onTap: () {
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text('클릭 확인 리스트 No $i')));
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('클릭 확인 리스트 No $i')));
                   },
                 ))
             .toList(),
@@ -54,17 +65,22 @@ class BoardList extends StatelessWidget {
 }
 
 Widget itemList(BuildContext context, int i) {
-  return Card(
-    color: Colors.white70,
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0), color: Colors.white),
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 4,
+          ),
           Row(
             children: [
-              Text('게시판 목록 ', style: TextStyle(color: Colors.limeAccent)),
+              Text('게시판 목록 ',
+                  style: TextStyle(color: Theme.of(context).primaryColor)),
               SizedBox(width: 8),
               Icon(Icons.chevron_right),
               SizedBox(width: 8),
@@ -72,7 +88,10 @@ Widget itemList(BuildContext context, int i) {
             ],
           ),
           Divider(thickness: 1, color: Colors.white54),
-          Text('게시판 테스트 Studio Jungle', style: TextStyle(fontSize: 12))
+          Text('게시판 테스트 Studio Jungle', style: TextStyle(fontSize: 12)),
+          SizedBox(
+            height: 4,
+          )
         ],
       ),
     ),

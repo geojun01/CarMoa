@@ -9,19 +9,20 @@ Widget buildTopWeather(BuildContext context) {
     width: w * 0.85,
     height: 80,
     decoration: BoxDecoration(
-      color: Color.fromRGBO(228, 228, 228, 1),
+      // color: Color(0xFFF4EFF6),
+      color: Color.fromRGBO(235, 235, 235, 1),
       borderRadius: BorderRadius.all(Radius.circular(20)),
       boxShadow: [
         BoxShadow(
             color: Colors.grey[500],
-            offset: Offset(4.0, 4.0),
-            blurRadius: 14.0,
-            spreadRadius: 1.0),
+            offset: Offset(3.0, 3.0),
+            blurRadius: 6.0,
+            spreadRadius: 1),
         BoxShadow(
             color: Colors.white,
-            offset: Offset(-4.0, -4.0),
-            blurRadius: 14.0,
-            spreadRadius: 1.0),
+            offset: Offset(-3.0, -3.0),
+            blurRadius: 6.0,
+            spreadRadius: 1),
       ],
     ),
     child: Column(

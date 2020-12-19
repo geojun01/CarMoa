@@ -15,7 +15,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MoaHome extends StatefulWidget {
-
   @override
   _MoaHomeState createState() => _MoaHomeState();
 }
@@ -46,15 +45,26 @@ class _MoaHomeState extends State<MoaHome> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Future.delayed(
-                            Duration(milliseconds: 100),
-                                () => {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => DrawerScreen()))
-                            },
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                transitionDuration: Duration(milliseconds: 300),
+                                transitionsBuilder:
+                                    (context, animation, animationTime, child) {
+                                  return ScaleTransition(
+                                    alignment: Alignment.topLeft,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder:
+                                    (context, animation, animationTime) {
+                                  return DrawerScreen();
+                                }),
                           );
                         },
-                        child: Icon(FontAwesomeIcons.bars,
+                        child: Icon(
+                          FontAwesomeIcons.bars,
                           size: 24,
                           color: mainColor,
                         ),
@@ -75,9 +85,12 @@ class _MoaHomeState extends State<MoaHome> {
                           ),
                         ],
                       ),
-                      CircleAvatar(
-                        radius: 22.0,
-                        backgroundImage: AssetImage('assets/images/logo.jpg'),
+                      Hero(
+                        tag: 'logoImage',
+                        child: CircleAvatar(
+                          radius: 22.0,
+                          backgroundImage: AssetImage('assets/images/logo.jpg'),
+                        ),
                       )
                     ],
                   ),
@@ -92,7 +105,8 @@ class _MoaHomeState extends State<MoaHome> {
                           bottomLeft: menuOpen
                               ? Radius.circular(40)
                               : Radius.circular(0)),
-                      color: Color.fromRGBO(220, 220, 220, 0.7)),
+                      // color: Color(0xFFF4EFF6)),
+                      color: Color.fromRGBO(235, 235, 235, 1)),
                   // 실제 디자인 위젯 모음
                   child: Column(
                     children: [
@@ -131,8 +145,8 @@ class _MoaHomeState extends State<MoaHome> {
                         child: Text('자료입력'),
                       ),
                       SizedBox(height: 10),
+                      // 하단 애니메이션 메뉴
                       CarIconMenu(),
-
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -180,7 +194,7 @@ class _MoaHomeState extends State<MoaHome> {
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(
                   color: Colors.white,
-                  elevation: value.getSelect() == index ? 8.0 : 1.0,
+                  elevation: value.getSelect() == index ? 6.0 : 1.0,
                   borderRadius: BorderRadius.circular(20.0),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
