@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:carmoa/activity/gasmap/image_view.dart';
 import 'package:carmoa/data/photo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,8 @@ class _GasMapState extends State<GasMap> {
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.white,
+        elevation: 3,
       ),
       body: Padding(
         padding: EdgeInsets.all(8.0),
@@ -58,19 +59,41 @@ class PhotosList extends StatelessWidget {
       ),
       itemCount: photos.length,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Expanded(
+        return InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, animationTime) =>
+                    ImageView(photo: photos[index]),
+                transitionsBuilder: (context, animation, animationTime, child) {
+                  var begin = Offset(1.0, 0.0);
+                  var end = Offset.zero;
+                  var curve = Curves.easeIn;
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: [
+              Expanded(
                 child: Image.network(
-                    'https://picsum.photos/id/${photos[index].id}/200/200')),
-            Text(
-              photos[index].author,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(
-              height: 10,
-            )
-          ],
+                    'https://picsum.photos/id/${photos[index].id}/200/200'),
+              ),
+              Text(
+                photos[index].author,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
         );
       },
     );

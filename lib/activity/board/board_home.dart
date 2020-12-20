@@ -34,7 +34,7 @@ class _BoardHomeState extends State<BoardHome> {
             centerTitle: true,
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             backgroundColor: Colors.white,
-            elevation: 0,
+            elevation: 3,
           ),
           body: BoardList(),
         )
@@ -49,7 +49,21 @@ class BoardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // child: ListWheelScrollView(
+      //   itemExtent: 80,
+      //   physics: FixedExtentScrollPhysics(),
+      //   squeeze: 0.9,
+      //   diameterRatio: 5,
+      //   children:
+      //     items.map((i) => ListTile(
+      //       title: itemList(context, i),
+      //       onTap: () {
+      //         print('클릭 $i');
+      //       },
+      //     )).toList(),
+      // ),
       child: ListView(
+        physics: BouncingScrollPhysics(),
         children: items
             .map((i) => ListTile(
                   title: itemList(context, i),
@@ -75,7 +89,7 @@ Widget itemList(BuildContext context, int i) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 4,
+            height: 6,
           ),
           Row(
             children: [
@@ -90,7 +104,7 @@ Widget itemList(BuildContext context, int i) {
           Divider(thickness: 1, color: Colors.white54),
           Text('게시판 테스트 Studio Jungle', style: TextStyle(fontSize: 12)),
           SizedBox(
-            height: 4,
+            height: 8,
           )
         ],
       ),
