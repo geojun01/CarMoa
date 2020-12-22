@@ -49,25 +49,13 @@ class BoardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // child: ListWheelScrollView(
-      //   itemExtent: 80,
-      //   physics: FixedExtentScrollPhysics(),
-      //   squeeze: 0.9,
-      //   diameterRatio: 5,
-      //   children:
-      //     items.map((i) => ListTile(
-      //       title: itemList(context, i),
-      //       onTap: () {
-      //         print('클릭 $i');
-      //       },
-      //     )).toList(),
-      // ),
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: items
             .map((i) => ListTile(
                   title: itemList(context, i),
                   onTap: () {
+                    Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('클릭 확인 리스트 No $i')));
                   },

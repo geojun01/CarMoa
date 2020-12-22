@@ -126,7 +126,7 @@ class CarIconMenu extends StatelessWidget {
                   if (!menuOpen) {
                     menu.menuSelect(3);
                     Future.delayed(
-                      Duration(milliseconds: 100),
+                      Duration(milliseconds: 300),
                       () => {
                         Navigator.of(context).push(PageRouteBuilder(
                           pageBuilder: (context, animation, animationTime) =>
@@ -190,7 +190,7 @@ class CarIconMenu extends StatelessWidget {
                   if (!menuOpen) {
                     menu.menuSelect(4);
                     Future.delayed(
-                      Duration(milliseconds: 100),
+                      Duration(milliseconds: 300),
                       () => {
                         Navigator.of(context).push(PageRouteBuilder(
                           pageBuilder: (context, animation, animationTime) =>

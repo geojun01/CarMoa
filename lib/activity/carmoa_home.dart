@@ -48,7 +48,7 @@ class _MoaHomeState extends State<MoaHome> {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                                transitionDuration: Duration(milliseconds: 300),
+                                transitionDuration: Duration(milliseconds: 500),
                                 transitionsBuilder:
                                     (context, animation, animationTime, child) {
                                   return ScaleTransition(
@@ -131,6 +131,7 @@ class _MoaHomeState extends State<MoaHome> {
                       FlatButton(
                         onPressed: () {
                           // 데이터 저장 버튼
+                          print('인덱스 : ${v.getIndex()}');
                           db.saveData(v.getIndex());
                           v.itemAdd(new CarModel(
                               id: v.getIndex(),

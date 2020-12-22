@@ -46,35 +46,40 @@ Container carInfoView(BuildContext context) {
             FutureBuilder(
               future: db.loadData(),
               builder: (context, snap) {
-                itemView.listAdd(snap.data);
-                final List<CarModel> _item = snap.data;
-
-                if (!snap.hasData) {
-                  return Container();
-                } else if (snap.hasData) {
-                  return Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                              '${itemView.carData.length > 0 ? _item.last.nameCode : '-'}',
-                              style: mainFont),
-                          Expanded(child: SizedBox(width: 10)),
-                          Text(
-                              '주행거리 : ${itemView.carData.length > 0 ? itemView.getCodeLast() : '-'}',
-                              style: mainFont)
-                        ],
-                      ),
-                    ],
-                  );
+                if (snap.hasData) {
+                  itemView.listAdd(snap.data);
+                  final List<CarModel> _item = snap.data;
+                  if (_item.length > 0) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                                '${itemView.carData.length > 0 ? _item.last.nameCode : '-'}',
+                                style: mainFont),
+                            Expanded(child: SizedBox(width: 10)),
+                            Text(
+                                '주행거리 : ${itemView.carData.length > 0 ? itemView.getCodeLast() : '-'}',
+                                style: mainFont)
+                          ],
+                        ),
+                        Text(
+                            'A-Name : ${itemView.getIndex() > 0 ? itemView.getNameLast() : '-'}'),
+                        Text(
+                            'cc-Name : ${itemView.getIndex() > 0 ? itemView.getIdLast() : '-'}'),
+                      ],
+                    );
+                  }
                 }
-                return CircularProgressIndicator();
+                return Center(
+                  child: Container(
+                    child: Text('저장된 Data가 없습니다.'),
+                  ),
+                );
               },
             ),
-            Text(
-                'A-Name : ${itemView.getIndex() > 0 ? itemView.getNameLast() : '-'}'),
-            Text(
-                'cc-Name : ${itemView.getIndex() > 0 ? itemView.getIdLast() : '-'}'),
           ],
         ),
       ),
