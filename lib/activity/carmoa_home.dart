@@ -71,16 +71,16 @@ class _MoaHomeState extends State<MoaHome> {
                       ),
                       Column(
                         children: [
-                          Text('CarMoa', style: titleBoldFont),
+                          Text('CarMOA', style: titleBoldFont),
                           Row(
                             children: [
                               Icon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                color: Theme.of(context).primaryColor,
+                                FontAwesomeIcons.commentDots,
+                                color: Color.fromRGBO(150, 150, 150, 1),
                                 size: 14,
                               ),
                               SizedBox(width: 4),
-                              Text('Lyon, France', style: titleMinFont),
+                              Text('자동차의 이것저것 모아 모아', style: titleMinFont),
                             ],
                           ),
                         ],

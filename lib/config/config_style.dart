@@ -14,7 +14,7 @@ const mainFont = TextStyle(
 
 const titleBoldFont = TextStyle(
   fontSize: 18.0,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w600,
   color: Color.fromRGBO(48, 96, 96, 1.0),
 );
 
@@ -26,7 +26,7 @@ const titleMain = TextStyle(
 
 const titleMinFont = TextStyle(
   fontSize: 12,
-  color: Color(0xFFB0BEC5),
+  color: Color.fromRGBO(150, 150, 150, 1),
 );
 
 class Styles {
