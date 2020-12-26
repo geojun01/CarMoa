@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Model with ChangeNotifier {
   // Provider 에서 데이터를 공유하려면 carData 에 바로 접근하면 안된다.
   final carData = List<CarModel>();
+  int _cycle;
 
   getDateLast() => carData.last.dateTime;
   getNameLast() => carData.last.nameCode;
@@ -14,6 +15,8 @@ class Model with ChangeNotifier {
   getPrice() => carData.last.price;
 
   getIndex() => carData.length;
+
+  getCycle() => _cycle;
 
   void listAdd(List<CarModel> item) async {
     await Future.microtask(() {
@@ -51,6 +54,11 @@ class Model with ChangeNotifier {
     if (getIndex() > 0) {
       carData.clear();
     }
+    notifyListeners();
+  }
+
+  void setCycleCheck(int cycle) {
+    _cycle = cycle;
     notifyListeners();
   }
 }

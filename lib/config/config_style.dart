@@ -56,11 +56,7 @@ List<IconData> icons = [
 
 
 List<String> modifyType = [
-  '엔진오일',
-  '에어크리너',
-  '타이어',
-  '브레이크패드',
-  '브레이크오일',
+
 ];
 
 List<IconData> animalIcons = [
