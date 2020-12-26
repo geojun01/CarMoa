@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/provider/location.dart';
 import 'package:carmoa/data/weather_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,105 +24,117 @@ bool isCheck = true;
 
 Widget buildTopWeather(BuildContext context) {
   final position = Provider.of<Location>(context);
-  final w = MediaQuery.of(context).size.width;
 
   WeatherData weatherData = new WeatherData();
 
-  return Container(
-    width: w * 0.85,
-    height: 80,
-    decoration: BoxDecoration(
-      // color: Color.fromRGBO(200, 230, 237, 1),
-      color: Color.fromRGBO(235, 235, 235, 1),
-      borderRadius: BorderRadius.all(Radius.circular(20)),
-      boxShadow: [
-        BoxShadow(
-            color: Colors.grey[500],
-            offset: Offset(3.0, 3.0),
-            blurRadius: 6.0,
-            spreadRadius: 1),
-        BoxShadow(
-            color: Colors.white,
-            offset: Offset(-3.0, -3.0),
-            blurRadius: 6.0,
-            spreadRadius: 1),
-      ],
-    ),
-    child: FutureBuilder(
-        future: loadPreference(context),
-        builder: (builder, snap) {
-          if (snap.hasData) {
-            String data = snap.data;
-            var location = data.split(',');
-            // print('확인 : ${position.getLon()} / ${position.getCity()}');
-
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                position.getIcon() != null
-                    ? SvgPicture.asset(
-                        'assets/weather/${position.getIcon()}.svg',
-                        color: Theme.of(context).primaryColor,
-                        width: 50,
-                        height: 50)
-                    : Container(),
-                SizedBox(width: 2),
-                position.getTemp() != null
-                    ? Text('${position.getTemp()}\u00B0',
-                        style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).primaryColor))
-                    : Container(),
-                SizedBox(width: 8),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        position.getCity() != null
-                            ? Row(
-                                children: [
-                                  Text('${position.getCity()}',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color:
-                                              Theme.of(context).primaryColor)),
-                                  SizedBox(width: 8),
-                                  InkWell(
-                                      onTap: () {
-                                        getLocation(context);
-                                        print('클릭');
-                                      },
-                                      child: Icon(FontAwesomeIcons.mapMarkerAlt,
-                                          color: Theme.of(context).primaryColor,
-                                          size: 16)),
-                                ],
+  return FutureBuilder<Size>(
+      future: viewSize(Stream<Size>.periodic(
+          Duration(milliseconds: 100), (x) => MediaQuery.of(context).size)),
+      builder: (context, snapshot) {
+        Size size = snapshot.data;
+        return Container(
+          width: size != null ? size.width * 0.85 : 0,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(235, 235, 235, 1),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey[500],
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 6.0,
+                  spreadRadius: 1),
+              BoxShadow(
+                  color: Colors.white,
+                  offset: Offset(-3.0, -3.0),
+                  blurRadius: 6.0,
+                  spreadRadius: 1),
+            ],
+          ),
+          child: FutureBuilder(
+              future: loadPreference(context),
+              builder: (builder, snap) {
+                if (snap.hasData) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      position.getIcon() != null
+                          ? SvgPicture.asset(
+                              'assets/weather/${position.getIcon()}.svg',
+                              color: Theme.of(context).primaryColor,
+                              width: 50,
+                              height: 50)
+                          : Container(),
+                      SizedBox(width: 10),
+                      position.getTemp() != null
+                          ? Text('${position.getTemp()}\u00B0',
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).primaryColor))
+                          : Container(),
+                      SizedBox(width: 8),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              position.getCity() != null
+                                  ? Row(
+                                      children: [
+                                        Text('${position.getCity()}',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Theme.of(context)
+                                                    .primaryColor)),
+                                        SizedBox(width: 10),
+                                        Material(
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                            onTap: () {
+                                              // 현재 위치기반 날씨 데이터 가져오기
+                                              getLocation(context);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              child: Icon(
+                                                  CupertinoIcons.location,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  size: 20),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Icon(FontAwesomeIcons.mapMarkerAlt,
+                                      color: Theme.of(context).primaryColor,
+                                      size: 16)
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                '${position.getId() != null ? weatherData.descriptionKR[position.getId()] : ''}',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Theme.of(context).primaryColor),
                               )
-                            : Icon(FontAwesomeIcons.mapMarkerAlt,
-                                color: Theme.of(context).primaryColor, size: 16)
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Text(
-                          '${position.getId() != null ? weatherData.descriptionKR[position.getId()] : ''}',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Theme.of(context).primaryColor),
-                        )
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            );
-          }
-          return Container();
-        }),
-  );
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }
+                return Container();
+              }),
+        );
+      });
 }
 
 Future<String> loadPreference(BuildContext context) async {
@@ -149,7 +163,6 @@ Future<void> getLocation(BuildContext context) async {
     }
 
     if (location.isGranted) {
-      print('확인1');
       // var isGpsEnabled = await Geolocator.isLocationServiceEnabled();
       // locationCheck.setPosition(true);
 

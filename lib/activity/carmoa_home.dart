@@ -24,7 +24,6 @@ class _MoaHomeState extends State<MoaHome> {
 
   @override
   Widget build(BuildContext context) {
-    final v = Provider.of<Model>(context);
 
     return Material(
       elevation: menuOpen ? 14 : 0,
@@ -48,24 +47,24 @@ class _MoaHomeState extends State<MoaHome> {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                                transitionDuration: Duration(milliseconds: 500),
-                                transitionsBuilder:
-                                    (context, animation, animationTime, child) {
-                                  return ScaleTransition(
-                                    alignment: Alignment.topLeft,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder:
-                                    (context, animation, animationTime) {
-                                  return DrawerScreen();
-                                }),
+                              transitionDuration: Duration(milliseconds: 500),
+                              transitionsBuilder:
+                                  (context, animation, animationTime, child) {
+                                return ScaleTransition(
+                                  alignment: Alignment.topLeft,
+                                  scale: animation,
+                                  child: child,
+                                );
+                              },
+                              pageBuilder: (context, animation, animationTime) {
+                                return DrawerScreen();
+                              },
+                            ),
                           );
                         },
                         child: Icon(
                           FontAwesomeIcons.bars,
-                          size: 24,
+                          size: 20,
                           color: mainColor,
                         ),
                       ),
@@ -116,7 +115,7 @@ class _MoaHomeState extends State<MoaHome> {
                       SizedBox(height: 30),
                       // 상단 메뉴 리스트
                       Container(
-                        height: 110.0,
+                        height: 100.0,
                         child: ListView.builder(
                             padding: EdgeInsets.only(left: 16.0),
                             scrollDirection: Axis.horizontal,
@@ -127,43 +126,13 @@ class _MoaHomeState extends State<MoaHome> {
                       ),
                       // 세부 메뉴 화면
                       FadeIn(delay: 2, child: carInfoView(context)),
-                      SizedBox(height: 4),
-                      FlatButton(
-                        onPressed: () {
-                          // 데이터 저장 버튼
-                          print('인덱스 : ${v.getIndex()}');
-                          db.saveData(v.getIndex());
-                          v.itemAdd(new CarModel(
-                              id: v.getIndex(),
-                              dateTime: DateTime.now().toString(),
-                              nameCode: '자료 ${v.getIndex().toString()}',
-                              exchange: '교환 ${v.getIndex().toString()}',
-                              price: 40000 + v.getIndex(),
-                              front: '앞',
-                              back: '뒤'));
-                          //print ('Index : ${Model().getIndex()}');
-                        },
-                        child: Text('자료입력'),
-                      ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 16),
                       // 하단 애니메이션 메뉴
                       CarIconMenu(),
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text('다음 메뉴'),
-                      ),
-                      SizedBox(height: 10),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Copyright © & STUDIO JUNGLE. All Rights Reserved',
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
-                          ),
-                        ),
                       ),
                       SizedBox(height: 10),
                     ],

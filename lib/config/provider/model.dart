@@ -6,9 +6,12 @@ class Model with ChangeNotifier {
   // Provider 에서 데이터를 공유하려면 carData 에 바로 접근하면 안된다.
   final carData = List<CarModel>();
 
+  getDateLast() => carData.last.dateTime;
   getNameLast() => carData.last.nameCode;
-  getCodeLast() => carData.last.exchange;
+  getExchangeLast() => carData.last.exchange;
+  getPeriod() => carData.last.period;
   getIdLast() => carData.last.id;
+  getPrice() => carData.last.price;
 
   getIndex() => carData.length;
 

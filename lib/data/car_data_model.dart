@@ -1,20 +1,24 @@
+import 'package:flutter/cupertino.dart';
+
 class CarModel {
-  final int id;
+  final String id;
   final String dateTime;
   final String nameCode;
-  final String exchange;
+  final int exchange;
   final int price;
+  final String period;
   final String front;
   final String back;
 
   CarModel(
-      {this.id,
-      this.dateTime,
-      this.nameCode,
-      this.exchange,
-      this.price,
-      this.front,
-      this.back});
+      {@required this.id,
+      @required this.dateTime,
+      @required this.nameCode,
+      @required this.exchange,
+      @required this.price,
+      @required this.period,
+      @required this.front,
+      @required this.back});
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,6 +27,7 @@ class CarModel {
       'nameCode': nameCode,
       'exchange': exchange,
       'price': price,
+      'period': period,
       'front': front,
       'back': back
     };
@@ -30,6 +35,6 @@ class CarModel {
 
   @override
   String toString() {
-    return 'CarModel{id: $id, dateTime: $dateTime, nameCode: $nameCode, exchange: $exchange, price: $price, front: $front, back: $back}';
+    return 'CarModel{id: $id, dateTime: $dateTime, nameCode: $nameCode, exchange: $exchange, price: $price, period: $period, front: $front, back: $back}';
   }
 }

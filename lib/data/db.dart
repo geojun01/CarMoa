@@ -13,7 +13,7 @@ class DBHelper {
       join(await getDatabasesPath(), 'car_moa.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE $tableName(id INTEGER PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange TEXT, price INTEGER, front TEXT, back TEXT)",
+          "CREATE TABLE $tableName(id TEXT PRIMARY KEY, dateTime TEXT, nameCode TEXT, exchange INTEGER, price INTEGER, period TEXT, front TEXT, back TEXT)",
         );
       },
       version: 1,
@@ -43,6 +43,7 @@ class DBHelper {
         nameCode: maps[i]['nameCode'],
         exchange: maps[i]['exchange'],
         price: maps[i]['price'],
+        period: maps[i]['period'],
         front: maps[i]['front'],
         back: maps[i]['back'],
       );
@@ -59,6 +60,7 @@ class DBHelper {
                   nameCode: e['nameCode'],
                   exchange: e['exchange'],
                   price: e['price'],
+                  period: e['period'],
                   front: e['front'],
                   back: e['back'],
                 )).toList() : [];

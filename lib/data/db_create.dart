@@ -12,12 +12,26 @@ class CreateDB {
   Future<void> saveData(int index) async {
     DBHelper db = DBHelper();
     await db.insertData(new CarModel(
-        id: index,
+        id: index.toString(),
         dateTime: DateTime.now().toString(),
         nameCode: '자료 ${index.toString()}',
-        exchange: '교환 ${index.toString()}',
+        exchange: index,
         price: 40000 + index,
+        period: '입력',
         front: '앞',
         back: '뒤'));
+  }
+
+  Future<void> saveItem(CarModel item) async {
+    DBHelper db = DBHelper();
+    await db.insertData(new CarModel(
+        id: DateTime.now().toString(),
+        dateTime: DateTime.now().toString(),
+        nameCode: item.nameCode,
+        exchange: item.exchange,
+        price: item.price,
+        period: item.period,
+        front: item.front,
+        back: item.back));
   }
 }

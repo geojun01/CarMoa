@@ -8,9 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class CarIconMenu extends StatelessWidget {
-  const CarIconMenu({
-    Key key,
-  }) : super(key: key);
+  const CarIconMenu({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

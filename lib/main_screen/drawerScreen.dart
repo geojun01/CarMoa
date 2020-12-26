@@ -18,12 +18,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 30.0,
+              vertical: 20.0,
               horizontal: 15.0,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SizedBox(height: 10),
                 // login Image & Name
                 Row(
                   children: [
@@ -51,14 +52,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ],
                     ),
                     Expanded(child: Container()),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         child: Icon(
-                          Icons.chevron_right,
-                          size: 30,
+                          CupertinoIcons.chevron_right_2,
+                          size: 28,
                           color: Colors.white,
                         ),
                       ),
@@ -66,6 +68,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     SizedBox(width: 10)
                   ],
                 ),
+                SizedBox(height: 20),
                 // 메뉴 모음
                 Column(
                   children: menuItems
@@ -74,6 +77,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       .map((mapEntry) => buildMenuRow(mapEntry.key))
                       .toList(),
                 ),
+                SizedBox(height: 20),
                 // Setting & log Out
                 Row(
                   children: [
@@ -107,6 +111,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           )),
                     ),
                   ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 6.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Copyright © & STUDIO JUNGLE. All Rights Reserved',
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
+                  ),
                 ),
               ],
             ),
