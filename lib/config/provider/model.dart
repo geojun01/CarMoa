@@ -13,6 +13,8 @@ class Model with ChangeNotifier {
   getPeriod() => carData.last.period;
   getIdLast() => carData.last.id;
   getPrice() => carData.last.price;
+  getFront() => carData.last.front;
+  getBack() => carData.last.back;
 
   getIndex() => carData.length;
 
