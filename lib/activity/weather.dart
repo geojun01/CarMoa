@@ -179,6 +179,7 @@ Future<void> getLocation(BuildContext context) async {
           lon: location.longitude.toString());
     }
     if (location.isDenied) {
+      // 위치 권한 취소에 따른 안내 팝업창 생성 하기
       print('취소');
     }
   } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/icon_menu.dart';
 import 'package:carmoa/config/provider/location.dart';
 import 'package:carmoa/config/provider/model.dart';
@@ -15,15 +16,12 @@ void main() {
         ChangeNotifierProvider<Model>(create: (_) => Model()),
         ChangeNotifierProvider<IconMenu>(create: (_) => IconMenu()),
         ChangeNotifierProvider<Location>(create: (_) => Location()),
+        ChangeNotifierProvider<Cycle>(create: (_) => Cycle()),
       ],
       child: MyApp(),
     ),
   );
 }
-
-// Map<String, WidgetBuilder> _permission = {
-//     RequestPermission.routeName: (context) => RequestPermission(),
-// };
 
 class MyApp extends StatelessWidget {
 
@@ -37,7 +35,6 @@ class MyApp extends StatelessWidget {
         primaryColor: mainColor,
       ),
       home: MainScreen(),
-      // routes: _permission,
     );
   }
 }

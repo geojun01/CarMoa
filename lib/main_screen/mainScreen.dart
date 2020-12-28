@@ -1,22 +1,51 @@
 import 'package:carmoa/activity/carmoa_home.dart';
+import 'package:carmoa/config/assist_util.dart';
+import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
+bool isCycleCheck = true;
+
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
-
-    // WillPopScope = 뒤로가기 종료 이벤트를 처리하기 위한 위젯
+    // WillPopScope => 뒤로가기 종료 이벤트를 처리하기 위한 위젯
     return WillPopScope(
       onWillPop: _onBackPressed,
-      child: MoaHome(),
+      child: moaHomeStart(context),
     );
+  }
+
+  Widget moaHomeStart(BuildContext context) {
+    cycleLoad(context);
+    return MoaHome();
+  }
+
+  // 교환주기 불러오기
+  Future<void> cycleLoad(BuildContext context) async {
+    final p = Provider.of<Cycle>(context, listen: false);
+
+    int eng = await loadPreferenceInt(saveTitle: modifyType[0], initValue: 6000);
+    int air = await loadPreferenceInt(saveTitle: modifyType[1], initValue: 7000);
+    int tire = await loadPreferenceInt(saveTitle: modifyType[2], initValue: 60000);
+    int breakPad = await loadPreferenceInt(saveTitle: modifyType[3], initValue: 70000);
+    int breakOil = await loadPreferenceInt(saveTitle: modifyType[4], initValue: 80000);
+
+    if (isCycleCheck) {
+      isCycleCheck = false;
+      p.setEng(eng);
+      p.setAir(air);
+      p.setTire(tire);
+      p.setBreak(breakPad);
+      p.setBreakOil(breakOil);
+    }
   }
 
   // 뒤로가기 버튼 종료 처리

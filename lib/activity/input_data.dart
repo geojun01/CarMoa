@@ -1,5 +1,6 @@
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,10 +18,14 @@ class InputData extends StatefulWidget {
   _InputDataState createState() => _InputDataState();
 }
 
+String value;
+bool isCheck = true;
+
 class _InputDataState extends State<InputData> {
   @override
   Widget build(BuildContext context) {
     final item = Provider.of<Model>(context);
+    final cycle = Provider.of<Cycle>(context);
     final db = CreateDB();
     var nowDate = DateTime.now().toString();
     var timeCheck = nowDate.split(' ');
@@ -42,7 +47,15 @@ class _InputDataState extends State<InputData> {
           children: [
             SizedBox(height: 6),
             Text('교환날짜 : ${timeCheck[0]}'),
-            changeTime(),
+            Text('교환주기 : ${cycle.getBreakOil() != null ? cycle.getBreakOil() : ''}'),
+            // NumberFormat('###,###,###').format(_km)
+            // FutureBuilder(
+            //   future: changeTime(),
+            //   builder: (context, snap) {
+            //     int snapValue = snap.data;
+            //     return Text('확인 : $snapValue');
+            //   },
+            // ),
             SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -55,6 +68,9 @@ class _InputDataState extends State<InputData> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextField(
+                          onChanged: (String _value) {
+                            value = _value;
+                          },
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.end,
                           inputFormatters: [
@@ -67,6 +83,8 @@ class _InputDataState extends State<InputData> {
                             labelStyle: TextStyle(
                                 fontSize: 16, color: Colors.deepOrangeAccent),
                             counterText: '',
+                            suffixText: ' km',
+                            // suffixIcon: Icon(CupertinoIcons.folder_badge_plus),
                           ),
                         ),
                       ),
@@ -85,6 +103,7 @@ class _InputDataState extends State<InputData> {
                             labelStyle: TextStyle(
                                 fontSize: 16, color: Colors.deepOrangeAccent),
                             counterText: '',
+                            suffixText: ' 원',
                           ),
                         ),
                       ),
@@ -115,10 +134,10 @@ class _InputDataState extends State<InputData> {
     );
   }
 
-  Text changeTime() {
-    final item = Provider.of<Model>(context);
+  Future<int> changeTime() async {
     int index;
     int value;
+
     for (int i = 0; i < modifyType.length; i++) {
       if (modifyType[i] == widget.titleName) {
         index = i;
@@ -142,9 +161,23 @@ class _InputDataState extends State<InputData> {
       case 4:
         value = 80000; //브레이크오일
         break;
+      default:
+        value = 0;
     }
-    loadPreferenceInt(
-        saveTitle: widget.titleName, initValue: value, context: context);
-    return Text('교환주기 : ${item.getCycle() != null ? item.getCycle() : 0}');
+    int preference =
+        await loadPreferenceInt(saveTitle: widget.titleName, initValue: value);
+
+    if (isCheck) {
+      providerCheck(context, preference);
+      isCheck = false;
+    }
+
+    return preference;
   }
+}
+
+void providerCheck(BuildContext context, int value) {
+  final p = Provider.of<Model>(context, listen: false);
+  p.setCycleCheck(value);
+  print('확인 provider : ${p.getCycle()}');
 }

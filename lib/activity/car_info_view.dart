@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:carmoa/activity/input_data.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';
 import 'package:carmoa/config/provider/selected_menu.dart';
 import 'package:carmoa/data/car_data_model.dart';
@@ -37,11 +38,7 @@ Widget carInfoView(BuildContext context) {
                   builder: (context, value, child) => titleText(value),
                 ),
                 Expanded(child: SizedBox(width: 16)),
-                Text(
-                  '교환주기 : 8,000km',
-                  textAlign: TextAlign.end,
-                  style: mainFont,
-                )
+                changeCycle(context)
               ],
             ),
             Divider(height: 16, color: startColor, thickness: 0.5),
@@ -105,58 +102,54 @@ Widget carInfoView(BuildContext context) {
                                 ),
                               ),
                             ),
+                            Expanded(child: Container()),
                             Expanded(
                               flex: 8,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Card(
-                                    color: Colors.white,
-                                    elevation: 3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                  CupertinoIcons
-                                                      .money_dollar_circle,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  size: 14),
-                                              SizedBox(width: 6),
-                                              Text(
-                                                  '비용 : ${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.price) : ''}원'),
-                                            ],
-                                          ),
-                                          Divider(color: startColor),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(CupertinoIcons.calendar,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  size: 14),
-                                              SizedBox(width: 6),
-                                              Text('사용기간', style: mainFont),
-                                            ],
-                                          ),
-                                          Text(
-                                              '${_item.length > 0 ? _item.last.period : ''}')
-                                        ],
-                                      ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                                CupertinoIcons
+                                                    .money_dollar_circle,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                size: 14),
+                                            SizedBox(width: 6),
+                                            Text(
+                                                '비용 : ${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.price) : ''}원'),
+                                          ],
+                                        ),
+                                        Divider(color: startColor),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(CupertinoIcons.calendar,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                size: 14),
+                                            SizedBox(width: 6),
+                                            Text('사용기간', style: mainFont),
+                                          ],
+                                        ),
+                                        Text(
+                                            '${_item.length > 0 ? _item.last.period : ''}')
+                                      ],
                                     ),
                                   ),
                                   SizedBox(height: 8),
@@ -249,6 +242,38 @@ Widget carInfoView(BuildContext context) {
         ),
       ),
     ),
+  );
+}
+
+Text changeCycle(BuildContext context) {
+  final selectPick = Provider.of<SelectMenu>(context);
+  final cycle = Provider.of<Cycle>(context);
+  int _km;
+
+  switch (selectPick.getSelect()) {
+    case 0:
+      _km = cycle.getEng(); //엔진오일
+      break;
+    case 1:
+      _km = cycle.getAir(); //에어크리너
+      break;
+    case 2:
+      _km = cycle.getTire(); //타이어
+      break;
+    case 3:
+      _km = cycle.getBreak(); //브레이크패드
+      break;
+    case 4:
+      _km = cycle.getBreakOil(); //브레이크오일
+      break;
+    default:
+      _km = 0;
+  }
+
+  return Text(
+    '교환주기 : ${_km > 0 ? NumberFormat('###,###,###').format(_km) : 0} km',
+    textAlign: TextAlign.end,
+    style: mainFont,
   );
 }
 

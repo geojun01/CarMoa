@@ -1,6 +1,4 @@
-import 'package:carmoa/config/provider/model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Size> viewSize(Stream<Size> source) async {
@@ -12,21 +10,16 @@ Future<Size> viewSize(Stream<Size> source) async {
   return null;
 }
 
-Future<void> loadPreferenceInt(
-    {@required String saveTitle, @required int initValue, @required BuildContext context}) async {
-  final item = Provider.of<Model>(context);
-  int _settingKm;
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  _settingKm = pref.getInt(saveTitle) ?? initValue;
-  item.setCycleCheck(_settingKm);
+Future<int> loadPreferenceInt(
+    {@required String saveTitle, @required int initValue}) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getInt(saveTitle) ?? initValue;
 }
 
 Future<void> savePreferenceInt(
-    {@required String saveTitle, @required int value, @required BuildContext context}) async {
-  final item = Provider.of<Model>(context);
+    {@required String saveTitle, @required int value}) async {
   SharedPreferences pres = await SharedPreferences.getInstance();
   pres.setInt(saveTitle, value);
-  item.setCycleCheck(value);
 }
 
 Future<void> savePreferenceString(

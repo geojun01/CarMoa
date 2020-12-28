@@ -70,17 +70,3 @@ List<IconData> animalIcons = [
   FontAwesomeIcons.fish,
   FontAwesomeIcons.paw,
 ];
-
-List<IconData> weatherIcons = [
-  FontAwesomeIcons.wind,
-  FontAwesomeIcons.bolt,
-  FontAwesomeIcons.smog,
-  FontAwesomeIcons.cloud,
-  FontAwesomeIcons.sun,
-  FontAwesomeIcons.umbrella,
-  FontAwesomeIcons.pooStorm,
-  FontAwesomeIcons.cloudSunRain,
-  FontAwesomeIcons.cloudSun,
-  FontAwesomeIcons.cloudShowersHeavy,
-  FontAwesomeIcons.snowflake,
-];
