@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 var titleName;
+var indexCycleMenu;
 
 Widget carInfoView(BuildContext context) {
   final itemView = Provider.of<Model>(context);
@@ -35,7 +36,9 @@ Widget carInfoView(BuildContext context) {
                     color: Theme.of(context).primaryColor.withOpacity(0.8)),
                 SizedBox(width: 10),
                 Consumer<SelectMenu>(
-                  builder: (context, value, child) => titleText(value),
+                  builder: (context, value, child) {
+                    indexCycleMenu = value.getSelect();
+                    return titleText(value);},
                 ),
                 Expanded(child: SizedBox(width: 16)),
                 changeCycle(context)
@@ -160,7 +163,7 @@ Widget carInfoView(BuildContext context) {
                                         PageRouteBuilder(
                                           pageBuilder: (context, animation,
                                                   animationTime) =>
-                                              InputData(titleName: titleName),
+                                              InputData(titleName: titleName, cycleIndex: indexCycleMenu),
                                           transitionsBuilder: (context,
                                               animation, animationTime, child) {
                                             var begin = Offset(1.0, 0.0);
@@ -177,18 +180,6 @@ Widget carInfoView(BuildContext context) {
                                           },
                                         ),
                                       );
-
-                                      // var item = new CarModel(
-                                      //     id: DateTime.now().toString(),
-                                      //     dateTime: DateTime.now().toString(),
-                                      //     nameCode: '엔진오일',
-                                      //     exchange: Random().nextInt(70000),
-                                      //     price: Random().nextInt(100000),
-                                      //     period: '자료',
-                                      //     front: '앞',
-                                      //     back: '뒤');
-                                      // db.saveItem(item);
-                                      // itemView.itemAdd(item);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
@@ -266,12 +257,10 @@ Text changeCycle(BuildContext context) {
     case 4:
       _km = cycle.getBreakOil(); //브레이크오일
       break;
-    default:
-      _km = 0;
   }
 
   return Text(
-    '교환주기 : ${_km > 0 ? NumberFormat('###,###,###').format(_km) : 0} km',
+    '교환주기 : ${_km != null ? NumberFormat('###,###,###').format(_km) : 0} km',
     textAlign: TextAlign.end,
     style: mainFont,
   );

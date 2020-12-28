@@ -1,18 +1,21 @@
-import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';
 import 'package:carmoa/data/db_create.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 import 'package:provider/provider.dart';
 
 class InputData extends StatefulWidget {
   final titleName;
+  final cycleIndex;
 
-  InputData({Key key, @required this.titleName}) : super(key: key);
+  InputData({Key key, @required this.titleName, @required this.cycleIndex})
+      : super(key: key);
 
   @override
   _InputDataState createState() => _InputDataState();
@@ -27,8 +30,7 @@ class _InputDataState extends State<InputData> {
     final item = Provider.of<Model>(context);
     final cycle = Provider.of<Cycle>(context);
     final db = CreateDB();
-    var nowDate = DateTime.now().toString();
-    var timeCheck = nowDate.split(' ');
+    final timeCheck = formatDate(DateTime.now(), [yyyy, '년', mm, '월', dd, '일']);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,18 +47,33 @@ class _InputDataState extends State<InputData> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SizedBox(height: 6),
-            Text('교환날짜 : ${timeCheck[0]}'),
-            Text('교환주기 : ${cycle.getBreakOil() != null ? cycle.getBreakOil() : ''}'),
-            // NumberFormat('###,###,###').format(_km)
-            // FutureBuilder(
-            //   future: changeTime(),
-            //   builder: (context, snap) {
-            //     int snapValue = snap.data;
-            //     return Text('확인 : $snapValue');
-            //   },
-            // ),
-            SizedBox(height: 6),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(),
+                  flex: 1,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [
+                      Text(
+                        '교환날짜 : $timeCheck',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Divider(color: startColor),
+                      cycleMenu(cycle, widget.cycleIndex),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(),
+                  flex: 1,
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Card(
@@ -134,50 +151,29 @@ class _InputDataState extends State<InputData> {
     );
   }
 
-  Future<int> changeTime() async {
-    int index;
-    int value;
+  Text cycleMenu(Cycle cycle, int _index) {
+    int cycleValue;
 
-    for (int i = 0; i < modifyType.length; i++) {
-      if (modifyType[i] == widget.titleName) {
-        index = i;
-        break;
-      }
-    }
-
-    switch (index) {
+    switch (_index) {
       case 0:
-        value = 6000; //엔진오일
+        cycleValue = cycle.getEng(); //엔진오일
         break;
       case 1:
-        value = 6000; //에어크리너
+        cycleValue = cycle.getAir(); //에어크리너
         break;
       case 2:
-        value = 60000; //타이어
+        cycleValue = cycle.getTire(); //타이어
         break;
       case 3:
-        value = 70000; //브레이크패드
+        cycleValue = cycle.getBreak(); //브레이크패드
         break;
       case 4:
-        value = 80000; //브레이크오일
+        cycleValue = cycle.getBreakOil(); //브레이크오일
         break;
-      default:
-        value = 0;
     }
-    int preference =
-        await loadPreferenceInt(saveTitle: widget.titleName, initValue: value);
-
-    if (isCheck) {
-      providerCheck(context, preference);
-      isCheck = false;
-    }
-
-    return preference;
+    return Text(
+      '교환주기 : ${NumberFormat('###,###,###').format(cycleValue)} km',
+      style: TextStyle(fontSize: 16),
+    );
   }
-}
-
-void providerCheck(BuildContext context, int value) {
-  final p = Provider.of<Model>(context, listen: false);
-  p.setCycleCheck(value);
-  print('확인 provider : ${p.getCycle()}');
 }
