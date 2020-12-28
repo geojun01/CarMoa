@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:carmoa/activity/input_data.dart';
+import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';
@@ -150,8 +151,17 @@ Widget carInfoView(BuildContext context) {
                                             Text('사용기간', style: mainFont),
                                           ],
                                         ),
-                                        Text(
-                                            '${_item.length > 0 ? _item.last.period : ''}')
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(CupertinoIcons.chevron_right, size: 14, color: Theme.of(context)
+                                                .primaryColor),
+                                            SizedBox(width: 6),
+                                            Text(
+                                                '${_item.length > 0 ? datePast(_item.last.dateTime) : ''}'),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ),

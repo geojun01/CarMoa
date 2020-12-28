@@ -101,18 +101,17 @@ class _InputDataState extends State<InputData> {
                                 fontSize: 16, color: Colors.deepOrangeAccent),
                             counterText: '',
                             suffixText: ' km',
-                            // suffixIcon: Icon(CupertinoIcons.folder_badge_plus),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextField(
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.end,
+                          keyboardType: TextInputType.number, // 키보드 숫자만
+                          textAlign: TextAlign.end, // 오른쪽 끝라인에서 시작
                           inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            ThousandsFormatter()
+                            FilteringTextInputFormatter.digitsOnly, // 숫자만 입력 받는다
+                            ThousandsFormatter()  // 천단위 콤마
                           ],
                           maxLength: 10,
                           decoration: InputDecoration(
