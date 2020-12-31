@@ -21,7 +21,8 @@ class InputData extends StatefulWidget {
   _InputDataState createState() => _InputDataState();
 }
 
-String value;
+String exchangeValue;
+String priceValue;
 bool isCheck = true;
 
 class _InputDataState extends State<InputData> {
@@ -33,118 +34,240 @@ class _InputDataState extends State<InputData> {
     final timeCheck = formatDate(DateTime.now(), [yyyy, '년', mm, '월', dd, '일']);
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        centerTitle: true,
-        elevation: 4,
-        title: Text(
-          '${widget.titleName}',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Colors.green, Colors.teal],
+          ),
         ),
-        backgroundColor: Colors.orange,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(),
-                  flex: 1,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      Text(
-                        '교환날짜 : $timeCheck',
-                        style: TextStyle(fontSize: 16),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              CupertinoIcons.chevron_left_2,
+                              color: Colors.white,
+                              size: 24,
+                            )),
                       ),
-                      Divider(color: startColor),
-                      cycleMenu(cycle, widget.cycleIndex),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                  flex: 1,
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Card(
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextField(
-                          onChanged: (String _value) {
-                            value = _value;
-                          },
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.end,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            ThousandsFormatter()
-                          ],
-                          maxLength: 10,
-                          decoration: InputDecoration(
-                            labelText: '주행거리',
-                            labelStyle: TextStyle(
-                                fontSize: 16, color: Colors.deepOrangeAccent),
-                            counterText: '',
-                            suffixText: ' km',
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextField(
-                          keyboardType: TextInputType.number, // 키보드 숫자만
-                          textAlign: TextAlign.end, // 오른쪽 끝라인에서 시작
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly, // 숫자만 입력 받는다
-                            ThousandsFormatter()  // 천단위 콤마
-                          ],
-                          maxLength: 10,
-                          decoration: InputDecoration(
-                            labelText: '교환비용',
-                            labelStyle: TextStyle(
-                                fontSize: 16, color: Colors.deepOrangeAccent),
-                            counterText: '',
-                            suffixText: ' 원',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Expanded(child: Container()),
+                    Text(
+                      '${widget.titleName}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Expanded(child: Container()),
+                    Container(width: 40),
+                  ],
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              width: 100,
-              child: RaisedButton(
-                  color: Colors.orange,
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(CupertinoIcons.folder_badge_plus,
-                          color: Colors.white),
-                      SizedBox(width: 6),
-                      Text('저장', style: TextStyle(color: Colors.white))
-                    ],
-                  )),
-            )
-          ],
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              Text(
+                                '교환날짜 : $timeCheck',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.tealAccent),
+                              ),
+                              Divider(
+                                color: Colors.tealAccent,
+                                thickness: 0.5,
+                              ),
+                              cycleMenu(cycle, widget.cycleIndex),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        elevation: 4,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.blueGrey),
+                                      borderRadius: BorderRadius.circular(6.0)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text('주행거리 : ',
+                                            style: TextStyle(fontSize: 16)),
+                                        Flexible(
+                                          child: Container(
+                                            child: TextField(
+                                              onChanged: (String _value) {
+                                                exchangeValue = _value;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textAlign: TextAlign.end,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                                ThousandsFormatter()
+                                              ],
+                                              maxLength: 11,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                counterText: '',
+                                                suffixText: ' km',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.blueGrey),
+                                      borderRadius: BorderRadius.circular(6.0)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text('교환비용 :',
+                                            style: TextStyle(fontSize: 16)),
+                                        Flexible(
+                                          child: Container(
+                                            child: TextField(
+                                              onChanged: (String _value) {
+                                                priceValue = _value;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textAlign: TextAlign.end,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                                ThousandsFormatter()
+                                              ],
+                                              maxLength: 11,
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                counterText: '',
+                                                suffixText: ' 원',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 20),
+                              //   child: TextField(
+                              //     onChanged: (String _value) {
+                              //       value = _value;
+                              //     },
+                              //     keyboardType: TextInputType.number,
+                              //     textAlign: TextAlign.end,
+                              //     inputFormatters: [
+                              //       FilteringTextInputFormatter.digitsOnly,
+                              //       ThousandsFormatter()
+                              //     ],
+                              //     maxLength: 10,
+                              //     decoration: InputDecoration(
+                              //       labelText: '주행거리',
+                              //       labelStyle: TextStyle(
+                              //           fontSize: 16,
+                              //           color: Colors.deepOrangeAccent),
+                              //       counterText: '',
+                              //       suffixText: ' km',
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    SizedBox(
+                      width: 100,
+                      child: RaisedButton(
+                          color: Colors.orange,
+                          onPressed: () {
+                            // 데이터베이스 저장 코드
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(CupertinoIcons.folder_badge_plus,
+                                  color: Colors.white),
+                              SizedBox(width: 6),
+                              Text('저장', style: TextStyle(color: Colors.white))
+                            ],
+                          )),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -172,7 +295,7 @@ class _InputDataState extends State<InputData> {
     }
     return Text(
       '교환주기 : ${NumberFormat('###,###,###').format(cycleValue)} km',
-      style: TextStyle(fontSize: 16),
+      style: TextStyle(fontSize: 16, color: Colors.tealAccent),
     );
   }
 }
