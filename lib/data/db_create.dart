@@ -12,8 +12,8 @@ class CreateDB {
   Future<void> saveData(CarModel item) async {
     DBHelper db = DBHelper();
     await db.insertData(new CarModel(
-        id: DateTime.now().toString(),
-        dateTime: DateTime.now().toString(),
+        id: item.id,
+        dateTime: item.dateTime,
         nameCode: item.nameCode,
         exchange: item.exchange,
         price: item.price,

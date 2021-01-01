@@ -1,6 +1,8 @@
+import 'package:carmoa/activity/car_info_view.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';
+import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,10 +22,6 @@ class InputData extends StatefulWidget {
   @override
   _InputDataState createState() => _InputDataState();
 }
-
-// int exchangeValue = 0;
-// int priceValue = 0;
-// bool isCheck = true;
 
 class _InputDataState extends State<InputData> {
   int exchangeValue = 0;
@@ -223,31 +221,6 @@ class _InputDataState extends State<InputData> {
                                   ),
                                 ),
                               ),
-
-                              // Padding(
-                              //   padding:
-                              //       const EdgeInsets.symmetric(horizontal: 20),
-                              //   child: TextField(
-                              //     onChanged: (String _value) {
-                              //       value = _value;
-                              //     },
-                              //     keyboardType: TextInputType.number,
-                              //     textAlign: TextAlign.end,
-                              //     inputFormatters: [
-                              //       FilteringTextInputFormatter.digitsOnly,
-                              //       ThousandsFormatter()
-                              //     ],
-                              //     maxLength: 10,
-                              //     decoration: InputDecoration(
-                              //       labelText: '주행거리',
-                              //       labelStyle: TextStyle(
-                              //           fontSize: 16,
-                              //           color: Colors.deepOrangeAccent),
-                              //       counterText: '',
-                              //       suffixText: ' km',
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -270,10 +243,27 @@ class _InputDataState extends State<InputData> {
                             } else {
                               // 데이터베이스 저장 코드
                               // print('확인 : $exchangeValue : $priceValue');
-
-                              exchangeValue = 0;
-                              priceValue = 0;
-                              Navigator.pop(context);
+                              var saveItem = new CarModel(
+                                  id: DateTime.now().toString(),
+                                  dateTime: DateTime.now().toString(),
+                                  nameCode: titleName,
+                                  exchange: exchangeValue,
+                                  price: priceValue,
+                                  period: 'no',
+                                  front: 'no',
+                                  back: 'no');
+                              db.saveData(saveItem);
+                              item.itemAdd(saveItem);
+                              Future.delayed(
+                                  Duration(milliseconds: 200),
+                                  () => {
+                                        exchangeValue = 0,
+                                        priceValue = 0,
+                                        Navigator.pop(context),
+                                      });
+                              // exchangeValue = 0;
+                              // priceValue = 0;
+                              // Navigator.pop(context);
                             }
                           },
                           child: Row(

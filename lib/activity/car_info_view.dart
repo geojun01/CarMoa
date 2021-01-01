@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:carmoa/activity/input_data.dart';
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
