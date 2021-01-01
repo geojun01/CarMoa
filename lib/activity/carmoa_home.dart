@@ -71,7 +71,7 @@ class _MoaHomeState extends State<MoaHome> {
                         ),
                         Column(
                           children: [
-                            Text('CarMOA', style: titleBoldFont),
+                            Text('CarMOA', style: titleBoldText18),
                             Row(
                               children: [
                                 Icon(
@@ -80,7 +80,7 @@ class _MoaHomeState extends State<MoaHome> {
                                   size: 14,
                                 ),
                                 SizedBox(width: 4),
-                                Text('자동차의 이것저것 모아 모아', style: titleMinFont),
+                                Text('자동차의 이것저것 모아 모아', style: titleMinText12),
                               ],
                             ),
                           ],

@@ -21,11 +21,15 @@ class InputData extends StatefulWidget {
   _InputDataState createState() => _InputDataState();
 }
 
-String exchangeValue;
-String priceValue;
-bool isCheck = true;
+// int exchangeValue = 0;
+// int priceValue = 0;
+// bool isCheck = true;
 
 class _InputDataState extends State<InputData> {
+  int exchangeValue = 0;
+  int priceValue = 0;
+  bool isCheck = true;
+
   @override
   Widget build(BuildContext context) {
     final item = Provider.of<Model>(context);
@@ -61,7 +65,7 @@ class _InputDataState extends State<InputData> {
                             },
                             child: Icon(
                               CupertinoIcons.chevron_left_2,
-                              color: Colors.white,
+                              color: Color.fromRGBO(239, 247, 255, 1),
                               size: 24,
                             )),
                       ),
@@ -71,7 +75,7 @@ class _InputDataState extends State<InputData> {
                       '${widget.titleName}',
                       style: TextStyle(
                           fontSize: 18,
-                          color: Colors.white,
+                          color: Color.fromRGBO(239, 247, 255, 1),
                           fontWeight: FontWeight.w500),
                     ),
                     Expanded(child: Container()),
@@ -96,11 +100,10 @@ class _InputDataState extends State<InputData> {
                             children: [
                               Text(
                                 '교환날짜 : $timeCheck',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.tealAccent),
+                                style: titleText16,
                               ),
                               Divider(
-                                color: Colors.tealAccent,
+                                color: Color.fromRGBO(217, 254, 207, 1),
                                 thickness: 0.5,
                               ),
                               cycleMenu(cycle, widget.cycleIndex),
@@ -140,12 +143,15 @@ class _InputDataState extends State<InputData> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text('주행거리 : ',
-                                            style: TextStyle(fontSize: 16)),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: graycolor)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
                                               onChanged: (String _value) {
-                                                exchangeValue = _value;
+                                                exchangeValue = int.parse(
+                                                    _value.replaceAll(',', ''));
                                               },
                                               keyboardType:
                                                   TextInputType.number,
@@ -185,12 +191,15 @@ class _InputDataState extends State<InputData> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text('교환비용 :',
-                                            style: TextStyle(fontSize: 16)),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: graycolor)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
                                               onChanged: (String _value) {
-                                                priceValue = _value;
+                                                priceValue = int.parse(
+                                                    _value.replaceAll(',', ''));
                                               },
                                               keyboardType:
                                                   TextInputType.number,
@@ -247,11 +256,25 @@ class _InputDataState extends State<InputData> {
                     SizedBox(height: 30),
                     SizedBox(
                       width: 100,
-                      child: RaisedButton(
+                      child: Builder(
+                        builder: (context) => RaisedButton(
                           color: Colors.orange,
                           onPressed: () {
-                            // 데이터베이스 저장 코드
-                            Navigator.pop(context);
+                            Scaffold.of(context).hideCurrentSnackBar();
+                            if (exchangeValue == null || exchangeValue == 0) {
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('주행거리의 값을 입력해 주세요')));
+                            } else if (priceValue == null || priceValue == 0) {
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('교환비용 값을 입력해 주세요')));
+                            } else {
+                              // 데이터베이스 저장 코드
+                              // print('확인 : $exchangeValue : $priceValue');
+
+                              exchangeValue = 0;
+                              priceValue = 0;
+                              Navigator.pop(context);
+                            }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -261,7 +284,9 @@ class _InputDataState extends State<InputData> {
                               SizedBox(width: 6),
                               Text('저장', style: TextStyle(color: Colors.white))
                             ],
-                          )),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -295,7 +320,7 @@ class _InputDataState extends State<InputData> {
     }
     return Text(
       '교환주기 : ${NumberFormat('###,###,###').format(cycleValue)} km',
-      style: TextStyle(fontSize: 16, color: Colors.tealAccent),
+      style: titleText16,
     );
   }
 }

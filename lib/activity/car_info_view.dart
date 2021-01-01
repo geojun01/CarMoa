@@ -63,7 +63,6 @@ Widget carInfoView(BuildContext context) {
                             Expanded(
                               flex: 10,
                               child: Card(
-                                color: Colors.white,
                                 elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -83,7 +82,7 @@ Widget carInfoView(BuildContext context) {
                                                   .primaryColor,
                                               size: 14),
                                           SizedBox(width: 6),
-                                          Text('교환거리', style: mainFont),
+                                          Text('교환거리', style: mainText14),
                                         ],
                                       ),
                                       Row(
@@ -95,7 +94,7 @@ Widget carInfoView(BuildContext context) {
                                           SizedBox(width: 6),
                                           Text(
                                               '${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.exchange) : ''} km',
-                                              style: mainFont),
+                                              style: mainText14),
                                         ],
                                       ),
                                       Divider(color: startColor),
@@ -106,7 +105,7 @@ Widget carInfoView(BuildContext context) {
                                                   .primaryColor,
                                               size: 14),
                                           SizedBox(width: 6),
-                                          Text('다음교환', style: mainFont),
+                                          Text('다음교환', style: mainText14),
                                         ],
                                       ),
                                       Row(
@@ -118,7 +117,7 @@ Widget carInfoView(BuildContext context) {
                                           SizedBox(width: 6),
                                           Text(
                                               '${itemView.carData.length > 0 ? NumberFormat('###,###,###').format(itemView.getExchangeLast() + exchangeTime) : ''} km',
-                                              style: mainFont),
+                                              style: mainText14),
                                         ],
                                       ),
                                     ],
@@ -151,7 +150,7 @@ Widget carInfoView(BuildContext context) {
                                             SizedBox(width: 6),
                                             Text(
                                                 '비용 : ${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.price) : ''}원',
-                                                style: mainFont),
+                                                style: mainText14),
                                           ],
                                         ),
                                         Divider(color: startColor),
@@ -166,7 +165,7 @@ Widget carInfoView(BuildContext context) {
                                                     .primaryColor,
                                                 size: 14),
                                             SizedBox(width: 6),
-                                            Text('사용기간', style: mainFont),
+                                            Text('사용기간', style: mainText14),
                                           ],
                                         ),
                                         Row(
@@ -182,7 +181,7 @@ Widget carInfoView(BuildContext context) {
                                             SizedBox(width: 6),
                                             Text(
                                                 '${_item.length > 0 ? datePast(_item.last.dateTime) : ''}',
-                                                style: mainFont),
+                                                style: mainText14),
                                           ],
                                         )
                                       ],
@@ -220,20 +219,26 @@ Widget carInfoView(BuildContext context) {
                 return Center(
                   child: Column(
                     children: [
-                      Text('저장된 Data가 없습니다.'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(CupertinoIcons.exclamationmark_circle,
+                              size: 16,
+                              color: Color.fromRGBO(150, 150, 150, 1)),
+                          SizedBox(width: 6),
+                          Text('저장된 Data가 없습니다.',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(150, 150, 150, 1))),
+                        ],
+                      ),
                       InkWell(
                         onTap: () {
-                          var item = new CarModel(
-                              id: DateTime.now().toString(),
-                              dateTime: DateTime.now().toString(),
-                              nameCode: '엔진오일',
-                              exchange: Random().nextInt(70000),
-                              price: Random().nextInt(100000),
-                              period: '자료',
-                              front: '앞',
-                              back: '뒤');
-                          db.saveItem(item);
-                          itemView.itemAdd(item);
+                          aniNavigator(
+                              context,
+                              InputData(
+                                  titleName: titleName,
+                                  cycleIndex: indexCycleMenu));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -281,7 +286,7 @@ Text changeCycle(BuildContext context) {
   return Text(
     '교환주기 : ${_km != null ? NumberFormat('###,###,###').format(_km) : 0} km',
     textAlign: TextAlign.end,
-    style: mainFont,
+    style: mainText14,
   );
 }
 
@@ -290,7 +295,7 @@ Text titleText(SelectMenu value) {
   return Text(
     modifyType[value.getSelect()],
     textAlign: TextAlign.start,
-    style: titleMain,
+    style: titleMain15,
   );
 }
 
@@ -306,7 +311,7 @@ Widget lastDate(BuildContext context, Model itemView) {
           color: Theme.of(context).primaryColor, size: 14),
       SizedBox(width: 6),
       Text('교환날짜 : ${itemView.carData.length > 0 ? date[0] : ''}',
-          style: mainFont),
+          style: mainText14),
     ],
   );
 }

@@ -9,17 +9,17 @@ class CreateDB {
     return aa;
   }
 
-  Future<void> saveData(int index) async {
+  Future<void> saveData(CarModel item) async {
     DBHelper db = DBHelper();
     await db.insertData(new CarModel(
-        id: index.toString(),
+        id: DateTime.now().toString(),
         dateTime: DateTime.now().toString(),
-        nameCode: '자료 ${index.toString()}',
-        exchange: index,
-        price: 40000 + index,
-        period: '입력',
-        front: '앞',
-        back: '뒤'));
+        nameCode: item.nameCode,
+        exchange: item.exchange,
+        price: item.price,
+        period: item.period,
+        front: item.front,
+        back: item.back));
   }
 
   Future<void> saveItem(CarModel item) async {
