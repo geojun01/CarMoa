@@ -19,6 +19,7 @@ int exchangeTime;
 Widget carInfoView(BuildContext context) {
   final itemView = Provider.of<Model>(context);
   final db = CreateDB();
+  List<CarModel> _select;
 
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16),
@@ -47,13 +48,31 @@ Widget carInfoView(BuildContext context) {
             ),
             Divider(height: 16, color: startColor, thickness: 0.5),
             // 정보창 세부 내용 표시
+
             FutureBuilder(
               future: db.loadData(),
               builder: (context, snap) {
                 if (snap.hasData) {
                   itemView.listAdd(snap.data);
-                  final List<CarModel> _item = snap.data;
-                  if (_item.length > 0) {
+                  _select = null;
+                  _select = snap.data;
+
+
+                  if (itemView.getAllIndex() > 0) {
+                    itemView.setClear();
+                    _select.forEach(
+                      (element) {
+                        if (element != null) {
+                          if (element.nameCode == titleName) {
+                            itemView.selectItemAdd(element);
+                          }
+                        }
+                      },
+                    );
+                  }
+
+
+                  if (itemView.getIndex() > 0) {
                     return Column(
                       children: [
                         Row(
@@ -61,6 +80,7 @@ Widget carInfoView(BuildContext context) {
                             Expanded(
                               flex: 10,
                               child: Card(
+                                color: Colors.white,
                                 elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -91,7 +111,7 @@ Widget carInfoView(BuildContext context) {
                                                   .primaryColor),
                                           SizedBox(width: 6),
                                           Text(
-                                              '${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.exchange) : ''} km',
+                                              '${NumberFormat('###,###,###').format(itemView.getExchangeLast())} km',
                                               style: mainText14),
                                         ],
                                       ),
@@ -114,7 +134,7 @@ Widget carInfoView(BuildContext context) {
                                                   .primaryColor),
                                           SizedBox(width: 6),
                                           Text(
-                                              '${itemView.carData.length > 0 ? NumberFormat('###,###,###').format(itemView.getExchangeLast() + exchangeTime) : ''} km',
+                                              '${NumberFormat('###,###,###').format(itemView.getExchangeLast() + exchangeTime)} km',
                                               style: mainText14),
                                         ],
                                       ),
@@ -147,7 +167,7 @@ Widget carInfoView(BuildContext context) {
                                                 size: 14),
                                             SizedBox(width: 6),
                                             Text(
-                                                '비용 : ${_item.length > 0 ? NumberFormat('###,###,###').format(_item.last.price) : ''}원',
+                                                '비용 : ${NumberFormat('###,###,###').format(itemView.getPrice())}원',
                                                 style: mainText14),
                                           ],
                                         ),
@@ -178,7 +198,7 @@ Widget carInfoView(BuildContext context) {
                                                     .primaryColor),
                                             SizedBox(width: 6),
                                             Text(
-                                                '${_item.length > 0 ? datePast(_item.last.dateTime) : ''}',
+                                                '${datePast(itemView.getDateLast())}',
                                                 style: mainText14),
                                           ],
                                         )
@@ -193,7 +213,12 @@ Widget carInfoView(BuildContext context) {
                                           context,
                                           InputData(
                                               titleName: titleName,
-                                              cycleIndex: indexCycleMenu));
+                                              cycleIndex: indexCycleMenu,
+                                              infoExchange: itemView
+                                                          .getExchangeLast() !=
+                                                      null
+                                                  ? itemView.getExchangeLast()
+                                                  : 0));
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
@@ -235,8 +260,10 @@ Widget carInfoView(BuildContext context) {
                           aniNavigator(
                               context,
                               InputData(
-                                  titleName: titleName,
-                                  cycleIndex: indexCycleMenu));
+                                titleName: titleName,
+                                cycleIndex: indexCycleMenu,
+                                infoExchange: 0,
+                              ));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -249,6 +276,7 @@ Widget carInfoView(BuildContext context) {
                 );
               },
             ),
+
           ],
         ),
       ),

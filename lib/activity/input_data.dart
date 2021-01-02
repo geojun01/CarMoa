@@ -15,8 +15,9 @@ import 'package:provider/provider.dart';
 class InputData extends StatefulWidget {
   final titleName;
   final cycleIndex;
+  final infoExchange;
 
-  InputData({Key key, @required this.titleName, @required this.cycleIndex})
+  InputData({Key key, @required this.titleName, @required this.cycleIndex, @required this.infoExchange})
       : super(key: key);
 
   @override
@@ -63,7 +64,7 @@ class _InputDataState extends State<InputData> {
                             },
                             child: Icon(
                               CupertinoIcons.chevron_left_2,
-                              color: Color.fromRGBO(239, 247, 255, 1),
+                              color: whiteColor,
                               size: 24,
                             )),
                       ),
@@ -73,7 +74,7 @@ class _InputDataState extends State<InputData> {
                       '${widget.titleName}',
                       style: TextStyle(
                           fontSize: 18,
-                          color: Color.fromRGBO(239, 247, 255, 1),
+                          color: whiteColor,
                           fontWeight: FontWeight.w500),
                     ),
                     Expanded(child: Container()),
@@ -240,6 +241,9 @@ class _InputDataState extends State<InputData> {
                             } else if (priceValue == null || priceValue == 0) {
                               Scaffold.of(context).showSnackBar(
                                   SnackBar(content: Text('교환비용 값을 입력해 주세요')));
+                            } else if (exchangeValue <= widget.infoExchange){
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('기존 주행거리 ${widget.infoExchange}km 보다 작거나 같습니다.')));
                             } else {
                               // 데이터베이스 저장 코드
                               // print('확인 : $exchangeValue : $priceValue');
