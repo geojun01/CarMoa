@@ -34,17 +34,23 @@ class _MainScreenState extends State<MainScreen>
 
     int eng = await loadPreferenceInt(saveTitle: modifyType[0], initValue: 6000);
     int air = await loadPreferenceInt(saveTitle: modifyType[1], initValue: 7000);
-    int tire = await loadPreferenceInt(saveTitle: modifyType[2], initValue: 60000);
-    int breakPad = await loadPreferenceInt(saveTitle: modifyType[3], initValue: 70000);
-    int breakOil = await loadPreferenceInt(saveTitle: modifyType[4], initValue: 80000);
+    int wiper = await loadPreferenceInt(saveTitle: modifyType[2], initValue: 7000);
+    int tire = await loadPreferenceInt(saveTitle: modifyType[3], initValue: 60000);
+    int breakPad = await loadPreferenceInt(saveTitle: modifyType[4], initValue: 40000);
+    int breakOil = await loadPreferenceInt(saveTitle: modifyType[5], initValue: 40000);
+    int battery = await loadPreferenceInt(saveTitle: modifyType[6], initValue: 60000);
+    int plug = await loadPreferenceInt(saveTitle: modifyType[7], initValue: 50000);
 
     if (isCycleCheck) {
       isCycleCheck = false;
       p.setEng(eng);
       p.setAir(air);
+      p.setWiper(wiper);
       p.setTire(tire);
       p.setBreak(breakPad);
       p.setBreakOil(breakOil);
+      p.setBattery(battery);
+      p.setPlug(plug);
     }
   }
 

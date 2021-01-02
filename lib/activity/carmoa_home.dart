@@ -24,7 +24,6 @@ class _MoaHomeState extends State<MoaHome> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       elevation: menuOpen ? 14 : 0,
       borderRadius: BorderRadius.circular(menuOpen ? 40.0 : 0.9),
@@ -57,7 +56,8 @@ class _MoaHomeState extends State<MoaHome> {
                                     child: child,
                                   );
                                 },
-                                pageBuilder: (context, animation, animationTime) {
+                                pageBuilder:
+                                    (context, animation, animationTime) {
                                   return DrawerScreen();
                                 },
                               ),
@@ -89,7 +89,8 @@ class _MoaHomeState extends State<MoaHome> {
                           tag: 'logoImage',
                           child: CircleAvatar(
                             radius: 22.0,
-                            backgroundImage: AssetImage('assets/images/logo.jpg'),
+                            backgroundImage:
+                                AssetImage('assets/images/logo.jpg'),
                           ),
                         )
                       ],
@@ -165,18 +166,22 @@ class _MoaHomeState extends State<MoaHome> {
               },
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(
-                  color: Colors.white,
                   elevation: value.getSelect() == index ? 6.0 : 1.0,
                   borderRadius: BorderRadius.circular(20.0),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      animalIcons[index],
-                      color: value.getSelect() == index
-                          ? Colors.orangeAccent
-                          : Theme.of(context).primaryColor,
-                      size: 26,
-                    ),
+                    child: value.getSelect() == index
+                        ? Image.asset('assets/icons/${carIcons[index]}',
+                            width: 24, height: 24)
+                        : Image.asset('assets/icons/${carIconsGray[index]}',
+                            width: 24, height: 24),
+                    // child: Icon(
+                    //   animalIcons[index],
+                    //   color: value.getSelect() == index
+                    //       ? Colors.orangeAccent
+                    //       : Theme.of(context).primaryColor,
+                    //   size: 26,
+                    // ),
                   ),
                 ),
               ),
@@ -192,7 +197,7 @@ class _MoaHomeState extends State<MoaHome> {
                   fontSize: 14,
                   fontWeight: value.getSelect() == index
                       ? FontWeight.w600
-                      : FontWeight.w500,
+                      : FontWeight.w400,
                 ),
               ),
             ),

@@ -43,7 +43,8 @@ class _InputDataState extends State<InputData> {
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: [Colors.green, Colors.teal],
+            colors: [Color.fromRGBO(80, 174, 146, 1), Color.fromRGBO(12, 147, 106, 1)]
+            //colors: [Colors.green, Colors.teal],
           ),
         ),
         child: SafeArea(
@@ -144,7 +145,7 @@ class _InputDataState extends State<InputData> {
                                         Text('주행거리 : ',
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: graycolor)),
+                                                color: grayColor)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
@@ -192,7 +193,7 @@ class _InputDataState extends State<InputData> {
                                         Text('교환비용 :',
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: graycolor)),
+                                                color: grayColor)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
@@ -229,7 +230,7 @@ class _InputDataState extends State<InputData> {
                     ),
                     SizedBox(height: 30),
                     SizedBox(
-                      width: 100,
+                      width: 120,
                       child: Builder(
                         builder: (context) => RaisedButton(
                           color: Colors.orange,
@@ -237,10 +238,22 @@ class _InputDataState extends State<InputData> {
                             Scaffold.of(context).hideCurrentSnackBar();
                             if (exchangeValue == null || exchangeValue == 0) {
                               Scaffold.of(context).showSnackBar(
-                                  SnackBar(content: Text('주행거리의 값을 입력해 주세요')));
+                                  SnackBar(content: Row(
+                                    children: [
+                                      Icon(CupertinoIcons.exclamationmark_circle, size: 15),
+                                      SizedBox(width: 6),
+                                      Text('주행거리를 입력해 주세요', style: TextStyle(fontSize: 14)),
+                                    ],
+                                  )));
                             } else if (priceValue == null || priceValue == 0) {
                               Scaffold.of(context).showSnackBar(
-                                  SnackBar(content: Text('교환비용 값을 입력해 주세요')));
+                                  SnackBar(content: Row(
+                                    children: [
+                                      Icon(CupertinoIcons.exclamationmark_circle, size: 15),
+                                      SizedBox(width: 6),
+                                      Text('교환비용을 입력해 주세요', style: TextStyle(fontSize: 14)),
+                                    ],
+                                  )));
                             } else if (exchangeValue <= widget.infoExchange){
                               Scaffold.of(context).showSnackBar(
                                   SnackBar(content: Text('기존 주행거리 ${widget.infoExchange}km 보다 작거나 같습니다.')));
@@ -275,7 +288,7 @@ class _InputDataState extends State<InputData> {
                             children: [
                               Icon(CupertinoIcons.folder_badge_plus,
                                   color: Colors.white),
-                              SizedBox(width: 6),
+                              SizedBox(width: 10),
                               Text('저장', style: TextStyle(color: Colors.white))
                             ],
                           ),
@@ -303,13 +316,22 @@ class _InputDataState extends State<InputData> {
         cycleValue = cycle.getAir(); //에어크리너
         break;
       case 2:
-        cycleValue = cycle.getTire(); //타이어
+        cycleValue = cycle.getWiper(); //와이퍼
         break;
       case 3:
-        cycleValue = cycle.getBreak(); //브레이크패드
+        cycleValue = cycle.getTire(); //타이어
         break;
       case 4:
+        cycleValue = cycle.getBreak(); //브레이크패드
+        break;
+      case 5:
         cycleValue = cycle.getBreakOil(); //브레이크오일
+        break;
+      case 6:
+        cycleValue = cycle.getBattery(); //배터리
+        break;
+      case 7:
+        cycleValue = cycle.getPlug(); //점화플러그
         break;
     }
     return Text(

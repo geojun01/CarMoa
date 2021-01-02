@@ -24,7 +24,6 @@ Widget carInfoView(BuildContext context) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 16),
     child: Card(
-      color: Colors.white,
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -33,8 +32,7 @@ Widget carInfoView(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(FontAwesomeIcons.car,
-                    color: Theme.of(context).primaryColor.withOpacity(0.8)),
+                Icon(CupertinoIcons.chart_bar_circle,),
                 SizedBox(width: 10),
                 Consumer<SelectMenu>(
                   builder: (context, value, child) {
@@ -57,7 +55,6 @@ Widget carInfoView(BuildContext context) {
                   _select = null;
                   _select = snap.data;
 
-
                   if (itemView.getAllIndex() > 0) {
                     itemView.setClear();
                     _select.forEach(
@@ -71,7 +68,6 @@ Widget carInfoView(BuildContext context) {
                     );
                   }
 
-
                   if (itemView.getIndex() > 0) {
                     return Column(
                       children: [
@@ -80,7 +76,6 @@ Widget carInfoView(BuildContext context) {
                             Expanded(
                               flex: 10,
                               child: Card(
-                                color: Colors.white,
                                 elevation: 3,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -96,8 +91,6 @@ Widget carInfoView(BuildContext context) {
                                           Icon(
                                               CupertinoIcons
                                                   .arrow_left_right_square,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text('교환거리', style: mainText14),
@@ -106,9 +99,7 @@ Widget carInfoView(BuildContext context) {
                                       Row(
                                         children: [
                                           Icon(CupertinoIcons.chevron_right,
-                                              size: 14,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
+                                              size: 14),
                                           SizedBox(width: 6),
                                           Text(
                                               '${NumberFormat('###,###,###').format(itemView.getExchangeLast())} km',
@@ -119,8 +110,6 @@ Widget carInfoView(BuildContext context) {
                                       Row(
                                         children: [
                                           Icon(CupertinoIcons.arrow_left_square,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text('다음교환', style: mainText14),
@@ -129,9 +118,7 @@ Widget carInfoView(BuildContext context) {
                                       Row(
                                         children: [
                                           Icon(CupertinoIcons.chevron_right,
-                                              size: 14,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
+                                              size: 14),
                                           SizedBox(width: 6),
                                           Text(
                                               '${NumberFormat('###,###,###').format(itemView.getExchangeLast() + exchangeTime)} km',
@@ -162,8 +149,6 @@ Widget carInfoView(BuildContext context) {
                                             Icon(
                                                 CupertinoIcons
                                                     .money_dollar_circle,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
                                                 size: 14),
                                             SizedBox(width: 6),
                                             Text(
@@ -179,8 +164,6 @@ Widget carInfoView(BuildContext context) {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Icon(CupertinoIcons.calendar,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
                                                 size: 14),
                                             SizedBox(width: 6),
                                             Text('사용기간', style: mainText14),
@@ -193,9 +176,7 @@ Widget carInfoView(BuildContext context) {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Icon(CupertinoIcons.chevron_right,
-                                                size: 14,
-                                                color: Theme.of(context)
-                                                    .primaryColor),
+                                                size: 14),
                                             SizedBox(width: 6),
                                             Text(
                                                 '${datePast(itemView.getDateLast())}',
@@ -225,9 +206,7 @@ Widget carInfoView(BuildContext context) {
                                       child: Icon(
                                           CupertinoIcons
                                               .rectangle_stack_badge_plus,
-                                          size: 28,
-                                          color:
-                                              Theme.of(context).primaryColor),
+                                          size: 28),
                                     ),
                                   ),
                                 ],
@@ -276,7 +255,6 @@ Widget carInfoView(BuildContext context) {
                 );
               },
             ),
-
           ],
         ),
       ),
@@ -297,13 +275,22 @@ Text changeCycle(BuildContext context) {
       _km = cycle.getAir(); //에어크리너
       break;
     case 2:
-      _km = cycle.getTire(); //타이어
+      _km = cycle.getWiper(); //와이퍼
       break;
     case 3:
-      _km = cycle.getBreak(); //브레이크패드
+      _km = cycle.getTire(); //타이어
       break;
     case 4:
-      _km = cycle.getBreakOil(); //브레이크오일
+      _km = cycle.getBreak(); //브레이크 패드
+      break;
+    case 5:
+      _km = cycle.getBreakOil(); //브레이크 오일
+      break;
+    case 6:
+      _km = cycle.getBattery(); //배터리
+      break;
+    case 7:
+      _km = cycle.getPlug(); //점화플러그
       break;
   }
 
@@ -333,8 +320,7 @@ Widget lastDate(BuildContext context, Model itemView) {
   }
   return Row(
     children: [
-      Icon(CupertinoIcons.calendar,
-          color: Theme.of(context).primaryColor, size: 14),
+      Icon(CupertinoIcons.calendar, size: 14),
       SizedBox(width: 6),
       Text('교환날짜 : ${itemView.carData.length > 0 ? date[0] : ''}',
           style: mainText14),

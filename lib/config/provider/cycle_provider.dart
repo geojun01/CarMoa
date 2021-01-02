@@ -6,12 +6,18 @@ class Cycle with ChangeNotifier {
   int _tireValue;
   int _breakValue;
   int _breakOilValue;
+  int _wiper;
+  int _battery;
+  int _plug;
 
   getEng() => _engValue;
   getAir() => _airValue;
   getTire() => _tireValue;
   getBreak() => _breakValue;
   getBreakOil() => _breakOilValue;
+  getWiper() => _wiper;
+  getBattery() => _battery;
+  getPlug() => _plug;
 
   void setEng(int engValue) {
     _engValue = engValue;
@@ -35,6 +41,21 @@ class Cycle with ChangeNotifier {
 
   void setBreakOil(int breakOilValue) {
     _breakOilValue = breakOilValue;
+    notifyListeners();
+  }
+
+  void setWiper(int wiper) {
+    _wiper = wiper;
+    notifyListeners();
+  }
+
+  void setBattery(int battery) {
+    _battery = battery;
+    notifyListeners();
+  }
+
+  void setPlug(int plug) {
+    _plug = plug;
     notifyListeners();
   }
 }
