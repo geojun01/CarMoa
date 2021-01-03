@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
 Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
 Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
 Color grayColor = Color.fromRGBO(71, 71, 71, 1);
+Color iconMenuColor = Color.fromRGBO(225, 225, 225, 1);
 
 const mainText14 = TextStyle(
   fontSize: 14.0,
@@ -71,10 +71,11 @@ List<String> modifyType = [
   '브레이크오일',
   '배터리',
   '점화플러그',
+  '부동액',
 ];
 
 List<String> carIcons = [
-  'oil.png',
+  'e_oil.png',
   'air.png',
   'wiper.png',
   'tire.png',
@@ -82,6 +83,7 @@ List<String> carIcons = [
   'oil.png',
   'battery.png',
   'plug.png',
+  'antifreeze.png'
 ];
 
 List<String> carIconsGray = [
@@ -93,4 +95,5 @@ List<String> carIconsGray = [
   'oil_b.png',
   'battery_b.png',
   'plug_b.png',
+  'antifreeze_b.png'
 ];

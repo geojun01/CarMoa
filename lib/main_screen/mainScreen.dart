@@ -10,10 +10,11 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-bool isCycleCheck = true;
 
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
+  bool isCycleCheck = true;
+
   @override
   Widget build(BuildContext context) {
     // WillPopScope => 뒤로가기 종료 이벤트를 처리하기 위한 위젯
@@ -40,6 +41,7 @@ class _MainScreenState extends State<MainScreen>
     int breakOil = await loadPreferenceInt(saveTitle: modifyType[5], initValue: 40000);
     int battery = await loadPreferenceInt(saveTitle: modifyType[6], initValue: 60000);
     int plug = await loadPreferenceInt(saveTitle: modifyType[7], initValue: 50000);
+    int antifreeze = await loadPreferenceInt(saveTitle: modifyType[8], initValue: 50000);
 
     if (isCycleCheck) {
       isCycleCheck = false;
@@ -51,6 +53,7 @@ class _MainScreenState extends State<MainScreen>
       p.setBreakOil(breakOil);
       p.setBattery(battery);
       p.setPlug(plug);
+      p.setAntifreeze(antifreeze);
     }
   }
 

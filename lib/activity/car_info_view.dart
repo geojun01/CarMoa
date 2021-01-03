@@ -32,7 +32,9 @@ Widget carInfoView(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(CupertinoIcons.chart_bar_circle,),
+                Icon(
+                  CupertinoIcons.chart_bar_circle,
+                ),
                 SizedBox(width: 10),
                 Consumer<SelectMenu>(
                   builder: (context, value, child) {
@@ -74,7 +76,7 @@ Widget carInfoView(BuildContext context) {
                         Row(
                           children: [
                             Expanded(
-                              flex: 10,
+                              flex: 9,
                               child: Card(
                                 elevation: 3,
                                 child: Padding(
@@ -98,7 +100,9 @@ Widget carInfoView(BuildContext context) {
                                       ),
                                       Row(
                                         children: [
+                                          SizedBox(width: 6),
                                           Icon(CupertinoIcons.chevron_right,
+                                              color: Colors.deepOrangeAccent,
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text(
@@ -117,7 +121,9 @@ Widget carInfoView(BuildContext context) {
                                       ),
                                       Row(
                                         children: [
+                                          SizedBox(width: 6),
                                           Icon(CupertinoIcons.chevron_right,
+                                              color: Colors.deepOrangeAccent,
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text(
@@ -132,7 +138,7 @@ Widget carInfoView(BuildContext context) {
                             ),
                             Expanded(child: Container()),
                             Expanded(
-                              flex: 8,
+                              flex: 9,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -176,6 +182,7 @@ Widget carInfoView(BuildContext context) {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Icon(CupertinoIcons.chevron_right,
+                                                color: Colors.deepOrangeAccent,
                                                 size: 14),
                                             SizedBox(width: 6),
                                             Text(
@@ -194,7 +201,6 @@ Widget carInfoView(BuildContext context) {
                                           context,
                                           InputData(
                                               titleName: titleName,
-                                              cycleIndex: indexCycleMenu,
                                               infoExchange: itemView
                                                           .getExchangeLast() !=
                                                       null
@@ -237,12 +243,12 @@ Widget carInfoView(BuildContext context) {
                       InkWell(
                         onTap: () {
                           aniNavigator(
-                              context,
-                              InputData(
-                                titleName: titleName,
-                                cycleIndex: indexCycleMenu,
-                                infoExchange: 0,
-                              ));
+                            context,
+                            InputData(
+                              titleName: titleName,
+                              infoExchange: 0,
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -292,6 +298,9 @@ Text changeCycle(BuildContext context) {
     case 7:
       _km = cycle.getPlug(); //점화플러그
       break;
+    case 8:
+      _km = cycle.getAntifreeze(); //부동액
+      break;
   }
 
   exchangeTime = _km;
@@ -318,12 +327,25 @@ Widget lastDate(BuildContext context, Model itemView) {
     String item = itemView.getDateLast();
     date = item.split(' ');
   }
-  return Row(
+  return Column(
     children: [
-      Icon(CupertinoIcons.calendar, size: 14),
-      SizedBox(width: 6),
-      Text('교환날짜 : ${itemView.carData.length > 0 ? date[0] : ''}',
-          style: mainText14),
+      Row(
+        children: [
+          Icon(CupertinoIcons.calendar, size: 14),
+          SizedBox(width: 6),
+          Text('교환날짜', style: mainText14),
+        ],
+      ),
+      Row(
+        children: [
+          SizedBox(width: 6),
+          Icon(CupertinoIcons.right_chevron,
+              color: Colors.deepOrangeAccent, size: 14),
+          SizedBox(width: 6),
+          Text('${itemView.carData.length > 0 ? date[0] : ''}',
+              style: mainText14),
+        ],
+      ),
     ],
   );
 }

@@ -48,6 +48,7 @@ String datePast(String startDate) {
 }
 
 // 애니메이션 네비게이터
+// Widget _widget => 네비게이터 될 class 이름
 Future<Object> aniNavigator(BuildContext context, Widget _widget) {
   return Navigator.of(context).push(
     PageRouteBuilder(

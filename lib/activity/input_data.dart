@@ -14,10 +14,9 @@ import 'package:provider/provider.dart';
 
 class InputData extends StatefulWidget {
   final titleName;
-  final cycleIndex;
   final infoExchange;
 
-  InputData({Key key, @required this.titleName, @required this.cycleIndex, @required this.infoExchange})
+  InputData({Key key, @required this.titleName, @required this.infoExchange})
       : super(key: key);
 
   @override
@@ -41,11 +40,12 @@ class _InputDataState extends State<InputData> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [Color.fromRGBO(80, 174, 146, 1), Color.fromRGBO(12, 147, 106, 1)]
-            //colors: [Colors.green, Colors.teal],
-          ),
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromRGBO(80, 174, 146, 1),
+                Color.fromRGBO(12, 147, 106, 1)
+              ]),
         ),
         child: SafeArea(
           child: Column(
@@ -106,7 +106,7 @@ class _InputDataState extends State<InputData> {
                                 color: Color.fromRGBO(217, 254, 207, 1),
                                 thickness: 0.5,
                               ),
-                              cycleMenu(cycle, widget.cycleIndex),
+                              cycleMenu(cycle, widget.titleName),
                             ],
                           ),
                         ),
@@ -144,8 +144,7 @@ class _InputDataState extends State<InputData> {
                                       children: [
                                         Text('주행거리 : ',
                                             style: TextStyle(
-                                                fontSize: 16,
-                                                color: grayColor)),
+                                                fontSize: 16)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
@@ -175,7 +174,6 @@ class _InputDataState extends State<InputData> {
                                   ),
                                 ),
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -192,8 +190,7 @@ class _InputDataState extends State<InputData> {
                                       children: [
                                         Text('교환비용 :',
                                             style: TextStyle(
-                                                fontSize: 16,
-                                                color: grayColor)),
+                                                fontSize: 16)),
                                         Flexible(
                                           child: Container(
                                             child: TextField(
@@ -237,26 +234,31 @@ class _InputDataState extends State<InputData> {
                           onPressed: () {
                             Scaffold.of(context).hideCurrentSnackBar();
                             if (exchangeValue == null || exchangeValue == 0) {
-                              Scaffold.of(context).showSnackBar(
-                                  SnackBar(content: Row(
-                                    children: [
-                                      Icon(CupertinoIcons.exclamationmark_circle, size: 15),
-                                      SizedBox(width: 6),
-                                      Text('주행거리를 입력해 주세요', style: TextStyle(fontSize: 14)),
-                                    ],
-                                  )));
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Row(
+                                children: [
+                                  Icon(CupertinoIcons.exclamationmark_circle,
+                                      size: 15),
+                                  SizedBox(width: 6),
+                                  Text('주행거리를 입력해 주세요',
+                                      style: TextStyle(fontSize: 14)),
+                                ],
+                              )));
                             } else if (priceValue == null || priceValue == 0) {
-                              Scaffold.of(context).showSnackBar(
-                                  SnackBar(content: Row(
-                                    children: [
-                                      Icon(CupertinoIcons.exclamationmark_circle, size: 15),
-                                      SizedBox(width: 6),
-                                      Text('교환비용을 입력해 주세요', style: TextStyle(fontSize: 14)),
-                                    ],
-                                  )));
-                            } else if (exchangeValue <= widget.infoExchange){
-                              Scaffold.of(context).showSnackBar(
-                                  SnackBar(content: Text('기존 주행거리 ${widget.infoExchange}km 보다 작거나 같습니다.')));
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Row(
+                                children: [
+                                  Icon(CupertinoIcons.exclamationmark_circle,
+                                      size: 15),
+                                  SizedBox(width: 6),
+                                  Text('교환비용을 입력해 주세요',
+                                      style: TextStyle(fontSize: 14)),
+                                ],
+                              )));
+                            } else if (exchangeValue <= widget.infoExchange) {
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      '기존 주행거리 ${widget.infoExchange}km 보다 작거나 같습니다.')));
                             } else {
                               // 데이터베이스 저장 코드
                               // print('확인 : $exchangeValue : $priceValue');
@@ -272,15 +274,13 @@ class _InputDataState extends State<InputData> {
                               db.saveData(saveItem);
                               item.itemAdd(saveItem);
                               Future.delayed(
-                                  Duration(milliseconds: 200),
-                                  () => {
-                                        exchangeValue = 0,
-                                        priceValue = 0,
-                                        Navigator.pop(context),
-                                      });
-                              // exchangeValue = 0;
-                              // priceValue = 0;
-                              // Navigator.pop(context);
+                                Duration(milliseconds: 200),
+                                () => {
+                                  exchangeValue = 0,
+                                  priceValue = 0,
+                                  Navigator.pop(context),
+                                },
+                              );
                             }
                           },
                           child: Row(
@@ -305,33 +305,36 @@ class _InputDataState extends State<InputData> {
     );
   }
 
-  Text cycleMenu(Cycle cycle, int _index) {
+  Text cycleMenu(Cycle cycle, String _name) {
     int cycleValue;
 
-    switch (_index) {
-      case 0:
+    switch (_name) {
+      case '엔진오일':
         cycleValue = cycle.getEng(); //엔진오일
         break;
-      case 1:
+      case '에어크리너':
         cycleValue = cycle.getAir(); //에어크리너
         break;
-      case 2:
+      case '와이퍼':
         cycleValue = cycle.getWiper(); //와이퍼
         break;
-      case 3:
+      case '타이어':
         cycleValue = cycle.getTire(); //타이어
         break;
-      case 4:
+      case '브레이크패드':
         cycleValue = cycle.getBreak(); //브레이크패드
         break;
-      case 5:
+      case '브레이크오일':
         cycleValue = cycle.getBreakOil(); //브레이크오일
         break;
-      case 6:
+      case '배터리':
         cycleValue = cycle.getBattery(); //배터리
         break;
-      case 7:
+      case '점화플러그':
         cycleValue = cycle.getPlug(); //점화플러그
+        break;
+      case '부동액':
+        cycleValue = cycle.getAntifreeze(); //점화플러그
         break;
     }
     return Text(

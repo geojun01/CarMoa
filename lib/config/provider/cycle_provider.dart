@@ -9,6 +9,7 @@ class Cycle with ChangeNotifier {
   int _wiper;
   int _battery;
   int _plug;
+  int _antifreeze;
 
   getEng() => _engValue;
   getAir() => _airValue;
@@ -18,6 +19,7 @@ class Cycle with ChangeNotifier {
   getWiper() => _wiper;
   getBattery() => _battery;
   getPlug() => _plug;
+  getAntifreeze() => _antifreeze;
 
   void setEng(int engValue) {
     _engValue = engValue;
@@ -56,6 +58,11 @@ class Cycle with ChangeNotifier {
 
   void setPlug(int plug) {
     _plug = plug;
+    notifyListeners();
+  }
+
+  void setAntifreeze(int antifreeze) {
+    _antifreeze = antifreeze;
     notifyListeners();
   }
 }

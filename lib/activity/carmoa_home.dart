@@ -166,6 +166,7 @@ class _MoaHomeState extends State<MoaHome> {
               },
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(
+                  color: value.getSelect() == index ? Colors.white : iconMenuColor,
                   elevation: value.getSelect() == index ? 6.0 : 1.0,
                   borderRadius: BorderRadius.circular(20.0),
                   child: Padding(
@@ -175,13 +176,6 @@ class _MoaHomeState extends State<MoaHome> {
                             width: 24, height: 24)
                         : Image.asset('assets/icons/${carIconsGray[index]}',
                             width: 24, height: 24),
-                    // child: Icon(
-                    //   animalIcons[index],
-                    //   color: value.getSelect() == index
-                    //       ? Colors.orangeAccent
-                    //       : Theme.of(context).primaryColor,
-                    //   size: 26,
-                    // ),
                   ),
                 ),
               ),
@@ -194,7 +188,7 @@ class _MoaHomeState extends State<MoaHome> {
                   color: value.getSelect() == index
                       ? Colors.deepPurpleAccent
                       : Theme.of(context).primaryColor,
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: value.getSelect() == index
                       ? FontWeight.w600
                       : FontWeight.w400,
