@@ -32,10 +32,6 @@ Widget carInfoView(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(
-                  CupertinoIcons.chart_bar_circle,
-                ),
-                SizedBox(width: 10),
                 Consumer<SelectMenu>(
                   builder: (context, value, child) {
                     indexCycleMenu = value.getSelect();
@@ -253,7 +249,7 @@ Widget carInfoView(BuildContext context) {
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: Icon(CupertinoIcons.rectangle_stack_badge_plus,
-                              size: 28, color: Theme.of(context).primaryColor),
+                              size: 28),
                         ),
                       ),
                     ],
@@ -268,6 +264,8 @@ Widget carInfoView(BuildContext context) {
   );
 }
 
+
+// titleName 으로 지정하면 실시간 반영이 되지 않는다. 꼭 selectPick 사용
 Text changeCycle(BuildContext context) {
   final selectPick = Provider.of<SelectMenu>(context);
   final cycle = Provider.of<Cycle>(context);
@@ -312,12 +310,19 @@ Text changeCycle(BuildContext context) {
   );
 }
 
-Text titleText(SelectMenu value) {
-  titleName = modifyType[value.getSelect()];
-  return Text(
-    modifyType[value.getSelect()],
-    textAlign: TextAlign.start,
-    style: titleMain15,
+Widget titleText(SelectMenu value) {
+  String iconImage = carIcons[value.getSelect()];
+  titleName = partType[value.getSelect()];
+  return Row(
+    children: [
+      Image.asset('assets/icons/$iconImage', height: 22, width: 22),
+      SizedBox(width: 10),
+      Text(
+        partType[value.getSelect()],
+        textAlign: TextAlign.start,
+        style: titleMain15,
+      )
+    ],
   );
 }
 

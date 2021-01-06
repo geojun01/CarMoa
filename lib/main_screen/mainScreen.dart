@@ -33,15 +33,15 @@ class _MainScreenState extends State<MainScreen>
   Future<void> cycleLoad(BuildContext context) async {
     final p = Provider.of<Cycle>(context, listen: false);
 
-    int eng = await loadPreferenceInt(saveTitle: modifyType[0], initValue: 6000);
-    int air = await loadPreferenceInt(saveTitle: modifyType[1], initValue: 7000);
-    int wiper = await loadPreferenceInt(saveTitle: modifyType[2], initValue: 7000);
-    int tire = await loadPreferenceInt(saveTitle: modifyType[3], initValue: 60000);
-    int breakPad = await loadPreferenceInt(saveTitle: modifyType[4], initValue: 40000);
-    int breakOil = await loadPreferenceInt(saveTitle: modifyType[5], initValue: 40000);
-    int battery = await loadPreferenceInt(saveTitle: modifyType[6], initValue: 60000);
-    int plug = await loadPreferenceInt(saveTitle: modifyType[7], initValue: 50000);
-    int antifreeze = await loadPreferenceInt(saveTitle: modifyType[8], initValue: 50000);
+    int eng = await loadPreferenceInt(saveTitle: partType[0], initValue: 6000);
+    int air = await loadPreferenceInt(saveTitle: partType[1], initValue: 7000);
+    int wiper = await loadPreferenceInt(saveTitle: partType[2], initValue: 7000);
+    int tire = await loadPreferenceInt(saveTitle: partType[3], initValue: 60000);
+    int breakPad = await loadPreferenceInt(saveTitle: partType[4], initValue: 40000);
+    int breakOil = await loadPreferenceInt(saveTitle: partType[5], initValue: 40000);
+    int battery = await loadPreferenceInt(saveTitle: partType[6], initValue: 60000);
+    int plug = await loadPreferenceInt(saveTitle: partType[7], initValue: 50000);
+    int antifreeze = await loadPreferenceInt(saveTitle: partType[8], initValue: 50000);
 
     if (isCycleCheck) {
       isCycleCheck = false;

@@ -36,6 +36,7 @@ class _InputDataState extends State<InputData> {
     final timeCheck = formatDate(DateTime.now(), [yyyy, '년', mm, '월', dd, '일']);
 
     return Scaffold(
+      // resizeToAvoidBottomPadding ->  키보드가 올라와도 화면을 밀어올리는걸 방지 한다
       resizeToAvoidBottomPadding: false,
       body: Container(
         decoration: BoxDecoration(
@@ -56,17 +57,20 @@ class _InputDataState extends State<InputData> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.only(left: 12),
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
-                              CupertinoIcons.chevron_left_2,
-                              color: whiteColor,
-                              size: 24,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(
+                                CupertinoIcons.left_chevron,
+                                color: whiteColor,
+                                size: 24,
+                              ),
                             )),
                       ),
                     ),
@@ -79,15 +83,16 @@ class _InputDataState extends State<InputData> {
                           fontWeight: FontWeight.w500),
                     ),
                     Expanded(child: Container()),
-                    Container(width: 40),
+                    Container(width: 50),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    Divider(color: iconMenuColor),
+                    SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
@@ -95,7 +100,7 @@ class _InputDataState extends State<InputData> {
                           flex: 1,
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 4,
                           child: Column(
                             children: [
                               Text(
@@ -118,7 +123,7 @@ class _InputDataState extends State<InputData> {
                     ),
                     SizedBox(height: 30),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),

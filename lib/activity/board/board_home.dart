@@ -1,4 +1,5 @@
 import 'package:carmoa/config/assist_util.dart';
+import 'package:carmoa/config/config_style.dart';
 import 'package:flutter/material.dart';
 
 class BoardHome extends StatefulWidget {
@@ -10,41 +11,47 @@ class _BoardHomeState extends State<BoardHome> {
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
-        future: viewSize(Stream<Size>.periodic(
-            Duration(milliseconds: 100), (x) => MediaQuery.of(context).size)),
-        builder: (context, snap) {
-          Size v = snap.data;
-          return Stack(
-            children: [
-              Positioned(
-                height: v != null ? v.height : 0,
-                width: v != null ? v.width : 0,
-                child: Image.asset('assets/images/board_image.jpg',
-                    fit: BoxFit.fitHeight),
-              ),
-              Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  // title: Text(
-                  //   '게시판',
-                  //   style: TextStyle(color: Theme.of(context).primaryColor),
-                  // ),
-                  title: Text(
-                    '게시판',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                  centerTitle: true,
-                  iconTheme:
-                      IconThemeData(color: Theme.of(context).primaryColor),
-                  backgroundColor: Colors.white,
-                  elevation: 3,
+    return WillPopScope(
+      onWillPop: () async {
+        menuOpen = false;
+        return true;
+      },
+      child: FutureBuilder(
+          future: viewSize(Stream<Size>.periodic(
+              Duration(milliseconds: 100), (x) => MediaQuery.of(context).size)),
+          builder: (context, snap) {
+            Size v = snap.data;
+            return Stack(
+              children: [
+                Positioned(
+                  height: v != null ? v.height : 0,
+                  width: v != null ? v.width : 0,
+                  child: Image.asset('assets/images/board_image.jpg',
+                      fit: BoxFit.fitHeight),
                 ),
-                body: BoardList(),
-              )
-            ],
-          );
-        });
+                Scaffold(
+                  backgroundColor: Colors.transparent,
+                  appBar: AppBar(
+                    // title: Text(
+                    //   '게시판',
+                    //   style: TextStyle(color: Theme.of(context).primaryColor),
+                    // ),
+                    title: Text(
+                      '게시판',
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                    centerTitle: true,
+                    iconTheme:
+                        IconThemeData(color: Theme.of(context).primaryColor),
+                    backgroundColor: Colors.white,
+                    elevation: 3,
+                  ),
+                  body: BoardList(),
+                )
+              ],
+            );
+          }),
+    );
   }
 }
 

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'CarMoa',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: mainColor,
+        primaryColor: primaryMainColor,
       ),
       home: MainScreen(),
     );

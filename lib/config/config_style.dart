@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+Color primaryMainColor = Color.fromRGBO(43, 139, 229, 1);
 Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
 Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
 Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
 Color grayColor = Color.fromRGBO(71, 71, 71, 1);
 Color iconMenuColor = Color.fromRGBO(225, 225, 225, 1);
+Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
 
 const mainText14 = TextStyle(
   fontSize: 14.0,
@@ -23,7 +25,6 @@ const titleText16 = TextStyle(
 const titleBoldText18 = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.w600,
-  color: Color.fromRGBO(48, 96, 96, 1.0),
 );
 
 const titleMain15 = TextStyle(
@@ -49,7 +50,7 @@ List<String> menuItems = [
   'Menu page C',
   'Menu page D',
   'Menu page E',
-  'CarMoa Information',
+  'CarMoa 정보',
 ];
 
 List<IconData> icons = [
@@ -62,7 +63,7 @@ List<IconData> icons = [
 ];
 
 
-List<String> modifyType = [
+List<String> partType = [
   '엔진오일',
   '에어크리너',
   '와이퍼',

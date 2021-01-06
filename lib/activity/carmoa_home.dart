@@ -37,7 +37,7 @@ class _MoaHomeState extends State<MoaHome> {
                 children: [
                   // AppBar 디자인
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,10 +63,12 @@ class _MoaHomeState extends State<MoaHome> {
                               ),
                             );
                           },
-                          child: Icon(
-                            FontAwesomeIcons.bars,
-                            size: 20,
-                            color: mainColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Icon(
+                              FontAwesomeIcons.bars,
+                              size: 20,
+                            ),
                           ),
                         ),
                         Column(
@@ -87,10 +89,13 @@ class _MoaHomeState extends State<MoaHome> {
                         ),
                         Hero(
                           tag: 'logoImage',
-                          child: CircleAvatar(
-                            radius: 22.0,
-                            backgroundImage:
-                                AssetImage('assets/images/logo.jpg'),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: CircleAvatar(
+                              radius: 22.0,
+                              backgroundImage:
+                                  AssetImage('assets/images/logo.jpg'),
+                            ),
                           ),
                         )
                       ],
@@ -121,13 +126,13 @@ class _MoaHomeState extends State<MoaHome> {
                           child: ListView.builder(
                               padding: EdgeInsets.only(left: 16.0),
                               scrollDirection: Axis.horizontal,
-                              itemCount: modifyType.length,
+                              itemCount: partType.length,
                               itemBuilder: (context, index) {
                                 return buildAnimalIcon(index);
                               }),
                         ),
                         // 세부 메뉴 화면
-                        FadeIn(delay: 2, child: carInfoView(context)),
+                        FadeIn(delay: 1, child: carInfoView(context)),
                         SizedBox(height: 16),
                         // 하단 애니메이션 메뉴
                         CarIconMenu(),
@@ -154,7 +159,7 @@ class _MoaHomeState extends State<MoaHome> {
     return Padding(
       padding: const EdgeInsets.only(right: 30.0),
       child: FadeIn(
-        delay: 2,
+        delay: 1,
         child: Column(
           children: [
             InkWell(
@@ -183,11 +188,11 @@ class _MoaHomeState extends State<MoaHome> {
             SizedBox(height: 12),
             Consumer<SelectMenu>(
               builder: (context, value, child) => Text(
-                modifyType[index],
+                partType[index],
                 style: TextStyle(
                   color: value.getSelect() == index
-                      ? Colors.deepPurpleAccent
-                      : Theme.of(context).primaryColor,
+                      ? Colors.deepOrangeAccent
+                      : mainColor,
                   fontSize: 12,
                   fontWeight: value.getSelect() == index
                       ? FontWeight.w600

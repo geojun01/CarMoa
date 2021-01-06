@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:carmoa/activity/gasmap/image_view.dart';
+import 'package:carmoa/activity/charging/image_view.dart';
+import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/data/photo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,32 +15,38 @@ class GasMap extends StatefulWidget {
 class _GasMapState extends State<GasMap> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(
-          'GasMap',
-          style: TextStyle(color: Theme.of(context).primaryColor),
+    return WillPopScope(
+      onWillPop: () async {
+        menuOpen = false;
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+          title: Text(
+            'GasMap',
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 3,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 3,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: FutureBuilder<List<Photo>>(
-                future: fetchPhoto(http.Client()),
-                builder: (context, snap) {
-                  return snap.hasData
-                      ? PhotosList(photos: snap.data)
-                      : Center(child: CircularProgressIndicator());
-                },
-              ),
-            )
-          ],
+        body: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: FutureBuilder<List<Photo>>(
+                  future: fetchPhoto(http.Client()),
+                  builder: (context, snap) {
+                    return snap.hasData
+                        ? PhotosList(photos: snap.data)
+                        : Center(child: CircularProgressIndicator());
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

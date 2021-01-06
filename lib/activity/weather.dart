@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carmoa/config/assist_util.dart';
+import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/location.dart';
 import 'package:carmoa/data/weather_data.dart';
 import 'package:flutter/cupertino.dart';
@@ -61,7 +62,7 @@ Widget buildTopWeather(BuildContext context) {
                       position.getIcon() != null
                           ? SvgPicture.asset(
                               'assets/weather/${position.getIcon()}.svg',
-                              color: Theme.of(context).primaryColor,
+                              color: mainColor,
                               width: 50,
                               height: 50)
                           : Container(),
@@ -71,7 +72,7 @@ Widget buildTopWeather(BuildContext context) {
                               style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor))
+                                  color: mainColor))
                           : Container(),
                       SizedBox(width: 8),
                       Column(
@@ -86,8 +87,7 @@ Widget buildTopWeather(BuildContext context) {
                                         Text('${position.getCity()}',
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: Theme.of(context)
-                                                    .primaryColor)),
+                                                color: mainColor)),
                                         SizedBox(width: 10),
                                         Material(
                                           color: Colors.transparent,
@@ -102,8 +102,7 @@ Widget buildTopWeather(BuildContext context) {
                                                       horizontal: 8),
                                               child: Icon(
                                                   CupertinoIcons.location,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
+                                                  color: mainColor,
                                                   size: 20),
                                             ),
                                           ),
@@ -111,7 +110,7 @@ Widget buildTopWeather(BuildContext context) {
                                       ],
                                     )
                                   : Icon(FontAwesomeIcons.mapMarkerAlt,
-                                      color: Theme.of(context).primaryColor,
+                                      color: mainColor,
                                       size: 16)
                             ],
                           ),
@@ -122,7 +121,7 @@ Widget buildTopWeather(BuildContext context) {
                                 '${position.getId() != null ? weatherData.descriptionKR[position.getId()] : ''}',
                                 style: TextStyle(
                                     fontSize: 15,
-                                    color: Theme.of(context).primaryColor),
+                                    color: mainColor),
                               )
                             ],
                           ),

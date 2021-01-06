@@ -1,5 +1,7 @@
 import 'package:carmoa/activity/board/board_home.dart';
-import 'package:carmoa/activity/gasmap/gas_map.dart';
+import 'package:carmoa/activity/camping/camping_main.dart';
+import 'package:carmoa/activity/charging/gas_map.dart';
+import 'package:carmoa/activity/travel/road_travel.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/icon_menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +44,10 @@ class CarIconMenu extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       if (!menuOpen) {
+                        menuOpen = true;
                         menu.menuSelect(1);
+                        Future.delayed(Duration(milliseconds: 300),
+                                () => {aniNavigator(context, Camping())});
                       }
                     },
                     child: Column(
@@ -85,7 +90,10 @@ class CarIconMenu extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       if (!menuOpen) {
+                        menuOpen = true;
                         menu.menuSelect(2);
+                        Future.delayed(Duration(milliseconds: 300),
+                                () => {aniNavigator(context, RoadTravel())});
                       }
                     },
                     child: Column(
@@ -128,6 +136,7 @@ class CarIconMenu extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       if (!menuOpen) {
+                        menuOpen = true;
                         menu.menuSelect(3);
                         Future.delayed(Duration(milliseconds: 300),
                             () => {aniNavigator(context, GasMap())});
@@ -173,6 +182,7 @@ class CarIconMenu extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       if (!menuOpen) {
+                        menuOpen = true;
                         menu.menuSelect(4);
                         Future.delayed(
                           Duration(milliseconds: 300),
