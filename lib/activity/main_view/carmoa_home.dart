@@ -1,11 +1,7 @@
-import 'package:carmoa/activity/car_icon_menu.dart';
-import 'package:carmoa/activity/car_info_view.dart';
-import 'package:carmoa/activity/weather.dart';
+import 'package:carmoa/activity/main_view/car_info_view.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/my_behavior.dart';
-import 'package:carmoa/config/provider/model.dart';
 import 'package:carmoa/config/provider/selected_menu.dart';
-import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:carmoa/main_screen/drawerScreen.dart';
 import 'package:carmoa/widgets/fade_in_ainmation.dart';
@@ -13,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import 'file:///D:/Android-Files/carmoa/lib/activity/main_view/car_icon_menu.dart';
+import 'file:///D:/Android-Files/carmoa/lib/activity/main_view/weather.dart';
 
 class MoaHome extends StatefulWidget {
   @override
@@ -25,8 +24,6 @@ class _MoaHomeState extends State<MoaHome> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: menuOpen ? 14 : 0,
-      borderRadius: BorderRadius.circular(menuOpen ? 40.0 : 0.9),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
@@ -107,10 +104,7 @@ class _MoaHomeState extends State<MoaHome> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(30),
-                            topLeft: Radius.circular(30),
-                            bottomLeft: menuOpen
-                                ? Radius.circular(40)
-                                : Radius.circular(0)),
+                            topLeft: Radius.circular(30),),
                         // color: Color(0xFFF4EFF6)),
                         color: Color.fromRGBO(235, 235, 235, 1)),
                     // 실제 디자인 위젯 모음
@@ -124,7 +118,7 @@ class _MoaHomeState extends State<MoaHome> {
                         Container(
                           height: 100.0,
                           child: ListView.builder(
-                              padding: EdgeInsets.only(left: 16.0),
+                              padding: EdgeInsets.only(left: 12.0),
                               scrollDirection: Axis.horizontal,
                               itemCount: partType.length,
                               itemBuilder: (context, index) {
@@ -164,10 +158,8 @@ class _MoaHomeState extends State<MoaHome> {
           children: [
             InkWell(
               onTap: () {
-                if (!menuOpen) {
-                  Provider.of<SelectMenu>(context, listen: false)
-                      .setSelect(index);
-                }
+                Provider.of<SelectMenu>(context, listen: false)
+                    .setSelect(index);
               },
               child: Consumer<SelectMenu>(
                 builder: (context, value, child) => Material(

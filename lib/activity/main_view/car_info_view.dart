@@ -1,4 +1,5 @@
-import 'package:carmoa/activity/input_data.dart';
+import 'package:carmoa/activity/main_view/data_list_view.dart';
+import 'package:carmoa/activity/main_view/input_data.dart';
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
@@ -8,7 +9,6 @@ import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ Widget carInfoView(BuildContext context) {
   List<CarModel> _select;
 
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 16),
+    margin: EdgeInsets.symmetric(horizontal: 8),
     child: Card(
       elevation: 2,
       child: Padding(
@@ -35,7 +35,7 @@ Widget carInfoView(BuildContext context) {
                 Consumer<SelectMenu>(
                   builder: (context, value, child) {
                     indexCycleMenu = value.getSelect();
-                    return titleText(value);
+                    return titleText(context, value);
                   },
                 ),
                 Expanded(child: SizedBox(width: 16)),
@@ -94,6 +94,7 @@ Widget carInfoView(BuildContext context) {
                                           Text('교환거리', style: mainText14),
                                         ],
                                       ),
+                                      SizedBox(height: 2),
                                       Row(
                                         children: [
                                           SizedBox(width: 6),
@@ -115,6 +116,7 @@ Widget carInfoView(BuildContext context) {
                                           Text('다음교환', style: mainText14),
                                         ],
                                       ),
+                                      SizedBox(height: 2),
                                       Row(
                                         children: [
                                           SizedBox(width: 6),
@@ -171,6 +173,7 @@ Widget carInfoView(BuildContext context) {
                                             Text('사용기간', style: mainText14),
                                           ],
                                         ),
+                                        SizedBox(height: 2),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -310,19 +313,27 @@ Text changeCycle(BuildContext context) {
   );
 }
 
-Widget titleText(SelectMenu value) {
+Widget titleText(BuildContext context, SelectMenu value) {
   String iconImage = carIcons[value.getSelect()];
+  final _itemView = Provider.of<Model>(context, listen: false);
   titleName = partType[value.getSelect()];
-  return Row(
-    children: [
-      Image.asset('assets/icons/$iconImage', height: 22, width: 22),
-      SizedBox(width: 10),
-      Text(
-        partType[value.getSelect()],
-        textAlign: TextAlign.start,
-        style: titleMain15,
-      )
-    ],
+  return GestureDetector(
+    onTap: () {
+      if (_itemView.getIndex() > 0) {
+        aniNavigator(context, DataListView(dataIndex: value.getSelect()));
+      }
+    },
+    child: Row(
+      children: [
+        Hero(tag: 'listIcon',child: Image.asset('assets/icons/$iconImage', height: 22, width: 22)),
+        SizedBox(width: 10),
+        Text(
+          partType[value.getSelect()],
+          textAlign: TextAlign.start,
+          style: titleMain15,
+        ),
+      ],
+    ),
   );
 }
 
@@ -341,6 +352,7 @@ Widget lastDate(BuildContext context, Model itemView) {
           Text('교환날짜', style: mainText14),
         ],
       ),
+      SizedBox(height: 2),
       Row(
         children: [
           SizedBox(width: 6),

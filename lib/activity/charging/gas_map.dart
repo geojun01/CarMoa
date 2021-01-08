@@ -17,12 +17,11 @@ class _GasMapState extends State<GasMap> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        menuOpen = false;
+        isIconMenuCheck = false;
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           title: Text(
             'GasMap',
             style: TextStyle(color: Theme.of(context).primaryColor),
@@ -107,10 +106,9 @@ class PhotosList extends StatelessWidget {
   }
 }
 
-int page = 1;
-int limit = 40;
-
 Future<List<Photo>> fetchPhoto(http.Client client) async {
+  int page = 1;
+  int limit = 40;
   final response =
       await client.get('https://picsum.photos/v2/list?page=$page&limit=$limit');
   return compute(

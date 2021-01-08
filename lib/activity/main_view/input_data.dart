@@ -1,4 +1,4 @@
-import 'package:carmoa/activity/car_info_view.dart';
+import 'package:carmoa/activity/main_view/car_info_view.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/model.dart';

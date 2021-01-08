@@ -12,7 +12,7 @@ class _RoadTravelState extends State<RoadTravel> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        menuOpen = false;
+        isIconMenuCheck = false;
         return true;
       },
       child: Scaffold(
@@ -51,7 +51,7 @@ class _RoadTravelState extends State<RoadTravel> {
           SizedBox(width: 8),
           InkWell(
             onTap: () {
-              menuOpen = false;
+              isIconMenuCheck = false;
               Navigator.of(context).pop();
             },
             child: Padding(

@@ -1,3 +1,4 @@
+import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/icon_menu.dart';
@@ -23,8 +24,8 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,3 +39,44 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Provider.of<SelectMenu>(context, listen: false);
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'CarMoa',
+//       theme: theme.getTheme(),
+//       home: themeSet(context),
+//     );
+//   }
+// }
+//
+// Widget themeSet(BuildContext context) {
+//   themeLoad(context);
+//   ThemeData(primaryColor: primaryMainColor);
+//   return MainScreen();
+// }
+//
+// // 테마 불러오기
+// Future<void> themeLoad(BuildContext context) async {
+//   String eng = await loadPreferenceString(loadTitle: 'theme', value: 'dark');
+//
+//   if (eng != null) themeChange(context, eng);
+// }
+//
+// void themeChange(BuildContext context, String _theme) {
+//   final theme = Provider.of<SelectMenu>(context, listen: false);
+//
+//   if (_theme == 'light') {
+//     theme.setTheme(ThemeData.light());
+//     theme.setThemeName(_theme);
+//     menuItems[4] = 'Light Theme Mode';
+//   } else {
+//     theme.setTheme(ThemeData.dark());
+//     theme.setThemeName(_theme);
+//     menuItems[4] = 'Dark Theme Mode';
+//   }
+// }

@@ -110,8 +110,7 @@ Widget buildTopWeather(BuildContext context) {
                                       ],
                                     )
                                   : Icon(FontAwesomeIcons.mapMarkerAlt,
-                                      color: mainColor,
-                                      size: 16)
+                                      color: mainColor, size: 16)
                             ],
                           ),
                           SizedBox(height: 4),
@@ -119,9 +118,8 @@ Widget buildTopWeather(BuildContext context) {
                             children: [
                               Text(
                                 '${position.getId() != null ? weatherData.descriptionKR[position.getId()] : ''}',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: mainColor),
+                                style:
+                                    TextStyle(fontSize: 15, color: mainColor),
                               )
                             ],
                           ),
@@ -130,7 +128,10 @@ Widget buildTopWeather(BuildContext context) {
                     ],
                   );
                 }
-                return Container();
+                return Center(
+                  child: CircularProgressIndicator(
+                  ),
+                );
               }),
         );
       });
@@ -141,6 +142,7 @@ Future<String> loadPreference(BuildContext context) async {
   String item = preferences.getString('location') ?? '37.5640455,126.834003';
   var data = item.split(',');
 
+  // 프로그램 시작시 처음 한번만 실행
   if (isCheck) {
     isCheck = false;
     await getWeatherData(context: context, lat: data[0], lon: data[1]);

@@ -190,9 +190,24 @@ void selectMenu(BuildContext context, int index) {
     case 3:
       break;
     case 4:
+      //themeChcek(context);
       break;
     case 5:
       aniNavigator(context, LicensePage());
       break;
   }
 }
+
+// void themeChcek(BuildContext context) {
+//   final theme = Provider.of<SelectMenu>(context, listen: false);
+//
+//   if (theme.getThemeName() == 'light') {
+//     theme.setThemeName('dark');
+//     theme.setTheme(ThemeData.dark());
+//     menuItems[4] = 'Dark Theme Mode';
+//   } else {
+//     theme.setThemeName('light');
+//     theme.setTheme(ThemeData.light());
+//     menuItems[4] = 'Light Theme Mode';
+//   }
+// }

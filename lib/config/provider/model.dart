@@ -7,6 +7,7 @@ class Model with ChangeNotifier {
   final carData = List<CarModel>();
   final selectData = List<CarModel>();
   int _cycle;
+  int _totalPrice;
 
   // getDateLast() => carData.last.dateTime;
   // getNameLast() => carData.last.nameCode;
@@ -31,9 +32,11 @@ class Model with ChangeNotifier {
   getIndex() => selectData.length;
   getAllIndex() => carData.length;
 
-  setClear() => selectData.clear();
-
   getCycle() => _cycle;
+
+  getTotalPrice() => _totalPrice;
+
+  setClear() => selectData.clear();
 
 
   void selectItemCheck() {
@@ -43,7 +46,7 @@ class Model with ChangeNotifier {
 
   void selectItemAdd(CarModel item) {
     selectData.add(item);
-    //notifyListeners();
+    // notifyListeners(); 추가하면 에러
   }
 
   void listAdd(List<CarModel> item) async {
@@ -88,5 +91,9 @@ class Model with ChangeNotifier {
   void setCycleCheck(int cycle) {
     _cycle = cycle;
     notifyListeners();
+  }
+
+  void setTotalPrice(int price) {
+    _totalPrice = price;
   }
 }

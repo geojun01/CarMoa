@@ -13,7 +13,7 @@ class _CampingState extends State<Camping> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        menuOpen = false;
+        isIconMenuCheck = false;
         return true;
       },
       child: Scaffold(
@@ -51,7 +51,7 @@ class _CampingState extends State<Camping> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Test'),
                       ),
-                    )
+                    ),
                   ],
                 );
               },
@@ -70,7 +70,7 @@ class _CampingState extends State<Camping> {
           SizedBox(width: 8),
           InkWell(
             onTap: () {
-              menuOpen = false;
+              isIconMenuCheck = false;
               Navigator.of(context).pop();
             },
             child: Padding(

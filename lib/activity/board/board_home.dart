@@ -13,7 +13,7 @@ class _BoardHomeState extends State<BoardHome> {
 
     return WillPopScope(
       onWillPop: () async {
-        menuOpen = false;
+        isIconMenuCheck = false;
         return true;
       },
       child: FutureBuilder(

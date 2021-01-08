@@ -1,4 +1,4 @@
-import 'package:carmoa/activity/carmoa_home.dart';
+import 'file:///D:/Android-Files/carmoa/lib/activity/main_view/carmoa_home.dart';
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';

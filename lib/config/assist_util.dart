@@ -86,7 +86,7 @@ Future<void> savePreferenceString(
   pres.setString(saveTitle, name);
 }
 
-Future<String> loadPreferenceString({@required String saveTitle}) async {
+Future<String> loadPreferenceString({@required String loadTitle, @required String value}) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  return pref.getString(saveTitle) ?? '';
+  return pref.getString(loadTitle) ?? value;
 }

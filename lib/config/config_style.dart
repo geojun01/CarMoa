@@ -16,6 +16,11 @@ const mainText14 = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+const mainText16 = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.w400,
+);
+
 const titleText16 = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w500,
@@ -41,7 +46,7 @@ class Styles {
   static File imagePath;
 }
 
-bool menuOpen = false;
+bool isIconMenuCheck = false;
 bool isMenuCheck = false;
 
 List<String> menuItems = [
@@ -49,7 +54,7 @@ List<String> menuItems = [
   'Menu page B',
   'Menu page C',
   'Menu page D',
-  'Menu page E',
+  '테마변경',
   'CarMoa 정보',
 ];
 
@@ -58,7 +63,7 @@ List<IconData> icons = [
   CupertinoIcons.home,
   CupertinoIcons.plus,
   CupertinoIcons.chart_pie,
-  CupertinoIcons.mail,
+  CupertinoIcons.viewfinder,
   CupertinoIcons.info,
 ];
 
