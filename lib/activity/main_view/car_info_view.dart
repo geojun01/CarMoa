@@ -1,5 +1,7 @@
-import 'package:carmoa/activity/main_view/data_list_view.dart';
+import 'dart:html';
+
 import 'package:carmoa/activity/main_view/input_data.dart';
+import 'package:carmoa/activity/main_view/main_sub_view/data_list_view.dart';
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
@@ -9,7 +11,6 @@ import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 var titleName;
@@ -91,7 +92,7 @@ Widget carInfoView(BuildContext context) {
                                                   .arrow_left_right_square,
                                               size: 14),
                                           SizedBox(width: 6),
-                                          Text('교환거리', style: mainText14),
+                                          Text('교환거리', style: mainText),
                                         ],
                                       ),
                                       SizedBox(height: 2),
@@ -103,8 +104,8 @@ Widget carInfoView(BuildContext context) {
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text(
-                                              '${NumberFormat('###,###,###').format(itemView.getExchangeLast())} km',
-                                              style: mainText14),
+                                              '${changeUnit(itemView.getExchangeLast())} km',
+                                              style: mainText),
                                         ],
                                       ),
                                       Divider(color: startColor),
@@ -113,7 +114,7 @@ Widget carInfoView(BuildContext context) {
                                           Icon(CupertinoIcons.arrow_left_square,
                                               size: 14),
                                           SizedBox(width: 6),
-                                          Text('다음교환', style: mainText14),
+                                          Text('다음교환', style: mainText),
                                         ],
                                       ),
                                       SizedBox(height: 2),
@@ -125,8 +126,8 @@ Widget carInfoView(BuildContext context) {
                                               size: 14),
                                           SizedBox(width: 6),
                                           Text(
-                                              '${NumberFormat('###,###,###').format(itemView.getExchangeLast() + exchangeTime)} km',
-                                              style: mainText14),
+                                              '${changeUnit(itemView.getExchangeLast() + exchangeTime)} km',
+                                              style: mainText),
                                         ],
                                       ),
                                     ],
@@ -156,8 +157,8 @@ Widget carInfoView(BuildContext context) {
                                                 size: 14),
                                             SizedBox(width: 6),
                                             Text(
-                                                '비용 : ${NumberFormat('###,###,###').format(itemView.getPrice())}원',
-                                                style: mainText14),
+                                                '비용 : ${changeUnit(itemView.getPrice())}원',
+                                                style: mainText),
                                           ],
                                         ),
                                         Divider(color: startColor),
@@ -170,7 +171,7 @@ Widget carInfoView(BuildContext context) {
                                             Icon(CupertinoIcons.calendar,
                                                 size: 14),
                                             SizedBox(width: 6),
-                                            Text('사용기간', style: mainText14),
+                                            Text('사용기간', style: mainText),
                                           ],
                                         ),
                                         SizedBox(height: 2),
@@ -186,7 +187,7 @@ Widget carInfoView(BuildContext context) {
                                             SizedBox(width: 6),
                                             Text(
                                                 '${datePast(itemView.getDateLast())}',
-                                                style: mainText14),
+                                                style: mainText),
                                           ],
                                         )
                                       ],
@@ -267,7 +268,6 @@ Widget carInfoView(BuildContext context) {
   );
 }
 
-
 // titleName 으로 지정하면 실시간 반영이 되지 않는다. 꼭 selectPick 사용
 Text changeCycle(BuildContext context) {
   final selectPick = Provider.of<SelectMenu>(context);
@@ -307,31 +307,45 @@ Text changeCycle(BuildContext context) {
   exchangeTime = _km;
 
   return Text(
-    '교환주기 : ${_km != null ? NumberFormat('###,###,###').format(_km) : 0} km',
+    '교환주기 : ${_km != null ? changeUnit(_km) : 0} km',
     textAlign: TextAlign.end,
-    style: mainText14,
+    style: mainText,
   );
 }
 
-Widget titleText(BuildContext context, SelectMenu value) {
-  String iconImage = carIcons[value.getSelect()];
+Widget titleText(BuildContext context, SelectMenu _value) {
+  String iconImage = carIcons[_value.getSelect()];
   final _itemView = Provider.of<Model>(context, listen: false);
-  titleName = partType[value.getSelect()];
+  titleName = partType[_value.getSelect()];
+
   return GestureDetector(
     onTap: () {
-      if (_itemView.getIndex() > 0) {
-        aniNavigator(context, DataListView(dataIndex: value.getSelect()));
+      try {
+        if (_value.getSelect() > 0 || _value.getSelect() != null) {
+          int index = _value.getSelect();
+          aniNavigator(
+              context,
+              DataListView(
+                  titleName: _itemView.getNameLast(), dataIndex: index));
+        }
+      } catch (e) {
+        print(e.toString());
       }
     },
     child: Row(
       children: [
-        Hero(tag: 'listIcon',child: Image.asset('assets/icons/$iconImage', height: 22, width: 22)),
+        Hero(
+            tag: 'listIcon',
+            child:
+                Image.asset('assets/icons/$iconImage', height: 22, width: 22)),
         SizedBox(width: 10),
         Text(
-          partType[value.getSelect()],
+          partType[_value.getSelect()],
           textAlign: TextAlign.start,
           style: titleMain15,
         ),
+        SizedBox(width: 6),
+        Icon(CupertinoIcons.arrow_turn_down_left, size: 12),
       ],
     ),
   );
@@ -349,7 +363,7 @@ Widget lastDate(BuildContext context, Model itemView) {
         children: [
           Icon(CupertinoIcons.calendar, size: 14),
           SizedBox(width: 6),
-          Text('교환날짜', style: mainText14),
+          Text('교환날짜', style: mainText),
         ],
       ),
       SizedBox(height: 2),
@@ -360,7 +374,7 @@ Widget lastDate(BuildContext context, Model itemView) {
               color: Colors.deepOrangeAccent, size: 14),
           SizedBox(width: 6),
           Text('${itemView.carData.length > 0 ? date[0] : ''}',
-              style: mainText14),
+              style: mainText),
         ],
       ),
     ],

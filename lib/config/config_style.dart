@@ -8,11 +8,11 @@ Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
 Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
 Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
 Color grayColor = Color.fromRGBO(71, 71, 71, 1);
-Color iconMenuColor = Color.fromRGBO(225, 225, 225, 1);
+Color iconMenuColor = Color.fromRGBO(236, 228, 228, 1);
+Color baseColor = Color.fromRGBO(240, 235, 235, 1);
 Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
 
-const mainText14 = TextStyle(
-  fontSize: 14.0,
+const mainText = TextStyle(
   fontWeight: FontWeight.w400,
 );
 

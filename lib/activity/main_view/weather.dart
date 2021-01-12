@@ -37,7 +37,7 @@ Widget buildTopWeather(BuildContext context) {
           width: size != null ? size.width * 0.85 : 0,
           height: 80,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(235, 235, 235, 1),
+            color: baseColor,
             borderRadius: BorderRadius.all(Radius.circular(20)),
             boxShadow: [
               BoxShadow(
@@ -46,7 +46,7 @@ Widget buildTopWeather(BuildContext context) {
                   blurRadius: 6.0,
                   spreadRadius: 1),
               BoxShadow(
-                  color: Colors.white,
+                  color: Color.fromRGBO(255, 252, 252, 1),
                   offset: Offset(-3.0, -3.0),
                   blurRadius: 6.0,
                   spreadRadius: 1),

@@ -1,5 +1,3 @@
-import 'package:carmoa/config/assist_util.dart';
-import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/provider/cycle_provider.dart';
 import 'package:carmoa/config/provider/icon_menu.dart';
 import 'package:carmoa/config/provider/location.dart';
@@ -7,6 +5,8 @@ import 'package:carmoa/config/provider/model.dart';
 import 'package:carmoa/config/provider/selected_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:theme_provider/theme_provider.dart';
+
 import 'main_screen/mainScreen.dart';
 
 void main() {
@@ -24,59 +24,22 @@ void main() {
   );
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'CarMoa',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: primaryMainColor,
+    return ThemeProvider(
+      saveThemesOnChange: true,
+      loadThemeOnInit: true,
+      child: ThemeConsumer(
+        child: Builder(
+          builder: (themeContext) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'CarMoa',
+            theme: ThemeProvider.themeOf(themeContext).data,
+            home: MainScreen(),
+          ),
+        ),
       ),
-      home: MainScreen(),
     );
   }
 }
-
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Provider.of<SelectMenu>(context, listen: false);
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'CarMoa',
-//       theme: theme.getTheme(),
-//       home: themeSet(context),
-//     );
-//   }
-// }
-//
-// Widget themeSet(BuildContext context) {
-//   themeLoad(context);
-//   ThemeData(primaryColor: primaryMainColor);
-//   return MainScreen();
-// }
-//
-// // 테마 불러오기
-// Future<void> themeLoad(BuildContext context) async {
-//   String eng = await loadPreferenceString(loadTitle: 'theme', value: 'dark');
-//
-//   if (eng != null) themeChange(context, eng);
-// }
-//
-// void themeChange(BuildContext context, String _theme) {
-//   final theme = Provider.of<SelectMenu>(context, listen: false);
-//
-//   if (_theme == 'light') {
-//     theme.setTheme(ThemeData.light());
-//     theme.setThemeName(_theme);
-//     menuItems[4] = 'Light Theme Mode';
-//   } else {
-//     theme.setTheme(ThemeData.dark());
-//     theme.setThemeName(_theme);
-//     menuItems[4] = 'Dark Theme Mode';
-//   }
-// }

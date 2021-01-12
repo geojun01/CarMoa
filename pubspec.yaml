@@ -28,7 +28,7 @@ dependencies:
   provider:
   sqflite:
   http:
-  intl: ^0.16.1
+  intl:
 #  위치정보
   geolocator: ^6.1.13
   permission_handler: ^5.0.1+1
@@ -41,8 +41,11 @@ dependencies:
   fluttertoast: ^7.1.6
   flutter_svg:
   date_format: ^1.0.6
+  flutter_swiper: ^1.1.6
 #  텍스트필드 보조 애드온
   pattern_formatter: ^1.0.2
+#  테마설정
+  theme_provider:
 #  시스템 정보
 #  package_info:
 

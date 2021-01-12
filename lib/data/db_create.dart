@@ -23,16 +23,9 @@ class CreateDB {
         back: item.back));
   }
 
-  Future<void> saveItem(CarModel item) async {
+  Future<void> deleteData(CarModel item) async {
     DBHelper db = DBHelper();
-    await db.insertData(new CarModel(
-        id: DateTime.now().toString(),
-        dateTime: DateTime.now().toString(),
-        nameCode: item.nameCode,
-        exchange: item.exchange,
-        price: item.price,
-        period: item.period,
-        front: item.front,
-        back: item.back));
+    await db.deleteData(item.id);
   }
+
 }

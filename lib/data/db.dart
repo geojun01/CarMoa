@@ -78,7 +78,7 @@ class DBHelper {
     );
   }
 
-  Future<void> deleteData(int id) async {
+  Future<void> deleteData(String id) async {
     final db = await database;
 
     await db.delete(

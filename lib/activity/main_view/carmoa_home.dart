@@ -106,7 +106,7 @@ class _MoaHomeState extends State<MoaHome> {
                             topRight: Radius.circular(30),
                             topLeft: Radius.circular(30),),
                         // color: Color(0xFFF4EFF6)),
-                        color: Color.fromRGBO(235, 235, 235, 1)),
+                        color: baseColor),
                     // 실제 디자인 위젯 모음
                     child: Column(
                       children: [

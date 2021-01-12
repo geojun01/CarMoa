@@ -24,10 +24,8 @@ class _GasMapState extends State<GasMap> {
         appBar: AppBar(
           title: Text(
             'GasMap',
-            style: TextStyle(color: Theme.of(context).primaryColor),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white,
           elevation: 3,
         ),
         body: Padding(

@@ -4,6 +4,7 @@ import 'package:carmoa/sub_screen/cycle_setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -190,24 +191,29 @@ void selectMenu(BuildContext context, int index) {
     case 3:
       break;
     case 4:
-      //themeChcek(context);
+      showDialog(
+        context: context,
+        builder: (_) => ThemeConsumer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ThemeDialog(
+                title: Text('테마변경'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('확인'),
+              )
+            ],
+          ),
+        ),
+      );
       break;
     case 5:
       aniNavigator(context, LicensePage());
       break;
   }
 }
-
-// void themeChcek(BuildContext context) {
-//   final theme = Provider.of<SelectMenu>(context, listen: false);
-//
-//   if (theme.getThemeName() == 'light') {
-//     theme.setThemeName('dark');
-//     theme.setTheme(ThemeData.dark());
-//     menuItems[4] = 'Dark Theme Mode';
-//   } else {
-//     theme.setThemeName('light');
-//     theme.setTheme(ThemeData.light());
-//     menuItems[4] = 'Light Theme Mode';
-//   }
-// }

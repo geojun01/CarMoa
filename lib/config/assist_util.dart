@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 스마트폰의 화면 사이즈 구하기
@@ -10,6 +11,9 @@ Future<Size> viewSize(Stream<Size> source) async {
   }
   return null;
 }
+
+// 천단위 콤마 표시
+String changeUnit(int _distance) => NumberFormat('###,###,###').format(_distance);
 
 // 경과 날짜 계산
 String datePast(String startDate) {

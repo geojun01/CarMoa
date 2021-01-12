@@ -9,16 +9,6 @@ class Model with ChangeNotifier {
   int _cycle;
   int _totalPrice;
 
-  // getDateLast() => carData.last.dateTime;
-  // getNameLast() => carData.last.nameCode;
-  // getExchangeLast() => carData.last.exchange;
-  // getPeriod() => carData.last.period;
-  // getIdLast() => carData.last.id;
-  // getPrice() => carData.last.price;
-  // getFront() => carData.last.front;
-  // getBack() => carData.last.back;
-  //
-  // getIndex() => carData.length;
 
   getDateLast() => selectData.last.dateTime;
   getNameLast() => selectData.last.nameCode;
@@ -37,6 +27,8 @@ class Model with ChangeNotifier {
   getTotalPrice() => _totalPrice;
 
   setClear() => selectData.clear();
+
+  getData(int _i) => selectData[_i];
 
 
   void selectItemCheck() {
@@ -76,8 +68,9 @@ class Model with ChangeNotifier {
     notifyListeners();
   }
 
-  void itemDelete(int index) {
-    carData.removeAt(index);
+  void itemDelete(CarModel item) {
+    carData.remove(item);
+    selectData.remove(item);
     notifyListeners();
   }
 

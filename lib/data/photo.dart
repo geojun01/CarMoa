@@ -6,7 +6,12 @@ class Photo {
   final String url;
   final String downloadUrl;
 
-  Photo({this.id, this.author, this.width, this.height, this.url,
+  Photo(
+      {this.id,
+      this.author,
+      this.width,
+      this.height,
+      this.url,
       this.downloadUrl});
 
   factory Photo.fromJson(Map<String, dynamic> json) {
