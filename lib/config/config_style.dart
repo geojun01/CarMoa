@@ -1,16 +1,15 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Color primaryMainColor = Color.fromRGBO(43, 139, 229, 1);
-Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
-Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
-Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
-Color grayColor = Color.fromRGBO(71, 71, 71, 1);
-Color iconMenuColor = Color.fromRGBO(236, 228, 228, 1);
-Color baseColor = Color.fromRGBO(240, 235, 235, 1);
-Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
+const Color mainColor = Color.fromRGBO(48, 96, 96, 1.0);
+const Color startColor = Color.fromRGBO(70, 112, 112, 1.0);
+const Color baseColor = Color.fromRGBO(240, 235, 235, 1);
+const Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
+const Color iconMenuColor = Color.fromRGBO(236, 228, 228, 1);
+const Color primaryMainColor = Color.fromRGBO(43, 139, 229, 1);
+// const Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
+// const Color grayColor = Color.fromRGBO(71, 71, 71, 1);
 
 const mainText = TextStyle(
   fontWeight: FontWeight.w400,
@@ -41,10 +40,6 @@ const titleMinText12 = TextStyle(
   fontSize: 12,
   color: Color.fromRGBO(150, 150, 150, 1),
 );
-
-class Styles {
-  static File imagePath;
-}
 
 bool isIconMenuCheck = false;
 bool isMenuCheck = false;

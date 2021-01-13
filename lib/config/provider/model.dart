@@ -74,6 +74,11 @@ class Model with ChangeNotifier {
     notifyListeners();
   }
 
+  void listDelete(CarModel item) {
+    carData.remove(item);
+    selectData.remove(item);
+  }
+
   void listClear() {
     if (getIndex() > 0) {
       carData.clear();

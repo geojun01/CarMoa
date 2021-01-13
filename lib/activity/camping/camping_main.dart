@@ -65,32 +65,43 @@ class _CampingState extends State<Camping> {
     );
   }
 
-  Container _appTitle() {
+  // AppBar
+  Widget _appTitle() {
     return Container(
       decoration: BoxDecoration(
-        color: primaryMainColor,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color.fromRGBO(42, 139, 229, 1),
+            Color.fromRGBO(25, 103, 182, 1)
+          ],
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            InkWell(
-              onTap: () {
-                isIconMenuCheck = false;
-                Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Icon(CupertinoIcons.back, size: 26, color: baseColor),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  isIconMenuCheck = false;
+                  Navigator.of(context).pop();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Icon(CupertinoIcons.arrow_left_circle,
+                      size: 26, color: baseColor),
+                ),
               ),
             ),
-            Expanded(child: Container()),
+            SizedBox(width: 12),
             Text(
               '캠핑 감성',
-              style: TextStyle(fontSize: 18, color: baseColor),
+              style: TextStyle(
+                  fontSize: 20, color: baseColor, fontWeight: FontWeight.w500),
             ),
-            Expanded(child: Container()),
-            Container(width: 38,),
           ],
         ),
       ),
@@ -120,7 +131,13 @@ class _CampingState extends State<Camping> {
                   child: Text(
                     '${_itemText[index]}',
                     style: TextStyle(
-                        color: baseColor, fontWeight: FontWeight.w600),
+                        color: baseColor, fontWeight: FontWeight.w600, shadows: [
+                          Shadow(
+                            offset: Offset(1, 1),
+                            blurRadius: 2,
+                            color: Colors.black
+                          )
+                    ]),
                   )),
             ],
           ));

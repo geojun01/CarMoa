@@ -8,6 +8,7 @@ import 'package:carmoa/data/db_create.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
@@ -59,7 +60,10 @@ class _InputDataState extends State<InputData> {
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Colors.orange, Colors.deepOrange]),
+                        colors: [
+                          Color.fromRGBO(248, 182, 105, 1),
+                          Colors.deepOrange
+                        ]),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey,
@@ -102,9 +106,9 @@ class _InputDataState extends State<InputData> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
                                       child: Icon(
-                                        CupertinoIcons.left_chevron,
-                                        color: whiteColor,
-                                        size: 24,
+                                        CupertinoIcons.arrow_left_circle,
+                                        size: 26,
+                                        color: baseColor,
                                       ),
                                     )),
                               ),
@@ -113,8 +117,8 @@ class _InputDataState extends State<InputData> {
                             Text(
                               '${widget.titleName}',
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: whiteColor,
+                                  fontSize: 20,
+                                  color: baseColor,
                                   fontWeight: FontWeight.w500),
                             ),
                             Expanded(child: Container()),
@@ -276,7 +280,7 @@ class _InputDataState extends State<InputData> {
                         ),
                       ),
                       // 앞 / 뒤 교환 확인
-                      exchangeCheck(),
+                      exchangeCheck(context),
                     ],
                   ),
                 ),
@@ -346,14 +350,14 @@ class _InputDataState extends State<InputData> {
                         // 데이터베이스 저장 코드
                         // print('확인 : $exchangeValue : $priceValue');
                         var saveItem = new CarModel(
-                              id: DateTime.now().toString(),
-                              dateTime: DateTime.now().toString(),
-                              nameCode: titleName,
-                              exchange: exchangeValue,
-                              price: priceValue,
-                              period: 'no',
-                              front: isFront == true ? 'yes' : 'no',
-                              back: isBack == true ? 'yes' : 'no');
+                            id: DateTime.now().toString(),
+                            dateTime: DateTime.now().toString(),
+                            nameCode: titleName,
+                            exchange: exchangeValue,
+                            price: priceValue,
+                            period: 'no',
+                            front: isFront == true ? 'yes' : 'no',
+                            back: isBack == true ? 'yes' : 'no');
                         db.saveData(saveItem);
                         item.itemAdd(saveItem);
                         Future.delayed(
@@ -399,49 +403,126 @@ class _InputDataState extends State<InputData> {
     );
   }
 
-  Widget exchangeCheck() {
+  Widget exchangeCheck(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
     if (titleName == "타이어" || titleName == "브레이크패드") {
-      return Row(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      if (themeData.brightness == Brightness.dark) {
+        // 테마 - 다크 모드
+        return Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Row(
             children: [
-              Transform.scale(
-                scale: 1.0,
-                child: Checkbox(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: 15),
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(width: 3, color: Colors.black87),
+                        left: BorderSide(width: 3, color: Colors.black87),
+                        right: BorderSide(width: 3, color: Colors.black87),
+                        bottom: BorderSide(width: 3, color: Colors.black87),
+                      ),
+                    ),
+                    width: 20,
+                    height: 20,
+                    child: Checkbox(
+                      activeColor: primaryMainColor,
+                      value: isFront,
+                      onChanged: (value) {
+                        setState(() {
+                          isFront = value;
+                          if (isFront == true) isSaveCheck = true;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Text('앞 교환', style: TextStyle(color: Colors.black87)),
+                ],
+              ),
+              Expanded(child: Container()),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: 20),
+                  Text('뒤 교환', style: TextStyle(color: Colors.black87)),
+                  SizedBox(width: 10),
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(width: 3, color: Colors.black87),
+                        left: BorderSide(width: 3, color: Colors.black87),
+                        right: BorderSide(width: 3, color: Colors.black87),
+                        bottom: BorderSide(width: 3, color: Colors.black87),
+                      ),
+                    ),
+                    width: 20,
+                    height: 20,
+                    child: Checkbox(
+                      activeColor: primaryMainColor,
+                      value: isBack,
+                      onChanged: (value) {
+                        setState(() {
+                          isBack = value;
+                          if (isBack == true) isSaveCheck = true;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                ],
+              ),
+            ],
+          ),
+        );
+      } else {
+        // 테마 - 라이트 모드
+        return Row(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Transform.scale(
+                  scale: 1.0,
+                  child: Checkbox(
                     value: isFront,
                     onChanged: (value) {
                       setState(() {
                         isFront = value;
                         if (isFront == true) isSaveCheck = true;
                       });
-                    }),
-              ),
-              Text('앞 교환'),
-            ],
-          ),
-          Expanded(child: Container()),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(width: 20),
-              Text('뒤 교환'),
-              Transform.scale(
-                scale: 1.0,
-                child: Checkbox(
-                  value: isBack,
-                  onChanged: (value) {
-                    setState(() {
-                      isBack = value;
-                      if (isBack == true) isSaveCheck = true;
-                    });
-                  },
+                    },
+                  ),
                 ),
-              )
-            ],
-          ),
-        ],
-      );
+                Text('앞 교환', style: TextStyle(color: Colors.black87)),
+              ],
+            ),
+            Expanded(child: Container()),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(width: 20),
+                Text('뒤 교환', style: TextStyle(color: Colors.black87)),
+                Transform.scale(
+                  scale: 1.0,
+                  child: Checkbox(
+                    value: isBack,
+                    onChanged: (value) {
+                      setState(() {
+                        isBack = value;
+                        if (isBack == true) isSaveCheck = true;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      }
     } else {
       isSaveCheck = true;
       return Container();

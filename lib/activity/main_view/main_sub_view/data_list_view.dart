@@ -5,7 +5,6 @@ import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class DataListView extends StatefulWidget {
@@ -129,8 +128,7 @@ class _DataListViewState extends State<DataListView> {
                 ],
               ),
               Divider(thickness: 1),
-              Text('교환거리 : ${changeUnit(_item.exchange)} km',
-                  style: mainText),
+              Text('교환거리 : ${changeUnit(_item.exchange)} km', style: mainText),
               SizedBox(height: 2),
               Text('교환비용 : ${changeUnit(_item.price)} 원', style: mainText),
               exchangeView(_item),

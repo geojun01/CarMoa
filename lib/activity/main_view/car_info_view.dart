@@ -13,7 +13,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 var titleName;
-var indexCycleMenu;
 int exchangeTime;
 
 Widget carInfoView(BuildContext context) {
@@ -34,7 +33,6 @@ Widget carInfoView(BuildContext context) {
               children: [
                 Consumer<SelectMenu>(
                   builder: (context, value, child) {
-                    indexCycleMenu = value.getSelect();
                     return titleText(context, value);
                   },
                 ),
@@ -175,6 +173,7 @@ Widget carInfoView(BuildContext context) {
                                           ],
                                         ),
                                         SizedBox(height: 6),
+                                        // 비용
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -182,10 +181,10 @@ Widget carInfoView(BuildContext context) {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Icon(FontAwesomeIcons.wonSign,
-                                                size: 10),
+                                                size: 13),
                                             SizedBox(width: 4),
                                             Text(
-                                              '비용 : ${changeUnit(itemView.getPrice())}원',
+                                              ' ${changeUnit(itemView.getPrice())}원',
                                               style: mainText,
                                               overflow: TextOverflow.ellipsis,
                                             ),

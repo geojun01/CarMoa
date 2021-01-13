@@ -22,7 +22,6 @@ class _RoadTravelState extends State<RoadTravel> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 8),
                 _appTitle(),
                 Divider(),
                 Padding(
@@ -43,30 +42,42 @@ class _RoadTravelState extends State<RoadTravel> {
     );
   }
 
-  Container _appTitle() {
+  Widget _appTitle() {
     return Container(
-      decoration: BoxDecoration(),
-      child: Row(
-        children: [
-          SizedBox(width: 8),
-          InkWell(
-            onTap: () {
-              isIconMenuCheck = false;
-              Navigator.of(context).pop();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Icon(CupertinoIcons.back, size: 24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color.fromRGBO(42, 139, 229, 1),
+            Color.fromRGBO(25, 103, 182, 1)
+          ],
+        )
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  isIconMenuCheck = false;
+                  Navigator.of(context).pop();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Icon(CupertinoIcons.arrow_left_circle,size: 26 ,color: baseColor),
+                ),
+              ),
             ),
-          ),
-          Expanded(child: Container()),
-          Text(
-            '아름다운 길',
-            style: TextStyle(fontSize: 18),
-          ),
-          Expanded(child: Container()),
-          SizedBox(width: 36),
-        ],
+            SizedBox(width: 12),
+            Text(
+              '아름다운 길',
+              style: TextStyle(fontSize: 20, color: baseColor, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
       ),
     );
   }
