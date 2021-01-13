@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:carmoa/activity/main_view/input_data.dart';
 import 'package:carmoa/activity/main_view/main_sub_view/data_list_view.dart';
 import 'package:carmoa/config/assist_util.dart';
@@ -11,6 +9,7 @@ import 'package:carmoa/data/car_data_model.dart';
 import 'package:carmoa/data/db_create.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 var titleName;
@@ -142,7 +141,7 @@ Widget carInfoView(BuildContext context) {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(2.0),
                                     child: Column(
                                       children: [
                                         Row(
@@ -151,14 +150,45 @@ Widget carInfoView(BuildContext context) {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Icon(
-                                                CupertinoIcons
-                                                    .money_dollar_circle,
-                                                size: 14),
-                                            SizedBox(width: 6),
+                                            itemView.getFront() == 'yes'
+                                                ? Card(
+                                                    elevation: 2,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 4),
+                                                      child: Text('앞 교환'),
+                                                    ))
+                                                : Container(),
+                                            itemView.getBack() == 'yes'
+                                                ? Card(
+                                                    elevation: 2,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 4),
+                                                      child: Text('뒤 교환'),
+                                                    ))
+                                                : Container(),
+                                          ],
+                                        ),
+                                        SizedBox(height: 6),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(FontAwesomeIcons.wonSign,
+                                                size: 10),
+                                            SizedBox(width: 4),
                                             Text(
-                                                '비용 : ${changeUnit(itemView.getPrice())}원',
-                                                style: mainText),
+                                              '비용 : ${changeUnit(itemView.getPrice())}원',
+                                              style: mainText,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ],
                                         ),
                                         Divider(color: startColor),
@@ -193,7 +223,7 @@ Widget carInfoView(BuildContext context) {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 8),
+                                  //SizedBox(height: 8),
                                   // 자료입력 아이콘
                                   InkWell(
                                     onTap: () {

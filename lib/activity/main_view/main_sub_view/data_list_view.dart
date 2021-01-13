@@ -129,22 +129,48 @@ class _DataListViewState extends State<DataListView> {
                 ],
               ),
               Divider(thickness: 1),
-              Row(
-                children: [
-                  Text('교환거리 : ${changeUnit(_item.exchange)} km',
-                      style: mainText),
-                  Expanded(
-                      child: Container(
-                    child: Icon(FontAwesomeIcons.ellipsisH, size: 12),
-                  )),
-                  Text('교환비용 : ${changeUnit(_item.price)} 원',
-                      style: mainText),
-                ],
-              ),
+              Text('교환거리 : ${changeUnit(_item.exchange)} km',
+                  style: mainText),
+              SizedBox(height: 2),
+              Text('교환비용 : ${changeUnit(_item.price)} 원', style: mainText),
+              exchangeView(_item),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget exchangeView(CarModel _item) {
+    if (_item.nameCode == "타이어" || _item.nameCode == "브레이크패드") {
+      return Padding(
+        padding: const EdgeInsets.only(top: 6.0),
+        child: Row(
+          children: [
+            _item.front == 'yes'
+                ? Card(
+                    elevation: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 4.0),
+                      child: Text('앞 교환'),
+                    ))
+                : Container(),
+            _item.front == 'yes' && _item.back == 'yes'
+                ? SizedBox(width: 12)
+                : Container(),
+            _item.back == 'yes'
+                ? Card(
+                    elevation: 2,
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 4.0),
+                        child: Text('뒤 교환')))
+                : Container(),
+          ],
+        ),
+      );
+    } else
+      return Container();
   }
 }

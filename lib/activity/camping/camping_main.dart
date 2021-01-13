@@ -52,41 +52,9 @@ class _CampingState extends State<Camping> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 8),
                     _appTitle(),
-                    Divider(),
-                    Container(
-                      height: 200,
-                      child: Swiper(
-                        autoplay: true,
-                        autoplayDelay: 10000,
-                        curve: Curves.easeIn,
-                        itemCount: _item.length,
-                        itemBuilder: (context, index) {
-                          return ClipRRect(
-                              //borderRadius: BorderRadius.circular(10),
-                              child: Stack(
-                                children: [
-                                  Image(
-                                    image: AssetImage(_item[index]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  Positioned(
-                                      left: 20,
-                                      top: 10,
-                                      child: Text(
-                                        '${_itemText[index]}',
-                                        style: TextStyle(color: baseColor, fontWeight: FontWeight.w600),
-                                      )),
-                                ],
-                              ));
-                        },
-                        viewportFraction: 0.8,
-                        scale: 0.9,
-                        pagination: SwiperPagination(),
-                        layout: SwiperLayout.DEFAULT,
-                      ),
-                    ),
+                    SizedBox(height: 8),
+                    sliderImageView(_item, _itemText),
                   ],
                 );
               },
@@ -99,28 +67,68 @@ class _CampingState extends State<Camping> {
 
   Container _appTitle() {
     return Container(
-      decoration: BoxDecoration(),
-      child: Row(
-        children: [
-          SizedBox(width: 8),
-          InkWell(
-            onTap: () {
-              isIconMenuCheck = false;
-              Navigator.of(context).pop();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Icon(CupertinoIcons.back, size: 24),
+      decoration: BoxDecoration(
+        color: primaryMainColor,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                isIconMenuCheck = false;
+                Navigator.of(context).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Icon(CupertinoIcons.back, size: 26, color: baseColor),
+              ),
             ),
-          ),
-          Expanded(child: Container()),
-          Text(
-            '캠핑 감성',
-            style: TextStyle(fontSize: 18),
-          ),
-          Expanded(child: Container()),
-          SizedBox(width: 36),
-        ],
+            Expanded(child: Container()),
+            Text(
+              '캠핑 감성',
+              style: TextStyle(fontSize: 18, color: baseColor),
+            ),
+            Expanded(child: Container()),
+            Container(width: 38,),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container sliderImageView(List<String> _item, List<String> _itemText) {
+    return Container(
+      height: 200,
+      child: Swiper(
+        autoplay: true,
+        autoplayDelay: 10000,
+        curve: Curves.easeIn,
+        itemCount: _item.length,
+        itemBuilder: (context, index) {
+          return ClipRRect(
+              //borderRadius: BorderRadius.circular(10),
+              child: Stack(
+            children: [
+              Image(
+                image: AssetImage(_item[index]),
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                  left: 20,
+                  top: 10,
+                  child: Text(
+                    '${_itemText[index]}',
+                    style: TextStyle(
+                        color: baseColor, fontWeight: FontWeight.w600),
+                  )),
+            ],
+          ));
+        },
+        viewportFraction: 0.8,
+        scale: 0.9,
+        pagination: SwiperPagination(),
+        layout: SwiperLayout.DEFAULT,
       ),
     );
   }

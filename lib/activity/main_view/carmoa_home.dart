@@ -113,7 +113,7 @@ class _MoaHomeState extends State<MoaHome> {
                         SizedBox(height: 20),
                         // 날씨 메뉴
                         buildTopWeather(context),
-                        SizedBox(height: 30),
+                        SizedBox(height: 26),
                         // 상단 메뉴 리스트
                         Container(
                           height: 100.0,
@@ -127,7 +127,7 @@ class _MoaHomeState extends State<MoaHome> {
                         ),
                         // 세부 메뉴 화면
                         FadeIn(delay: 1, child: carInfoView(context)),
-                        SizedBox(height: 16),
+                        SizedBox(height: 10),
                         // 하단 애니메이션 메뉴
                         CarIconMenu(),
                         SizedBox(height: 10),

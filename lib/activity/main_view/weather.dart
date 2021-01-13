@@ -14,14 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var id;
-var temp;
-var description;
-var city;
-var iconName;
-int index;
-
-bool isCheck = true;
+bool isWeatherCheck = true;
 
 Widget buildTopWeather(BuildContext context) {
   final position = Provider.of<Location>(context);
@@ -34,7 +27,7 @@ Widget buildTopWeather(BuildContext context) {
       builder: (context, snapshot) {
         Size size = snapshot.data;
         return Container(
-          width: size != null ? size.width * 0.85 : 0,
+          width: size != null ? size.width * 0.9 : 0,
           height: 80,
           decoration: BoxDecoration(
             color: baseColor,
@@ -129,8 +122,7 @@ Widget buildTopWeather(BuildContext context) {
                   );
                 }
                 return Center(
-                  child: CircularProgressIndicator(
-                  ),
+                  child: CircularProgressIndicator(),
                 );
               }),
         );
@@ -143,8 +135,8 @@ Future<String> loadPreference(BuildContext context) async {
   var data = item.split(',');
 
   // 프로그램 시작시 처음 한번만 실행
-  if (isCheck) {
-    isCheck = false;
+  if (isWeatherCheck) {
+    isWeatherCheck = false;
     await getWeatherData(context: context, lat: data[0], lon: data[1]);
   }
 
@@ -194,6 +186,12 @@ Future<void> getWeatherData({
   @required String lon,
 }) async {
   WeatherData weatherData = new WeatherData();
+  var id;
+  var temp;
+  var description;
+  var city;
+  var iconName;
+  int index;
 
   var str =
       "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&lang=kr&&appid=9a957a80e7504e2b62ef7cb70ce855ea";
@@ -215,18 +213,19 @@ Future<void> getWeatherData({
       }
     }
     if (iconName != null) {
-      providerSave(context, lat, lon, index);
+      providerSave(context, lat, lon, index, temp, description, city, iconName);
     }
   } else {
     print('No Data');
   }
 }
 
-void providerSave(BuildContext context, String lat, String lon, int id) {
+void providerSave(BuildContext context, String lat, String lon, int _id,
+    var temp, var description, var city, var iconName) {
   double orgTemp = double.parse(temp.toString()) - 273.15;
   int _temp = orgTemp.round();
 
   var weatherProvider = Provider.of<Location>(context, listen: false);
   weatherProvider.setLocation(double.parse(lat), double.parse(lon));
-  weatherProvider.setWeather(_temp, description, city, iconName, id);
+  weatherProvider.setWeather(_temp, description, city, iconName, _id);
 }

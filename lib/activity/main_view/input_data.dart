@@ -29,13 +29,15 @@ class _InputDataState extends State<InputData> {
   int priceValue = 0;
   bool isFront = false;
   bool isBack = false;
+  bool isSaveCheck = false;
 
   @override
   Widget build(BuildContext context) {
     final item = Provider.of<Model>(context);
     final cycle = Provider.of<Cycle>(context);
     final db = CreateDB();
-    final timeCheck = formatDate(DateTime.now(), [yyyy, '년', mm, '월', dd, '일']);
+    final timeCheck =
+        formatDate(DateTime.now(), [yyyy, '년 ', mm, '월 ', dd, '일']);
 
     return FutureBuilder(
       future: viewSize(Stream<Size>.periodic(
@@ -68,17 +70,17 @@ class _InputDataState extends State<InputData> {
                 ),
               ),
               Positioned(
-                  top: _size != null ? (_size.height * 0.5) - 186 : 0,
+                  top: _size != null ? (_size.height * 0.5) - 227 : 0,
                   left: 0,
                   right: 0,
                   child: Container(
-                      height: 186,
+                      height: 227,
                       child: Image.asset(
                         'assets/images/car_input.png',
                         fit: BoxFit.cover,
                       ))),
               Positioned(
-                top: _size != null ? _size.height * 0.05 : 0,
+                top: _size != null ? _size.height * 0.06 : 0,
                 left: 0,
                 right: 0,
                 child: Container(
@@ -337,18 +339,21 @@ class _InputDataState extends State<InputData> {
                         Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text(
                                 '기존 주행거리 ${widget.infoExchange}km 보다 작거나 같습니다.')));
+                      } else if (isSaveCheck == false) {
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('앞 또는 뒤를 선택해 주세요.')));
                       } else {
                         // 데이터베이스 저장 코드
                         // print('확인 : $exchangeValue : $priceValue');
                         var saveItem = new CarModel(
-                            id: DateTime.now().toString(),
-                            dateTime: DateTime.now().toString(),
-                            nameCode: titleName,
-                            exchange: exchangeValue,
-                            price: priceValue,
-                            period: 'no',
-                            front: 'no',
-                            back: 'no');
+                              id: DateTime.now().toString(),
+                              dateTime: DateTime.now().toString(),
+                              nameCode: titleName,
+                              exchange: exchangeValue,
+                              price: priceValue,
+                              period: 'no',
+                              front: isFront == true ? 'yes' : 'no',
+                              back: isBack == true ? 'yes' : 'no');
                         db.saveData(saveItem);
                         item.itemAdd(saveItem);
                         Future.delayed(
@@ -394,46 +399,53 @@ class _InputDataState extends State<InputData> {
     );
   }
 
-  Row exchangeCheck() {
-    return Row(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 20),
-            Text('앞 교환'),
-            Transform.scale(
-              scale: 1.0,
-              child: Checkbox(
-                  value: isFront,
-                  onChanged: (value) {
-                    setState(() {
-                      isFront = value;
-                    });
-                  }),
-            )
-          ],
-        ),
-        Expanded(child: Container()),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 20),
-            Text('뒤 교환'),
-            Transform.scale(
-              scale: 1.0,
-              child: Checkbox(
+  Widget exchangeCheck() {
+    if (titleName == "타이어" || titleName == "브레이크패드") {
+      return Row(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Transform.scale(
+                scale: 1.0,
+                child: Checkbox(
+                    value: isFront,
+                    onChanged: (value) {
+                      setState(() {
+                        isFront = value;
+                        if (isFront == true) isSaveCheck = true;
+                      });
+                    }),
+              ),
+              Text('앞 교환'),
+            ],
+          ),
+          Expanded(child: Container()),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 20),
+              Text('뒤 교환'),
+              Transform.scale(
+                scale: 1.0,
+                child: Checkbox(
                   value: isBack,
                   onChanged: (value) {
                     setState(() {
                       isBack = value;
+                      if (isBack == true) isSaveCheck = true;
                     });
-                  }),
-            )
-          ],
-        ),
-      ],
-    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ],
+      );
+    } else {
+      isSaveCheck = true;
+      return Container();
+    }
   }
 
   Text cycleMenu(Cycle cycle, String _name) {
