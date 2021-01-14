@@ -83,6 +83,72 @@ class _DataListViewState extends State<DataListView> {
     );
   }
 
+// class _DataListViewState extends State<DataListView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final db = CreateDB();
+//     final item = Provider.of<Model>(context, listen: false);
+//
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Row(
+//           children: [
+//             Hero(tag: 'listIcon', child: titleImage()),
+//             SizedBox(width: 6),
+//             Text('${widget.titleName} 교환일지'),
+//           ],
+//         ),
+//       ),
+//       body: SafeArea(
+//         child: Padding(
+//           padding: const EdgeInsets.all(8.0),
+//           child: Column(
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 6.0, bottom: 6.0),
+//                 child: totalPriceText(context),
+//               ),
+//               Divider(thickness: 1),
+//               Flexible(
+//                 child: ListView.builder(
+//                   itemCount: item.getIndex(),
+//                   itemBuilder: (context, _index) {
+//                     return InkWell(
+//                       onLongPress: () {
+//                         Scaffold.of(context).hideCurrentSnackBar();
+//                         Scaffold.of(context).showSnackBar(
+//                           SnackBar(
+//                             content: Text(
+//                                 '${changeUnit(item.selectData[(item.getIndex() - _index) - 1].exchange)} km 데이터 삭제'),
+//                             action: SnackBarAction(
+//                               label: '삭제',
+//                               onPressed: () {
+//                                 db.deleteData(item
+//                                     .getData((item.getIndex() - _index) - 1));
+//                                 item.itemDelete(item
+//                                     .getData((item.getIndex() - _index) - 1));
+//                                 if (item.getIndex() == 0)
+//                                   Navigator.of(context).pop();
+//                               },
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                       child: listViewItem(
+//                           context,
+//                           item.getData((item.getIndex() - _index) - 1),
+//                           (item.getIndex() - _index) - 1),
+//                     );
+//                   },
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
   Text totalPriceText(BuildContext context) {
     final _item = Provider.of<Model>(context);
     int _totalPrice = 0;

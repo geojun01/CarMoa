@@ -12,20 +12,20 @@ class Camping extends StatefulWidget {
 class _CampingState extends State<Camping> {
   @override
   Widget build(BuildContext context) {
-    // final List<String> _item = [
-    //   'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/a.jpg',
-    //   'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/b.jpg',
-    //   'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/c.jpg',
-    //   'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/d.jpg',
-    //   'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/e.jpg',
-    // ];
     final List<String> _item = [
-      'assets/images/a.jpg',
-      'assets/images/b.jpg',
-      'assets/images/c.jpg',
-      'assets/images/d.jpg',
-      'assets/images/e.jpg',
+      'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/a.jpg',
+      'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/b.jpg',
+      'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/c.jpg',
+      'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/d.jpg',
+      'https://raw.githubusercontent.com/sokuri2019/carmoa/main/images/e.jpg',
     ];
+    // final List<String> _item = [
+    //   'assets/images/a.jpg',
+    //   'assets/images/b.jpg',
+    //   'assets/images/c.jpg',
+    //   'assets/images/d.jpg',
+    //   'assets/images/e.jpg',
+    // ];
     final List<String> _itemText = [
       '대전 계족산',
       '보성 녹차밭',
@@ -109,44 +109,51 @@ class _CampingState extends State<Camping> {
   }
 
   Container sliderImageView(List<String> _item, List<String> _itemText) {
-    return Container(
-      height: 200,
-      child: Swiper(
-        autoplay: true,
-        autoplayDelay: 10000,
-        curve: Curves.easeIn,
-        itemCount: _item.length,
-        itemBuilder: (context, index) {
-          return ClipRRect(
-              //borderRadius: BorderRadius.circular(10),
-              child: Stack(
-            children: [
-              Image(
-                image: AssetImage(_item[index]),
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                  left: 20,
-                  top: 10,
-                  child: Text(
-                    '${_itemText[index]}',
-                    style: TextStyle(
-                        color: baseColor, fontWeight: FontWeight.w600, shadows: [
-                          Shadow(
-                            offset: Offset(1, 1),
-                            blurRadius: 2,
-                            color: Colors.black
-                          )
-                    ]),
-                  )),
-            ],
-          ));
-        },
-        viewportFraction: 0.8,
-        scale: 0.9,
-        pagination: SwiperPagination(),
-        layout: SwiperLayout.DEFAULT,
-      ),
-    );
+    return _item != null
+        ? Container(
+            height: 200,
+            child: Swiper(
+              autoplay: true,
+              autoplayDelay: 10000,
+              curve: Curves.easeIn,
+              itemCount: _item.length,
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  //borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: [
+                      Image(
+                        image: NetworkImage(_item[index]),
+                        //: AssetImage(_item[index]),
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        left: 20,
+                        top: 10,
+                        child: Text(
+                          '${_itemText[index]}',
+                          style: TextStyle(
+                            color: baseColor,
+                            fontWeight: FontWeight.w600,
+                            shadows: [
+                              Shadow(
+                                  offset: Offset(1, 1),
+                                  blurRadius: 2,
+                                  color: Colors.black)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              viewportFraction: 0.8,
+              scale: 0.9,
+              pagination: SwiperPagination(),
+              layout: SwiperLayout.DEFAULT,
+            ),
+          )
+        : CircularProgressIndicator();
   }
 }
