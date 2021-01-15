@@ -8,8 +8,6 @@ const Color baseColor = Color.fromRGBO(240, 235, 235, 1);
 const Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
 const Color iconMenuColor = Color.fromRGBO(236, 228, 228, 1);
 const Color primaryMainColor = Color.fromRGBO(43, 139, 229, 1);
-// const Color whiteColor = Color.fromRGBO(239, 247, 255, 1);
-// const Color grayColor = Color.fromRGBO(71, 71, 71, 1);
 
 const mainText = TextStyle(
   fontWeight: FontWeight.w400,

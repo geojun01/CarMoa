@@ -156,6 +156,7 @@ class _DataListViewState extends State<DataListView> {
     for (int i = 0; i < _item.getIndex(); i++) {
       _totalPrice += _item.selectData[i].price;
     }
+
     _item.setTotalPrice(_totalPrice);
     return Text('총 지출 비용 : ${changeUnit(_item.getTotalPrice())} 원',
         style: mainText16);

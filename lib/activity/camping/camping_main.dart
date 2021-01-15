@@ -1,5 +1,6 @@
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
+import 'package:carmoa/widgets/moa_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -52,7 +53,8 @@ class _CampingState extends State<Camping> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _appTitle(),
+                    MoaAppBar(title: '캠핑감성'),
+                    //_appTitle(),
                     SizedBox(height: 8),
                     sliderImageView(_item, _itemText),
                   ],
@@ -65,48 +67,6 @@ class _CampingState extends State<Camping> {
     );
   }
 
-  // AppBar
-  Widget _appTitle() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromRGBO(42, 139, 229, 1),
-            Color.fromRGBO(25, 103, 182, 1)
-          ],
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  isIconMenuCheck = false;
-                  Navigator.of(context).pop();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Icon(CupertinoIcons.arrow_left_circle,
-                      size: 26, color: baseColor),
-                ),
-              ),
-            ),
-            SizedBox(width: 12),
-            Text(
-              '캠핑 감성',
-              style: TextStyle(
-                  fontSize: 20, color: baseColor, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Container sliderImageView(List<String> _item, List<String> _itemText) {
     return _item != null

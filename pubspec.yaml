@@ -46,12 +46,16 @@ dependencies:
   pattern_formatter: ^1.0.2
 #  테마설정
   theme_provider:
-#  시스템 정보
-#  package_info:
+#  json 직렬화
+  json_annotation:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+#  json 직렬화 빌드
+  build_runner:
+  json_serializable:
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
