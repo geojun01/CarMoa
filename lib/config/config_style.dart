@@ -9,6 +9,8 @@ const Color subMenuColor = Color.fromRGBO(51, 63, 63, 1);
 const Color iconMenuColor = Color.fromRGBO(236, 228, 228, 1);
 const Color primaryMainColor = Color.fromRGBO(43, 139, 229, 1);
 
+const String apiKey = 'hgTO%2F8ISzw%2FmrzX5io6JFznSGyPN5L9ecg74th%2BlsA7kP%2FlPOdR89I%2F%2FAuIM%2BdJ4wGNLDjDyt3EaJpCSWjOagQ%3D%3D';
+
 const mainText = TextStyle(
   fontWeight: FontWeight.w400,
 );

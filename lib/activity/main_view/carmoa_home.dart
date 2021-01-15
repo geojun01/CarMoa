@@ -1,4 +1,6 @@
+import 'package:carmoa/activity/main_view/car_icon_menu.dart';
 import 'package:carmoa/activity/main_view/car_info_view.dart';
+import 'package:carmoa/activity/main_view/weather.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/config/my_behavior.dart';
 import 'package:carmoa/config/provider/selected_menu.dart';
@@ -10,8 +12,6 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'file:///D:/Android-Files/carmoa/lib/activity/main_view/car_icon_menu.dart';
-import 'file:///D:/Android-Files/carmoa/lib/activity/main_view/weather.dart';
 
 class MoaHome extends StatefulWidget {
   @override

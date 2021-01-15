@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'response.dart';
 
-part 'api.g.dart';
+part 'api_data.g.dart';
 
 @JsonSerializable()
 class ApiData {

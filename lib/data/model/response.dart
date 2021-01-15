@@ -8,7 +8,7 @@ part 'response.g.dart';
 class Response {
   final Body body;
 
-  Response({this.header, this.body});
+  Response({this.body});
 
   factory Response.fromJson(Map<String, dynamic> json) => _$ResponseFromJson(json);
 

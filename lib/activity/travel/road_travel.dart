@@ -24,7 +24,6 @@ class _RoadTravelState extends State<RoadTravel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MoaAppBar(title: '아름다운 길'),
-                Divider(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   child: _bodyColumn(),
