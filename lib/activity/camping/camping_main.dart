@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:carmoa/activity/camping/sub_view/test_sub.dart';
 import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/data/model/api_data.dart';
@@ -39,32 +40,26 @@ class _CampingState extends State<Camping> {
       '충북 단양 보발재',
     ];
 
-    return WillPopScope(
-      onWillPop: () async {
-        isIconMenuCheck = false;
-        return true;
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: FutureBuilder<Size>(
-            future: viewSize(Stream<Size>.periodic(Duration(milliseconds: 100),
-                (i) => MediaQuery.of(context).size)),
-            builder: (context, snap) {
-              //Size _size = snap.data;
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MoaAppBar(title: '캠핑감성'),
-                  //_appTitle(),
-                  // SizedBox(height: 8),
-                  // sliderImageView(_item, _itemText),
-                  SizedBox(height: 8),
-                  Flexible(child: dataImportView()),
-                ],
-              );
-            },
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: FutureBuilder<Size>(
+          future: viewSize(Stream<Size>.periodic(
+              Duration(milliseconds: 100), (i) => MediaQuery.of(context).size)),
+          builder: (context, snap) {
+            //Size _size = snap.data;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MoaAppBar(title: '구석구석'),
+                //_appTitle(),
+                // SizedBox(height: 8),
+                // sliderImageView(_item, _itemText),
+                SizedBox(height: 8),
+                Flexible(child: dataImportView()),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -129,17 +124,31 @@ class _CampingState extends State<Camping> {
             padding: EdgeInsets.all(6.0),
             itemCount: apiData.response.body.items.item.length,
             itemBuilder: (context, _index) {
-              if (apiData.response.body.items.item[_index].firstimage2 !=
-                  null) {
+              if (apiData.response.body.items.item[_index].firstimage != null) {
                 return Column(
                   children: [
                     Row(
                       children: [
-                        Image.network(
-                            apiData
-                                .response.body.items.item[_index].firstimage2,
-                            width: 60,
-                            height: 60),
+                        GestureDetector(
+                          onTap: () {
+                            aniNavigator(
+                                context,
+                                TestSub(
+                                  item:
+                                      apiData.response.body.items.item[_index],
+                                ));
+                          },
+                          child: Hero(
+                            tag:
+                                'carMoa${apiData.response.body.items.item[_index].firstimage}',
+                            child: Image.network(
+                              apiData
+                                  .response.body.items.item[_index].firstimage,
+                              width: 60,
+                              height: 60,
+                            ),
+                          ),
+                        ),
                         SizedBox(width: 6),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -178,33 +187,11 @@ class _CampingState extends State<Camping> {
     );
   }
 
-  // Widget dataImportView() {
-  //   return FutureBuilder<ApiData>(
-  //     future: getApiData(),
-  //     builder: (context, snap) {
-  //       if (snap.hasData) {
-  //         ApiData apiData = snap.data;
-  //         return Column(
-  //           children: [
-  //             Text('제목 : ${apiData.response.body.items.item[0].title}'),
-  //             Image.network(apiData.response.body.items.item[1].firstimage2),
-  //             Text('카운트 : ${apiData.response.body.totalCount}'),
-  //           ],
-  //         );
-  //       } else if (snap.hasError) {
-  //         return Center(child: Text('Error : ${snap.hasError}'));
-  //       } else {
-  //         return Center(
-  //           child: CircularProgressIndicator(),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
-
   Future<ApiData> getApiData() async {
-    String url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey='
-        + apiKey +'&contentTypeId=12&areaCode=&sigunguCode=&cat1=A01&cat2=A0101&cat3=A01010100&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=12&pageNo=1&_type=json';
+    String url =
+        'http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=' +
+            apiKey +
+            '&contentTypeId=12&areaCode=&sigunguCode=&cat1=A01&cat2=A0101&cat3=A01010100&listYN=Y&MobileOS=ETC&MobileApp=AppTesting&arrange=A&numOfRows=4&pageNo=1&_type=json';
 
     ApiData apiData;
     try {
@@ -218,6 +205,7 @@ class _CampingState extends State<Camping> {
       }
     } catch (e) {
       print('Error : $e');
+      return null;
     }
 
     // print('확인 : ${apiData.response.body.items.item[0].title}');

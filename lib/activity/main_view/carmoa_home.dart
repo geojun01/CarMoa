@@ -44,7 +44,7 @@ class _MoaHomeState extends State<MoaHome> {
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                transitionDuration: Duration(milliseconds: 500),
+                                transitionDuration: Duration(milliseconds: 400),
                                 transitionsBuilder:
                                     (context, animation, animationTime, child) {
                                   return ScaleTransition(

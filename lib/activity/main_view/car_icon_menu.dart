@@ -56,7 +56,7 @@ class CarIconMenu extends StatelessWidget {
                           : Colors.black54,
                     ),
                     SizedBox(height: 6),
-                    Text('캠핑 감성',
+                    Text('구석구석',
                         style: TextStyle(
                             fontSize: 12,
                             color: Colors.black38,
