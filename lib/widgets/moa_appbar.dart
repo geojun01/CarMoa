@@ -38,7 +38,7 @@ class MoaAppBar extends StatelessWidget {
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
-                    child: Icon(CupertinoIcons.arrow_left_circle,
+                    child: Icon(CupertinoIcons.left_chevron,
                         size: 26, color: baseColor),
                   ),
                 ),

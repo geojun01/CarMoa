@@ -29,9 +29,10 @@ dependencies:
   sqflite:
   http:
   intl:
+#  권한 설정
+  permission_handler:
 #  위치정보
   geolocator: ^6.1.13
-  permission_handler: ^5.0.1+1
   app_settings: ^4.0.4
 #  보조 애드온
   sa_multi_tween: ^1.1.3

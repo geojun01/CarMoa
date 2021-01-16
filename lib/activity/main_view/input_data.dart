@@ -105,7 +105,7 @@ class _InputDataState extends State<InputData> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
                                       child: Icon(
-                                        CupertinoIcons.arrow_left_circle,
+                                        CupertinoIcons.left_chevron,
                                         size: 26,
                                         color: baseColor,
                                       ),

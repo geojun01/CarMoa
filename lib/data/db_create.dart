@@ -4,7 +4,6 @@ import 'package:carmoa/data/db.dart';
 class CreateDB {
   Future<List<CarModel>> loadData() async {
     DBHelper db = DBHelper();
-    // List<CarModel> aa = await db.loadData();
     List<CarModel> aa = await db.getAll();
 
     return aa;
