@@ -213,7 +213,10 @@ void selectMenu(BuildContext context, int index) {
       );
       break;
     case 5:
-      aniNavigator(context, LicensePage());
+      aniNavigator(context, LicensePage(
+        applicationName: 'CarMOA',
+        applicationLegalese: 'STUDIO JUNGLE',
+      ));
       break;
   }
 }

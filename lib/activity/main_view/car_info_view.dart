@@ -239,8 +239,7 @@ Widget carInfoView(BuildContext context) {
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
                                       child: Icon(
-                                          CupertinoIcons
-                                              .rectangle_stack_badge_plus,
+                                          CupertinoIcons.plus_app,
                                           size: 28),
                                     ),
                                   ),
@@ -256,6 +255,9 @@ Widget carInfoView(BuildContext context) {
                 return Center(
                   child: Column(
                     children: [
+                      SizedBox(width: 6),
+                      Image.asset('assets/images/no_found.png',scale: 1.5,),
+                      SizedBox(width: 6),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -281,7 +283,7 @@ Widget carInfoView(BuildContext context) {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
-                          child: Icon(CupertinoIcons.rectangle_stack_badge_plus,
+                          child: Icon(CupertinoIcons.plus_app,
                               size: 28),
                         ),
                       ),

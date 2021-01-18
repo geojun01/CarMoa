@@ -50,7 +50,7 @@ List<String> menuItems = [
   'Menu page C',
   'Menu page D',
   '테마변경',
-  'CarMoa 정보',
+  '오픈소스 정보',
 ];
 
 List<IconData> icons = [
