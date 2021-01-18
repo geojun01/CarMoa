@@ -20,38 +20,11 @@ class DetailImageView extends StatelessWidget {
           itemCount: subImage.response.body.items.item.length,
           itemBuilder: (context, index) {
             return Center(
-              child: ClipRRect(
+              child: ClipRect(
                 child: subImage.response.body.items.item[index].originimgurl != null ? Image(
                   image: NetworkImage(subImage.response.body.items.item[index].originimgurl),
                   fit: BoxFit.cover,
                 ) : CircularProgressIndicator(),
-                //borderRadius: BorderRadius.circular(10),
-                // child: Stack(
-                //   children: [
-                //     Image(
-                //       // image: NetworkImage(_item[index]),
-                //       image: NetworkImage(subImage.response.body.items.item[index].originimgurl),
-                //       fit: BoxFit.cover,
-                //     ),
-                //     Positioned(
-                //       left: 20,
-                //       top: 10,
-                //       child: Text(
-                //         '${subImage.response.body.items.item[index].contentid}',
-                //         style: TextStyle(
-                //           color: baseColor,
-                //           fontWeight: FontWeight.w600,
-                //           shadows: [
-                //             Shadow(
-                //                 offset: Offset(1, 1),
-                //                 blurRadius: 2,
-                //                 color: Colors.black)
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ),
             );
           },

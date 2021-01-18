@@ -56,7 +56,7 @@ class SubDataView extends StatelessWidget {
                     // 라이센스 표시
                     Padding(
                       padding: EdgeInsets.only(bottom: 8.0),
-                      child: Text('Licence : 공공데이터포털 www.data.go.kr',
+                      child: Text('Licence : 공공데이터포털 / 한국관광공사',
                           style: TextStyle(fontSize: 10)),
                     ),
                   ],
@@ -157,6 +157,7 @@ class SubDataView extends StatelessWidget {
     );
   }
 
+  // Text 정보 Widget 단위 그룹화
   Widget detailInfoData() {
     return FutureBuilder<DetailInfoData>(
       future: getDetailInfoData(item.contentid),
@@ -195,7 +196,7 @@ class SubDataView extends StatelessWidget {
           }
           return Container(
             child: Column(
-              children: textWidgetList != null ? textWidgetList : Container(),
+              children: textWidgetList != null ? textWidgetList.toList() : Container(),
             ),
           );
         } else
