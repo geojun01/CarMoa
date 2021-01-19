@@ -45,6 +45,10 @@ class _CampingState extends State<Camping> {
                       aniNavigator(context, NationalPark());
                     },
                     child: Text('국립공원')),
+                ClipPath(
+                  clipper: TriangleClip(),
+                  child: Image.asset('assets/images/logo.jpg'),
+                ),
               ],
             );
           },
@@ -52,4 +56,19 @@ class _CampingState extends State<Camping> {
       ),
     );
   }
+}
+
+class TriangleClip extends CustomClipper<Path> {
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0);
+    path.lineTo(10, 0);
+    path.lineTo(0, 10);
+    path.close();
+    return path;
+  }
+
+  bool shouldReclip(TriangleClip oldClipper) => false;
 }

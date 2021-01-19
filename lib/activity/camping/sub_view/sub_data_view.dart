@@ -7,6 +7,7 @@ import 'package:carmoa/data/model/item.dart';
 import 'package:carmoa/data/sub_detail_info/detail_info.dart';
 import 'package:carmoa/data/sub_image_model/sub_image_data.dart';
 import 'package:carmoa/widgets/fade_in_ainmation.dart';
+import 'package:carmoa/widgets/image_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -46,7 +47,7 @@ class SubDataView extends StatelessWidget {
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(15),
                                 bottomRight: Radius.circular(15)),
-                            child: Image.network(item.firstimage)),
+                            child: ImageNetwork(url: item.firstimage)),
                       ),
                     ),
                     SizedBox(height: 8),
@@ -107,7 +108,6 @@ class SubDataView extends StatelessWidget {
     );
   }
 
-  // 세부 이미지 그룹표시
   Widget buildImage() {
     return FutureBuilder<SubImageData>(
       future: getApiData(item.contentid),
@@ -196,7 +196,9 @@ class SubDataView extends StatelessWidget {
           }
           return Container(
             child: Column(
-              children: textWidgetList != null ? textWidgetList.toList() : Container(),
+              children: textWidgetList != null
+                  ? textWidgetList.toList()
+                  : Container(),
             ),
           );
         } else

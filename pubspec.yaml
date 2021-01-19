@@ -30,7 +30,7 @@ dependencies:
   http:
   intl:
 #  권한 설정
-  permission_handler:
+  permission_handler: ^5.0.1+1
 #  위치정보
   geolocator: ^6.1.13
   app_settings: ^4.0.4

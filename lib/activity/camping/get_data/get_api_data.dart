@@ -26,12 +26,11 @@ Future<ApiData> getApiData(int _pageIndex) async {
       final utf8Data = utf8.decode(response.bodyBytes);
       final responseData = json.decode(utf8Data);
       apiData = ApiData.fromJson(responseData);
-      print('데이터 로드 : $_pageIndex');
     } else {
       print('${response.hashCode}');
     }
   } catch (e) {
-    throw new Exception(e);
+    print('Exception - $e');
   }
 
   return apiData;

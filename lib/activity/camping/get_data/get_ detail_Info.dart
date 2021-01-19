@@ -18,7 +18,7 @@ Future<DetailInfoData> getDetailInfoData(int _id) async {
       detailInfoData = DetailInfoData.fromJson(responseData);
     }
   } catch (e) {
-    print('DetailInfoData Error : $e');
+    print('Exception - $e');
   }
 
   return detailInfoData;

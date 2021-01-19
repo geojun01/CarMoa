@@ -349,7 +349,7 @@ Widget titleText(BuildContext context, SelectMenu _value) {
   final _itemView = Provider.of<Model>(context, listen: false);
   titleName = partType[_value.getSelect()];
 
-  return GestureDetector(
+  return InkWell(
     onTap: () {
       try {
         if (_value.getSelect() > 0 || _value.getSelect() != null) {

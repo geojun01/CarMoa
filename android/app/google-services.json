@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "735820336708",
+    "project_id": "carmoa-43373",
+    "storage_bucket": "carmoa-43373.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735820336708:android:a17a13e5d4172e0b7ef611",
+        "android_client_info": {
+          "package_name": "com.studiojungle.carmoa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735820336708-kvfgprbsgpt7qji7e804d1i9v4rp5k1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.studiojungle.carmoa",
+            "certificate_hash": "bdb8bf423414a6ff28a157f4e91f2e1bb9c9c756"
+          }
+        },
+        {
+          "client_id": "735820336708-gamh18d89kul11jegu8jrt5o3p3302v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZxWv2gG8r27OcSoSSAUTHODaC1W0LOkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735820336708-gamh18d89kul11jegu8jrt5o3p3302v8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

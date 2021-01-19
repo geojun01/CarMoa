@@ -17,7 +17,7 @@ Future<SubImageData> getApiData(int _id) async {
       subImageData = SubImageData.fromJson(responseData);
     }
   } catch (e) {
-    print('Error : $e');
+    print('Exception - $e');
   }
 
   return subImageData;

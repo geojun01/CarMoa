@@ -3,10 +3,11 @@ import 'package:carmoa/config/assist_util.dart';
 import 'package:carmoa/config/config_style.dart';
 import 'package:carmoa/data/model/api_data.dart';
 import 'package:carmoa/data/model/item.dart';
+import 'package:carmoa/widgets/image_network.dart';
 import 'package:carmoa/widgets/moa_appbar.dart';
+import 'package:carmoa/widgets/triangle_clip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -23,7 +24,7 @@ class _NationalParkState extends State<NationalPark> {
   int _pageIndex = 1;
 
   // ApiData 보관
-  List<Item> apiData = new List<Item>();
+  List<Item> apiData = [];
   ScrollController _scrollController = new ScrollController();
 
   @override
@@ -66,6 +67,7 @@ class _NationalParkState extends State<NationalPark> {
     );
   }
 
+  // List
   Widget dataImportView() {
     return ListView.builder(
       controller: _scrollController,
@@ -73,54 +75,63 @@ class _NationalParkState extends State<NationalPark> {
       itemCount: apiData.length,
       itemBuilder: (context, _index) {
         if (apiData[_index].firstimage != null) {
-          return Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  aniNavigator(
-                      context,
-                      SubDataView(
-                        item: apiData[_index],
-                      ));
-                },
-                child: Row(
-                  children: [
-                    Hero(
-                      tag: 'carMoa${apiData[_index].firstimage}',
-                      child: Image.network(
-                        apiData[_index].firstimage,
-                        width: 80,
-                        height: 80,
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('$_index'),
-                        Text(
-                          '${apiData[_index].title}',
-                          overflow: TextOverflow.clip,
-                          softWrap: true,
-                        ),
-                        Text(
-                          '${apiData[_index].addr1}',
-                          overflow: TextOverflow.clip,
-                          softWrap: true,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Divider(),
-            ],
-          );
+          return modelDesign(_index);
         } else {
           return Container();
         }
       },
+    );
+  }
+
+  Widget modelDesign(int _index) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            aniNavigator(
+                context,
+                SubDataView(
+                  item: apiData[_index],
+                ));
+          },
+          child: Row(
+            children: [
+              Hero(
+                tag: 'carMoa${apiData[_index].firstimage}',
+                child: ClipPath(
+                  clipper: TriangleClipTopLeft(),
+                  child: ImageNetwork(
+                    url: apiData[_index].firstimage2,
+                    width: 120.0,
+                    height: 80.0,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${apiData[_index].title}',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      '${apiData[_index].addr1}',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        _index < apiData.length - 2 ? Divider(thickness: 2) : Container(),
+      ],
     );
   }
 
@@ -131,6 +142,7 @@ class _NationalParkState extends State<NationalPark> {
   // TODO MobileApp - 어플명
   // TODO pageNo = 현재 페이지
   // TODO numOfRows=5 = 현재 페이지 표시 데이터
+  // TODO cat1,cat2,cat3 = 분류코드
 
   getApiData(int _pageIndex) async {
     ApiData _data;
@@ -139,7 +151,7 @@ class _NationalParkState extends State<NationalPark> {
             apiKey +
             '&contentTypeId=12&areaCode=&sigunguCode=&cat1=A01&cat2=A0101&cat3=A01010100' +
             '&listYN=Y&MobileOS=ETC&MobileApp=AppTesting' +
-            '&arrange=A&numOfRows=10&pageNo=$_pageIndex&_type=json';
+            '&arrange=A&numOfRows=8&pageNo=$_pageIndex&_type=json';
 
     try {
       final http.Response response = await http.get(url);
@@ -155,7 +167,7 @@ class _NationalParkState extends State<NationalPark> {
           }
         });
       } else {
-        print('${response.hashCode}');
+        print('${response.statusCode}');
       }
     } catch (e) {
       _isPageCheck = false;
@@ -163,78 +175,3 @@ class _NationalParkState extends State<NationalPark> {
     }
   }
 }
-
-// Widget dataImportView() {
-//   return FutureBuilder<ApiData>(
-//     future: getApiData(_pageIndex),
-//     builder: (context, snap) {
-//       if (snap.hasData) {
-//         apiData = snap.data;
-//         return ListView.builder(
-//           controller: _scrollController,
-//           padding: EdgeInsets.all(6.0),
-//           itemCount: apiData.response.body.items.item.length,
-//           itemBuilder: (context, _index) {
-//             //print("인덱스 : $_index");
-//             if (apiData.response.body.items.item[_index].firstimage != null) {
-//               return Column(
-//                 children: [
-//                   InkWell(
-//                     onTap: () {
-//                       aniNavigator(
-//                           context,
-//                           SubDataView(
-//                             item:
-//                             apiData.response.body.items.item[_index],
-//                           ));
-//                     },
-//                     child: Row(
-//                       children: [
-//                         Hero(
-//                           tag:
-//                               'carMoa${apiData.response.body.items.item[_index].firstimage}',
-//                           child: Image.network(
-//                             apiData
-//                                 .response.body.items.item[_index].firstimage,
-//                             width: 80,
-//                             height: 80,
-//                           ),
-//                         ),
-//                         SizedBox(width: 6),
-//                         Column(
-//                           mainAxisAlignment: MainAxisAlignment.start,
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Text(
-//                               '${apiData.response.body.items.item[_index].title}',
-//                               overflow: TextOverflow.clip,
-//                               softWrap: true,
-//                             ),
-//                             Text(
-//                               '${apiData.response.body.items.item[_index].addr1}',
-//                               overflow: TextOverflow.clip,
-//                               softWrap: true,
-//                             ),
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Divider(),
-//                 ],
-//               );
-//             } else {
-//               return Container();
-//             }
-//           },
-//         );
-//       } else if (snap.hasError) {
-//         return Center(child: Text('Error : ${snap.hasError}'));
-//       } else {
-//         return Center(
-//           child: CircularProgressIndicator(),
-//         );
-//       }
-//     },
-//   );
-// }
